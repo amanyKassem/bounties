@@ -1012,10 +1012,10 @@ const styles = ({
     activeTabs : {
         backgroundColor     : '#fff',
         borderTopWidth      : 1,
-        borderTopColor      : COLORS.light_red
+        borderTopColor      : COLORS.darkblue
     },
     noActiveTabs : {
-        backgroundColor     : COLORS.light_red,
+        backgroundColor     : COLORS.darkblue,
         borderTopWidth      : 0,
         borderTopColor      : 'transparent'
     },

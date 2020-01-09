@@ -87,10 +87,10 @@ class Provider extends Component {
                             provider_info?
                                 <View style={[styles.viewBlock, styles.bg_White , styles.borderGray, styles.Width_90]}>
                                     <Image style={[styles.Width_90, styles.swiper]} source={{ uri : provider_info.avatar }} resizeMode={'cover'}/>
-                                    <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent]}>
+                                    <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent , {width:200}]}>
                                         <View style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
                                             <Text style={[styles.textBold, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
-                                                {provider_info.details}
+                                                {provider_info.name}
                                             </Text>
                                             <View style={{width:70}}>
                                                 <StarRating
@@ -103,7 +103,7 @@ class Provider extends Component {
                                                 />
                                             </View>
                                             <Text style={[styles.textRegular, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
-                                                {provider_info.name}
+                                                {provider_info.details}
                                             </Text>
                                             <View style={[styles.locationView]}>
                                                 <Icon style={[styles.text_White , styles.textSize_12 ,{marginRight:5}]} type="Feather" name='map-pin' />
@@ -130,7 +130,7 @@ class Provider extends Component {
                                                 style          = { this.state.active === pro.id ? styles.activeTabs : styles.noActiveTabs }>
                                                 <Image source={{ uri : pro.image }} style={[styles.scrollImg]} resizeMode={'contain'} />
                                             </TouchableOpacity>
-                                            <Text style={[styles.textRegular, styles.textSize_11 , { color : this.state.active === pro.id ? COLORS.black : 'transparent' }]} >
+                                            <Text style={[styles.textRegular, styles.textSize_11 , { color : this.state.active === pro.id ? COLORS.darkblue : 'transparent' }]} >
                                                 {pro.name}
                                             </Text>
                                         </View>
