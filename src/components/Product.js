@@ -316,13 +316,26 @@ class Product extends Component {
 															}
 															{
 																this.props.user == null || this.props.user.type === 'user' ?
+																	<Animatable.View animation="fadeInRight"
+																		easing="ease-out" delay={500}
+																		style={[styles.blockContent , {top:65}]}>
+																		<View
+																			style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
+																			<Text style={[styles.textRegular, styles.text_White]}>{this.props.products.discount} %</Text>
+																		</View>
+																	</Animatable.View>
+																	:
+																	<View/>
+															}
+															{
+																this.props.user == null || this.props.user.type === 'user' ?
 																	<TouchableOpacity
-																		onPress={() => this.props.navigation.navigate('provider')}
+																		onPress={() => this.props.navigation.navigate('provider', {id: this.props.products.provider_id , name:this.props.products.provider_name})}
 																					 style={[styles.blockContent, styles.Width_50 , {bottom:5 , top:'auto' , paddingHorizontal:5} , styles.directionRowC]}>
 																		<Image style={[styles.provImg]} source={require('../../assets/images/bg_shope.png')}/>
 																		<View style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
 																			<Text style={[styles.textRegular, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft , {marginBottom:5}]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
-																				اسم الاسرة النتجة
+																				{this.props.products.provider_name}
 																			</Text>
 																			<View style={{width: 70}}>
 																				<StarRating
@@ -349,7 +362,7 @@ class Product extends Component {
 																			<TouchableOpacity
 																				onPress={() => this.editProdect()}>
 																				<Icon
-																					style={[styles.text_blue, styles.textSize_20]}
+																					style={[styles.text_White, styles.textSize_20]}
 																					type="AntDesign" name='edit'/>
 																			</TouchableOpacity>
 																		</View>
@@ -367,7 +380,7 @@ class Product extends Component {
 																			<TouchableOpacity
 																				onPress={() => this.deletProduct()}>
 																				<Icon
-																					style={[styles.text_blue, styles.textSize_20]}
+																					style={[styles.text_White, styles.textSize_20]}
 																					type="AntDesign" name='close'/>
 																			</TouchableOpacity>
 																		</View>
@@ -396,23 +409,47 @@ class Product extends Component {
 														numberOfLines={1} prop with ellipsizeMode="head">
 														{this.props.products.name}
 													</Text>
+													{
+														this.props.user == null || this.props.user.type === 'provider' ?
+															<View style={{width: 70}}>
+																<StarRating
+																	disabled={true}
+																	maxStars={5}
+																	rating={this.props.products.rates}
+																	fullStarColor={COLORS.fyrozy}
+																	starSize={15}
+																	starStyle={styles.starStyle}
+																/>
+															</View>
+															:
+															<View/>
+													}
 												</View>
 												<Text
 													style={[styles.textRegular, styles.text_bold_gray, styles.Width_100, styles.textSize_12, styles.textLeft]}
 													numberOfLines={1} prop with ellipsizeMode="head">
 													{this.props.products.category} - {this.props.products.sub_category}
 												</Text>
-												<View style={[styles.directionRowC , styles.marginVertical_10]}>
-													<Text
-														style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.writing , {alignSelf:'flex-start' , marginRight:5}]}
-														numberOfLines={1} prop with ellipsizeMode="head">
-														{i18n.t('productQuantity')}
-													</Text>
-													<Text
-														style={[styles.textRegular, styles.text_fyrozy, styles.width_60, styles.height_20, styles.borderLightOran, styles.textCenter , {lineHeight:22}]}>
-														3
-													</Text>
-												</View>
+
+												{
+													this.props.user == null || this.props.user.type === 'user' ?
+														<View style={[styles.directionRowC, styles.marginVertical_10]}>
+															<Text
+																style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.writing, {
+																	alignSelf: 'flex-start',
+																	marginRight: 5
+																}]}
+																numberOfLines={1} prop with ellipsizeMode="head">
+																{i18n.t('productQuantity')}
+															</Text>
+															<Text
+																style={[styles.textRegular, styles.text_fyrozy, styles.width_60, styles.height_20, styles.borderLightOran, styles.textCenter, {lineHeight: 22}]}>
+																3
+															</Text>
+														</View>
+														:
+														<View/>
+												}
 												<View style={[styles.directionColumn]}>
 														<Text
 															style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.writing , {alignSelf:'flex-start'}]}
@@ -475,8 +512,7 @@ class Product extends Component {
 								{
 									this.props.products ?
 										<Text style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, styles.marginVertical_10, styles.paddingHorizontal_10]}>
-											{i18n.t('comments')}
-											<Text style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14]}>
+											{i18n.t('comments')} <Text style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14]}>
 												( {this.props.products.comments_count} )
 											</Text>
 										</Text> : <View />
@@ -498,7 +534,8 @@ class Product extends Component {
 											</View>
 										</TouchableOpacity>
 										:
-										<TouchableOpacity style={[styles.rowGroup]} />
+										<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft , styles.marginHorizontal_5]}>
+											{i18n.t('viewComments')}</Text>
 								}
 							</TouchableOpacity>
 

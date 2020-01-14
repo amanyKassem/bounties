@@ -65,7 +65,7 @@ export const searchProviders = ( { lang , keyword } ) => {
 
 };
 
-export const filterProviders = ( { lang , city_id } ) => {
+export const filterProviders = ( { lang , city_id } , props) => {
 
     return (dispatch) => {
         axios({
@@ -75,6 +75,10 @@ export const filterProviders = ( { lang , city_id } ) => {
         }).then(response => {
 
             dispatch({type: 'categoryProviders', payload: response.data});
+
+            if(response.data.key == 1){
+                props.navigation.navigate('FilterCategory' , {providers : response.data.data})
+            }
 
             if(response.data.data.length === 0){
                 Toast.show({

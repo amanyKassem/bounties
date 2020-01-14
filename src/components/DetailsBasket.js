@@ -180,8 +180,7 @@ class DetailsBasket extends Component {
                                             styles.height_40
                                         ]}
                                         onPress={() => this.props.navigation.navigate('MapLocation', {
-                                            pageName: this.props.navigation.state.routeName
-                                            ,
+                                            pageName: this.props.navigation.state.routeName,
                                             provider_id: this.props.navigation.state.params.provider_id,
                                             shipping_price: this.props.cartProducts.prices.shipping_price
                                         })}>

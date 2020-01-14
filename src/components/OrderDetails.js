@@ -246,6 +246,10 @@ class OrderDetails extends Component {
 					<Title
 						style={[styles.textRegular, styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>{i18n.t('orderDet')}</Title>
 					</Body>
+
+					<Right style={styles.rightIcon}>
+						<Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
+					</Right>
 				</Header>
 				<ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
 				<Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
@@ -296,9 +300,9 @@ class OrderDetails extends Component {
 																					<Text
 																						style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>{i18n.t('productPrice')}</Text>
 																					<Text
-																						style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {
+																						style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
 																							borderRightWidth: 2,
-																							borderRightColor: COLORS.light_red,
+																							borderRightColor: COLORS.darkblue,
 																							paddingRight: 5,
 																							marginLeft: 5
 																						}]}>{product.product_info.total_price} {i18n.t('RS')}</Text>
@@ -311,7 +315,7 @@ class OrderDetails extends Component {
 																			<Text
 																				style={[styles.textRegular, styles.text_bold_gray, styles.Width_100, styles.textSize_12, styles.textLeft]}
 																				numberOfLines={1} prop with
-																				ellipsizeMode="head">{i18n.t('productNum')} : {product.product_info.product_count}</Text>
+																				ellipsizeMode="head">{this.props.orderDetails.provider.address}</Text>
 																		</View>
 																		<View style={[styles.Width_100]}>
 																			<Text
@@ -341,6 +345,13 @@ class OrderDetails extends Component {
 														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{this.props.orderDetails.total_quantity}</Text>
 												</View>
 												<View
+													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {marginTop: 15}]}>
+													<Text
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{i18n.t('deliverTime')}</Text>
+													<Text
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{this.props.orderDetails.shipping_date}</Text>
+												</View>
+												<View
 													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {marginTop: 10}]}>
 													<Text
 														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{i18n.t('deliveredPrice')}</Text>
@@ -350,7 +361,7 @@ class OrderDetails extends Component {
 												<View
 													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {
 														marginTop: 10,
-														backgroundColor: '#000'
+														backgroundColor: COLORS.fyrozy
 													}]}>
 													<Text
 														style={[styles.textRegular, styles.text_White, styles.textSize_14, styles.textLeft]}>{i18n.t('total')}</Text>
@@ -370,7 +381,7 @@ class OrderDetails extends Component {
 														borderBottomColor: COLORS.lightWhite,
 														borderRightColor: COLORS.lightWhite,
 														borderLeftWidth: 5,
-														borderLeftColor: COLORS.light_red
+														borderLeftColor: COLORS.fyrozy
 													}]}>
 												<View style={[styles.directionColumn, {flex: 1}]}>
 													<Text
@@ -382,37 +393,37 @@ class OrderDetails extends Component {
 										</View>
 
 
-										{
-											this.props.orderDetails.order_status == 2  ?
-												<View style={[styles.position_R, styles.Width_95, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>
-													<View style={[styles.lightOverlay, styles.Border]} />
-													<View
-														style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7]}>
-														<Text
-															style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {marginBottom: 10}]}>{i18n.t('aboutDelegate')}</Text>
-														<View style={[styles.notiBlock, {
-															borderBottomWidth: 0,
-															marginBottom: 0
-														}]}>
-															<Image
-																source={{uri: this.props.orderDetails.provider.avatar}}
-																resizeMode={'cover'}
-																style={styles.restImg}/>
-															<View style={[styles.directionColumn, {flex: 1}]}>
-																<Text
-																	style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.name}</Text>
-																<Text
-																	style={[styles.textRegular, styles.text_blue, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.phone}</Text>
-																<Text
-																	style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('deliveredPlace')} :
-																	{this.props.orderDetails.provider.address}</Text>
-															</View>
-														</View>
-													</View>
-												</View>
-												:
-												<View/>
-										}
+										{/*{*/}
+										{/*	this.props.orderDetails.order_status == 2  ?*/}
+										{/*		<View style={[styles.position_R, styles.Width_95, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>*/}
+										{/*			<View style={[styles.lightOverlay, styles.Border]} />*/}
+										{/*			<View*/}
+										{/*				style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7]}>*/}
+										{/*				<Text*/}
+										{/*					style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {marginBottom: 10}]}>{i18n.t('aboutDelegate')}</Text>*/}
+										{/*				<View style={[styles.notiBlock, {*/}
+										{/*					borderBottomWidth: 0,*/}
+										{/*					marginBottom: 0*/}
+										{/*				}]}>*/}
+										{/*					<Image*/}
+										{/*						source={{uri: this.props.orderDetails.provider.avatar}}*/}
+										{/*						resizeMode={'cover'}*/}
+										{/*						style={styles.restImg}/>*/}
+										{/*					<View style={[styles.directionColumn, {flex: 1}]}>*/}
+										{/*						<Text*/}
+										{/*							style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.name}</Text>*/}
+										{/*						<Text*/}
+										{/*							style={[styles.textRegular, styles.text_blue, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.phone}</Text>*/}
+										{/*						<Text*/}
+										{/*							style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('deliveredPlace')} :*/}
+										{/*							{this.props.orderDetails.provider.address}</Text>*/}
+										{/*					</View>*/}
+										{/*				</View>*/}
+										{/*			</View>*/}
+										{/*		</View>*/}
+										{/*		:*/}
+										{/*		<View/>*/}
+										{/*}*/}
 
 
 										{

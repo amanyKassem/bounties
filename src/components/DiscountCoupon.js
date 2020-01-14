@@ -68,25 +68,25 @@ class DiscountCoupon extends Component {
 
 
     renderSubmit() {
-        if (this.state.code == '') {
-            return (
-                <TouchableOpacity
-                    style={[
-                        styles.bg_darkBlue,
-                        styles.width_150,
-                        styles.flexCenter,
-                        styles.marginVertical_15,
-                        styles.height_40,
-                        {
-                            backgroundColor: '#999'
-                        }
-                    ]}>
-                    <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
-                        {i18n.translate('continue')}
-                    </Text>
-                </TouchableOpacity>
-            );
-        }
+        // if (this.state.code == '') {
+        //     return (
+        //         <TouchableOpacity
+        //             style={[
+        //                 styles.bg_darkBlue,
+        //                 styles.width_150,
+        //                 styles.flexCenter,
+        //                 styles.marginVertical_15,
+        //                 styles.height_40,
+        //                 {
+        //                     backgroundColor: '#999'
+        //                 }
+        //             ]}>
+        //             <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
+        //                 {i18n.translate('continue')}
+        //             </Text>
+        //         </TouchableOpacity>
+        //     );
+        // }
 
         if (this.state.spinner){
             return(
@@ -105,7 +105,16 @@ class DiscountCoupon extends Component {
                     styles.marginVertical_15,
                     styles.height_40
                 ]}
-                onPress={() => this.props.navigation.navigate('ChoosePayment' , {routeName:'discountCoupon'})}>
+                onPress={() => this.props.navigation.navigate('ChoosePayment' ,
+                    {
+                        routeName:'discountCoupon' ,
+                        shipping_price          : this.props.navigation.state.params.shipping_price,
+                        city_name               : this.props.navigation.state.params.city_name,
+                        latitude                : this.props.navigation.state.params.latitude,
+                        longitude               : this.props.navigation.state.params.longitude,
+                        provider_id             : this.props.navigation.state.params.provider_id,
+                        address                 : this.props.navigation.state.params.address,
+                    })}>
                 <Text style={[styles.textRegular , styles.textSize_14, styles.text_White]}>
                     {i18n.translate('continue')}
                 </Text>
@@ -120,6 +129,8 @@ class DiscountCoupon extends Component {
     }
 
     render() {
+        console.log('this.props.navigation.state.params.shipping_price' , this.props.navigation.state.params.shipping_price)
+
         return (
 
             <Container>

@@ -18,10 +18,6 @@ class DrawerCustomization extends Component {
         }
     }
 
-    filterItems(item){
-        return item.routeName !== 'MyOrders' && item.routeName !== 'Profile' && item.routeName !== 'Favorite' && item.routeName !== 'Offers';
-    }
-
     changeLang(){
         const lang = I18nManager.isRTL ? 'en' : 'ar';
         this.props.chooseLang(lang);
@@ -32,6 +28,19 @@ class DrawerCustomization extends Component {
         this.props.navigation.navigate('Login');
         this.props.logout(this.props.user.token);
         this.props.tempAuth();
+    }
+
+    filterItems(item){
+        if (this.props.user == null)
+            return item.routeName !== 'profile' && item.routeName !== 'Offers' && item.routeName !== 'MyOrders' && item.routeName !== 'Favorite' && item.routeName !== 'providerSubscriptions' && item.routeName !== 'bankAccounts' ;
+        else if(this.props.user.type === 'user' )
+            return  item.routeName !== 'providerSubscriptions' && item.routeName !== 'bankAccounts' ;
+        else if(this.props.user.type === 'provider' )
+            return  item.routeName !== 'Offers' && item.routeName !== 'Favorite' ;
+        }
+
+    returnItems(){
+        return this.props.items.filter((item) =>  this.filterItems(item) )
     }
 
     render() {
@@ -67,10 +76,10 @@ class DrawerCustomization extends Component {
                     <View style={[styles.marginVertical_10, styles.SelfLeft]}>
 
                         <View style={[styles.viewUser, styles.SelfLeft, styles.justifyCenter]}>
-                            <View style={[styles.bg_red, styles.width_150, styles.height_70, styles.position_A, styles.zIndexDown]}/>
-                            <TouchableOpacity style={[styles.position_R, styles.flexCenter, styles.zIndexUp, styles.Width_100, styles.marginHorizontal_25, styles.top_30]}>
+                            <View style={[styles.bg_darkBlue, styles.width_150, styles.height_70, styles.position_A, styles.zIndexDown]}/>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('profile')} style={[styles.position_R, styles.flexCenter, styles.zIndexUp, styles.Width_100, styles.marginHorizontal_25, styles.top_30]}>
                                 <Image style={[styles.width_90, styles.height_90, styles.Radius_5]} source={{ uri: user.avatar }}/>
-                                <View style={styles.nameUser} onPress={() => this.props.navigation.navigate('profile')}>
+                                <View style={styles.nameUser} >
                                     <Text style={[styles.textRegular, styles.textSize_16, styles.text_darkblue]}>{ user.name }</Text>
                                 </View>
                             </TouchableOpacity>
@@ -90,7 +99,7 @@ class DrawerCustomization extends Component {
                                          }
                                      }
 
-                                     items                          = {this.props.auth !== null ? this.props.items : this.props.items.filter((item) =>  this.filterItems(item) ) }
+                                     items={this.returnItems()}
                                      activeBackgroundColor          = {styles.bg_red}
                                      inactiveBackgroundColor        = 'transparent'
                                      activeLabelStyle               = {COLORS.red}

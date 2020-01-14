@@ -97,7 +97,8 @@ const en = {
     'sallproducer': 'discount rate',
     'searchCat': 'search by section',
     'searchcom': 'write something for your search',
-    'nopro': 'no service provider',
+    'nopro': 'no providers found',
+    'noprod': 'no products found',
 
     'nodata': 'Nothing to display',
     'addcomm': 'add comment content',
@@ -181,6 +182,18 @@ const en = {
     'enterCoupon'            : 'Please enter discount coupon',
     'deliverTime'            : 'Deliver time',
     'productQuantity'            : 'Product quantity',
+    'availTime'            : 'Available times and delivery locations',
+    'add'            : 'Add',
+    'addConfirm'            : 'The content of the product has been sent to the administration, and while the product matches the conditions of application, it will be approved for upload and the customer can view it',
+    'subscriptions'            : 'Subscriptions',
+    'bankAcc'            : 'Bank accounts',
+    'bankAccount'            : 'Bank account',
+    'bankName'            : 'Bank name',
+    'bankNum'            : 'Account number',
+    'addAcc'            : 'Add bank account',
+    'viewComments'            : 'View comments',
+    'products'            : 'Products',
+    'payRequired'            : 'The amount to be paid',
 
 };
 

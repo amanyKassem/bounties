@@ -22,7 +22,7 @@ class SearchHome extends Component {
 
     componentWillMount() {
         const data  = { keyword : this.props.navigation.state.params.categorySearch , lang : this.props.lang };
-        this.props.searchHome(data);
+        this.props.searchHome(data , this.props.navigation.state.params.category_id);
 
     }
 
@@ -52,7 +52,7 @@ class SearchHome extends Component {
     }
 
     onFocus(){
-        this.componentDidMount();
+        this.componentWillMount();
     }
 
     render() {

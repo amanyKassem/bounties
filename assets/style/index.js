@@ -325,7 +325,7 @@ const styles = ({
     },
     borderRed : {
         borderWidth           : 1,
-        borderColor           : COLORS.blue
+        borderColor           : COLORS.fyrozy
     },
     borderGray : {
         borderWidth           : 1,
@@ -448,6 +448,9 @@ const styles = ({
     },
     flex_50 : {
         flexBasis           : '50%'
+    },
+    flex_55 : {
+        flexBasis           : '55%'
     },
     flex_60 : {
         flexBasis           : '60%'
@@ -610,7 +613,7 @@ const styles = ({
         fontFamily          : 'cairo',
         fontSize            : 14,
         top                 : 0,
-        height              : 150,
+        height              : 120,
     },
     iconSearch : {
         right               : 5
@@ -952,10 +955,11 @@ const styles = ({
 
     bgModel : {
         width                   : "100%",
-        backgroundColor         : "rgba(0,0,0,0.8)",
+        // backgroundColor         : "rgba(0,0,0,0.8)",
         flex                    : 1,
         alignSelf               : 'center',
         justifyContent          : 'flex-end',
+        bottom:-18
     },
     bgModelFilter : {
         width                   : "100%",

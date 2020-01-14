@@ -51,9 +51,11 @@ class FormPayment extends Component {
             )
         }
 
+        const isSubscription = this.props.navigation.state.params.routeName ==='subscription' ;
+
         return (
             <TouchableOpacity
-                onPress={() => this.props.navigation.navigate(this.props.navigation.state.params.routeName ==='subscription'?'drawerNavigator' : 'ConfirmPayment')}
+                onPress={() =>isSubscription ? false : this.storeOrder()}
                 style={[styles.bg_darkBlue,
                     styles.width_150,
                     styles.flexCenter,
@@ -65,21 +67,23 @@ class FormPayment extends Component {
         );
     }
 
-    // storeOrder(){
-    //     this.setState({ isSubmitted: true });
-    //
-    //     const provider_id             = this.props.navigation.state.params.provider_id;
-    //     const shipping_price          = this.props.navigation.state.params.shipping_price;
-    //     const address                 = this.props.navigation.state.params.address;
-    //     const lat                     = this.props.navigation.state.params.latitude;
-    //     const lng                     = this.props.navigation.state.params.longitude;
-    //     const payment_type            = this.props.navigation.state.params.payment_type;
-    //
-    //     this.props.getOrderStore(this.props.lang, provider_id , payment_type , shipping_price.toString() , lat , lng , address , this.props.user.token  , this.props )
-    // }
+    storeOrder(){
+        this.setState({ isSubmitted: true });
+
+        const provider_id             = this.props.navigation.state.params.provider_id;
+        const shipping_price          = this.props.navigation.state.params.shipping_price;
+        const address                 = this.props.navigation.state.params.address;
+        const lat                     = this.props.navigation.state.params.latitude;
+        const lng                     = this.props.navigation.state.params.longitude;
+        const payment_type            = this.props.navigation.state.params.payment_type;
+
+
+        this.props.getOrderStore(this.props.lang, provider_id , payment_type , shipping_price.toString() , lat , lng , address , this.props.user.token  , this.props )
+    }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ isSubmitted: false});
+        this.props.navigation.navigate(nextProps.navigation.state.params.routeName ==='subscription'?'drawerNavigator' : 'ConfirmPayment')
 
     }
 

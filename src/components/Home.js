@@ -46,12 +46,16 @@ class Home extends Component {
             spinner             : true,
             show_modal: false,
             country: null,
+            isModalVisible: false,
         }
     }
     toggleModal = () => {
         this.setState({show_modal: !this.state.show_modal});
     };
 
+    toggleModalInfo = () => {
+        this.setState({isModalVisible: !this.state.isModalVisible});
+    };
 
     onValueCountry(value) {
         this.setState({country: value});
@@ -64,7 +68,7 @@ class Home extends Component {
             city_id: country,
         };
 
-        this.props.filterProviders(data);
+        this.props.filterProviders(data , this.props);
 
         this.setState({show_modal: !this.state.show_modal , loader:true});
 
@@ -117,7 +121,7 @@ class Home extends Component {
         item.index >= 2 && item.index%2 === 0 ? console.log('this is id', item.item.id) : false;
         return(
             <TouchableOpacity
-                onPress     = {() => this.props.navigation.navigate('FilterCategory', { id : item.item.id , name : item.item.name  })}
+                onPress     = {() => this.props.navigation.navigate('products', { id : item.item.id , name : item.item.name  })}
                 key         = { item.index }
                 style       = {[styles.position_R, styles.Width_45, item.index%2 == 0 ? styles.height_150 : styles.height_250, { alignSelf: 'flex-start', top: item.index >= 2 && item.index%2 === 0 ? (item.index/2) * -105 : 0 , marginBottom: 15, width: '46.7%', marginHorizontal: 6 }]}>
                 <View style={[styles.position_R, styles.Width_100, item.index%2 == 0 ? styles.height_150 : styles.height_250 , styles.Border, styles.overHidden]}>
@@ -194,10 +198,10 @@ class Home extends Component {
                             {item.category} - {item.sub_category}
                         </Text>
                         <View style={[styles.rowGroup]}>
-                            <Text style={[styles.text_red, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
+                            <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
                                 {item.discount_price} {i18n.t('RS')}
                             </Text>
-                            <Text style={[styles.text_red, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5, { textDecorationLine: 'line-through' }]}>
+                            <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5, { textDecorationLine: 'line-through' }]}>
                                 {item.price} {i18n.t('RS')}
                             </Text>
                         </View>
@@ -273,7 +277,7 @@ class Home extends Component {
                                 </Right>
                                 :
                                 <Right style={styles.rightIcon}>
-                                    <Image style={[styles.smallLogo]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
+                                    <Image style={[styles.smallLogo , styles.marginHorizontal_5]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                                     <Button  onPress={() => this.props.navigation.navigate('notifications')} style={[styles.bg_light_oran, styles.Radius_0, styles.iconHeader, styles.flexCenter]} transparent>
                                         <Image style={[styles.ionImage]} source={require('../../assets/images/alarm.png')}/>
                                     </Button>
@@ -288,7 +292,7 @@ class Home extends Component {
                                     <View style={[styles.position_R, styles.Width_60, styles.SelfRight]}>
                                         <Item floatingLabel style={styles.item}>
                                             <Input
-                                                placeholder={i18n.translate('searchCat')}
+                                                placeholder={i18n.translate('searchProduct')}
                                                 style={[styles.input, styles.height_40, styles.bg_light_oran , {right: -20}]}
                                                 autoCapitalize='none'
                                                 onChangeText={(categorySearch) => this.setState({categorySearch})}
@@ -298,8 +302,7 @@ class Home extends Component {
                                             style={[styles.position_A, styles.iconSearch, styles.width_50, styles.height_40, styles.flexCenter,]}
                                             onPress={() => this.onSearch()}
                                         >
-                                            <Icon style={[styles.text_gray, styles.textSize_20]} type="AntDesign"
-                                                  name='search1'/>
+                                            <Image style={[styles.ionImage]} source={require('../../assets/images/search.png')}/>
                                         </TouchableOpacity>
                                     </View>
                                 </Animatable.View>
@@ -337,7 +340,7 @@ class Home extends Component {
                                                                     {slid.description}
                                                                 </Text>
                                                                 <View key={i} >
-                                                                    <Text style={[styles.textRegular, styles.text_blue, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
+                                                                    <Text style={[styles.textRegular, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
                                                                         { i18n.t('here') }
                                                                     </Text>
                                                                 </View>
@@ -378,8 +381,8 @@ class Home extends Component {
                                         >
                                             <Icon style={[styles.text_White, styles.textSize_18]} type="AntDesign" name='edit' />
                                         </TouchableOpacity>
-                                        <Image style={[styles.Width_100, styles.swiper]} source={{ uri : provider_info.avatar }} resizeMode={'cover'}/>
-                                        <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent]}>
+                                        <Image style={[styles.Width_100, styles.swiper]} source={{uri:provider_info.avatar}} resizeMode={'cover'}/>
+                                        <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent , styles.Width_50]}>
                                             <View style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
                                                 <Text style={[styles.textRegular, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
                                                     {provider_info.name}
@@ -407,6 +410,11 @@ class Home extends Component {
                                         </Animatable.View>
                                     </View>
 
+                                    <TouchableOpacity onPress={() => this.toggleModalInfo()} style={[styles.directionRowC , styles.SelfCenter]}>
+                                        <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/booking.png')} resizeMode={'contain'}/>
+                                        <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
+                                    </TouchableOpacity>
+
                                     <View style={styles.mainScroll}>
                                         <ScrollView style={[styles.Width_100, styles.paddingHorizontal_10]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
@@ -417,7 +425,7 @@ class Home extends Component {
                                                         <TouchableOpacity
                                                             onPress         = {() => this.onSubCategories(pro.id)}
                                                             style           = {[this.state.active === pro.id ? styles.activeTabs : styles.noActiveTabs]}>
-                                                            <Image source   = {{ uri : pro.image }} style={[styles.scrollImg, styles.Radius_5]} resizeMode={'cover'} />
+                                                            <Image source   = {{ uri : pro.image }} style={[styles.scrollImg]} resizeMode={'contain'} />
                                                         </TouchableOpacity>
                                                         <Text style={[styles.textRegular, styles.textSize_11 , { color : this.state.active === pro.id ? COLORS.black : 'transparent' }]} >
                                                             {pro.name}
@@ -598,13 +606,31 @@ class Home extends Component {
                             </View>
                         </View>
                     </Modal>
+
+                    <Modal style={{}} isVisible={this.state.isModalVisible} onBackdropPress={() => this.toggleModalInfo()}>
+                        <View style={[styles.commentModal, {padding: 15}]}>
+                            <View style={[styles.directionRowC , styles.SelfCenter]}>
+                                <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/green_calender.png')} resizeMode={'contain'}/>
+                                <Text style={[styles.textRegular, styles.text_fyrozy,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
+                            </View>
+
+                            <View style={[styles.directionColumnCenter]}>
+                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>10 ص : 10 م يوميا ماعدا الجمعه والبسبت</Text>
+                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliverUSAa') }</Text>
+                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliver24') }</Text>
+                            </View>
+
+                        </View>
+                    </Modal>
+
                 </Content>
                     </ImageBackground>
                 {
                     this.props.user != null && this.props.user.type === 'provider' ?
                         <TouchableOpacity
-                            style       = {[styles.rotatTouch ,styles.width_50 , styles.height_50 , styles.flexCenter, styles.bg_darkBlue, styles.position_A, styles.bottom_30]}
-                            onPress     = {() => this.props.navigation.navigate('AddProduct')}
+                            style       = {[styles.rotatTouch ,styles.width_50 , styles.height_50 , styles.flexCenter, styles.bg_fyrozy, styles.position_A, styles.bottom_30]}
+                            onPress     = {() => this.props.navigation.navigate('addProductTerms' , {routeName:'homeProvider'})}
+                            // onPress     = {() => this.props.navigation.navigate('AddProduct')}
                             >
                             <Icon style={[styles.text_White, styles.textSize_22, styles.rotatIcon]} type="AntDesign" name='plus' />
                         </TouchableOpacity>

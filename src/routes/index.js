@@ -47,6 +47,11 @@ import SelectUser from "../components/SelectUser";
 import AddProductTerms from "../components/AddProductTerms";
 import Subscription from "../components/Subscription";
 import DiscountCoupon from "../components/DiscountCoupon";
+import AddProductConferm from "../components/AddProductConferm";
+import ProviderSubscriptions from "../components/ProviderSubscriptions";
+import BankAccounts from "../components/BankAccounts";
+import AddBankAcc from "../components/AddBankAcc";
+import Products from "../components/Products";
 
 
 const drawerCust = (props) => (<DrawerCustomization {...props} />);
@@ -57,6 +62,8 @@ const drawerNavigator = createDrawerNavigator({
     MyOrders            : MyOrders,
     Offers              : Offers,
     Favorite            : Favorite,
+    providerSubscriptions            : ProviderSubscriptions,
+    bankAccounts            : BankAccounts,
     AboutApp            : AboutApp,
     Faq                 : Faq,
     Terms               : Terms,
@@ -266,6 +273,36 @@ const appStack =  createStackNavigator({
     },
     discountCoupon: {
         screen: DiscountCoupon,
+        navigationOptions: {
+            header: null
+        }
+    },
+    addProductConferm: {
+        screen: AddProductConferm,
+        navigationOptions: {
+            header: null
+        }
+    },
+    providerSubscriptions: {
+        screen: ProviderSubscriptions,
+        navigationOptions: {
+            header: null
+        }
+    },
+    bankAccounts: {
+        screen: BankAccounts,
+        navigationOptions: {
+            header: null
+        }
+    },
+    addBankAcc: {
+        screen: AddBankAcc,
+        navigationOptions: {
+            header: null
+        }
+    },
+    products: {
+        screen: Products,
         navigationOptions: {
             header: null
         }

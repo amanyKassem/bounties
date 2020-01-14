@@ -80,7 +80,7 @@ class AddProductTerms extends Component {
                                                 styles.marginVertical_15,
                                                 styles.height_40
                                             ]}
-                                            onPress={() => this.props.navigation.navigate('subscription')}>
+                                            onPress={() => this.props.navigation.navigate(this.props.navigation.state.params && (this.props.navigation.state.params.routeName = 'homeProvider') ?'AddProduct':'subscription')}>
                                             <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
                                                 {i18n.t('confirm')}
                                             </Text>

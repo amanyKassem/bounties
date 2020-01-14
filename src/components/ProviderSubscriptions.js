@@ -21,7 +21,7 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-class Notifications extends Component {
+class ProviderSubscriptions extends Component {
     constructor(props){
         super(props);
 
@@ -34,6 +34,14 @@ class Notifications extends Component {
             loader: true
         }
     }
+
+    static navigationOptions = () => ({
+        header      : null,
+        drawerLabel : ( <Text style={[styles.textRegular, styles.text_black, styles.textSize_18]}>{ i18n.t('subscriptions') }</Text> ) ,
+        drawerIcon  : ( <Image style={[styles.smImage]} source={require('../../assets/images/raise-hand.png')} resizeMode={'contain'}/>)
+    });
+
+
 
     componentWillMount() {
         this.setState({loader: true});
@@ -57,21 +65,13 @@ class Notifications extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate(this.props.user.type === 'delegate' ? 'delegateOrderDetails' : 'orderDetails', { order_id: item.item.order_id })} style={[styles.position_R, styles.Width_95, {marginTop:20}, styles.marginHorizontal_10, styles.SelfCenter]}>
                 <View style={[styles.lightOverlay, styles.Border]} />
                 <View style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White,styles.bgFullWidth,styles.paddingHorizontal_7 , styles.paddingVertical_7
-                , { borderWidth: 1, borderTopColor : COLORS.lightWhite ,borderBottomColor : COLORS.lightWhite ,borderRightColor : COLORS.lightWhite , borderLeftWidth:5 ,
-                        borderLeftColor: item.index % 2 === 0 ? COLORS.darkblue : COLORS.fyrozy}]}>
+                    , { borderWidth: 1, borderColor : COLORS.lightWhite}]}>
                     <View style={[styles.directionColumn , {flex:1}]}>
                         <View style={[styles.directionRowSpace ]}>
-                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{item.item.title}</Text>
-                            <TouchableOpacity
-                                style           = {[{width:22 , height:22}, styles.flexCenter, styles.bg_fyrozy, styles.borderLightOran, styles.Radius_60]}
-                                onPress         = {() => this.deleteNotify(item.item.id)}
-                            >
-                                <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
-                            </TouchableOpacity>
+                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_13, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>تاريخ الاشتراك : خلال ٥ ايام</Text>
                         </View>
                         <View style={[styles.directionRowSpace]}>
-                            <Text style={[styles.textRegular, styles.text_bold_gray, styles.textSize_12, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{item.item.body}</Text>
-                            <Text style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{item.item.time}</Text>
+                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_13, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>ميعاد التجديد : خلال ٥ ايام</Text>
                         </View>
                     </View>
                 </View>
@@ -151,35 +151,35 @@ class Notifications extends Component {
                         </Button>
                     </Left>
                     <Body style={styles.bodyText}>
-                    <Title style={[styles.textRegular , styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>{i18n.t('Notifications')}</Title>
+                        <Title style={[styles.textRegular , styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>{i18n.t('subscriptions')}</Title>
                     </Body>
                     <Right style={styles.rightIcon}>
                         <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                     </Right>
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
-                <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
-                       <View style={[styles.paddingHorizontal_10]}>
-                           {
-                               this.state.loader ?
-                                   this._renderRows(this.loadingAnimated, 5, '5rows') :
-                                  <View>
-                                      { this.renderNoData() }
-                                      {
-                                          this.props.notifications?
-                                              <FlatList
-                                                  data={this.props.notifications}
-                                                  renderItem={(item) => this.renderItems(item)}
-                                                  numColumns={1}
-                                                  keyExtractor={this._keyExtractor}
-                                              />
-                                              :<View/>
-                                      }
+                    <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
+                        <View style={[styles.paddingHorizontal_10]}>
+                            {
+                                this.state.loader ?
+                                    this._renderRows(this.loadingAnimated, 5, '5rows') :
+                                    <View>
+                                        { this.renderNoData() }
+                                        {
+                                            this.props.notifications?
+                                                <FlatList
+                                                    data={this.props.notifications}
+                                                    renderItem={(item) => this.renderItems(item)}
+                                                    numColumns={1}
+                                                    keyExtractor={this._keyExtractor}
+                                                />
+                                                :<View/>
+                                        }
 
-                                  </View>
-                           }
-                       </View>
-                </Content>
+                                    </View>
+                            }
+                        </View>
+                    </Content>
                 </ImageBackground>
             </Container>
 
@@ -195,4 +195,4 @@ const mapStateToProps = ({ lang , notifications , profile}) => {
         notifications           : notifications.notifications,
     };
 };
-export default connect(mapStateToProps, {getNotifications , deleteNotifications})(Notifications);
+export default connect(mapStateToProps, {getNotifications , deleteNotifications})(ProviderSubscriptions);

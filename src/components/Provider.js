@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {View, Text, Image, ImageBackground, ScrollView, TouchableOpacity, FlatList, Platform, Animated,Dimensions} from "react-native";
-import {Container, Content, Icon, Header, Left, Button, Body, Title} from 'native-base'
+import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import * as Animatable from 'react-native-animatable';
@@ -10,6 +10,8 @@ import {NavigationEvents} from "react-navigation";
 import StarRating from 'react-native-star-rating';
 import { providerProduct , favorite , profile} from '../actions';
 import ProductBlock from './ProductBlock'
+
+import Modal from "react-native-modal";
 
 const isIOS = Platform.OS === 'ios';
 
@@ -23,13 +25,18 @@ class Provider extends Component {
             isFav               : 0,
             refreshed           : false,
             active              : true,
-            loader              : true
+            loader              : true,
+            isModalVisible: false,
         }
     }
 
     componentWillMount() {
         this.props.providerProduct( this.props.lang , this.props.navigation.state.params.id, this.props.user.token , null);
     }
+
+    toggleModal = () => {
+        this.setState({isModalVisible: !this.state.isModalVisible});
+    };
 
     onSubCategories ( id ){
         this.setState({spinner: true, active : id });
@@ -80,6 +87,10 @@ class Provider extends Component {
                         {this.props.navigation.state.params.name}
                     </Title>
                     </Body>
+
+                    <Right style={styles.rightIcon}>
+                        <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
+                    </Right>
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
@@ -116,6 +127,11 @@ class Provider extends Component {
                                 </View>
                                 :<View/>
                         }
+
+                    <TouchableOpacity onPress={() => this.toggleModal()} style={[styles.directionRowC , styles.SelfCenter]}>
+                        <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/booking.png')} resizeMode={'contain'}/>
+                        <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
+                    </TouchableOpacity>
 
                         <View style={styles.mainScroll}>
                             <ScrollView style={[styles.Width_100, styles.paddingHorizontal_10]} horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -159,6 +175,22 @@ class Provider extends Component {
 
                 </Content>
                 </ImageBackground>
+
+                <Modal style={{}} isVisible={this.state.isModalVisible} onBackdropPress={() => this.toggleModal()}>
+                    <View style={[styles.commentModal, {padding: 15}]}>
+                        <View style={[styles.directionRowC , styles.SelfCenter]}>
+                            <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/green_calender.png')} resizeMode={'contain'}/>
+                            <Text style={[styles.textRegular, styles.text_fyrozy,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
+                        </View>
+
+                        <View style={[styles.directionColumnCenter]}>
+                            <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>10 ص : 10 م يوميا ماعدا الجمعه والبسبت</Text>
+                            <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliverUSAa') }</Text>
+                            <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliver24') }</Text>
+                        </View>
+
+                    </View>
+                </Modal>
             </Container>
 
         );

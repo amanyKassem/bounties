@@ -101,30 +101,30 @@ class ContactUs extends Component {
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
-                        <TouchableOpacity style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]}>
+                        <View style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]}>
                             <View style={[styles.bg_light_oran, styles.iconImg, styles.iconContact, styles.flexCenter]}>
                                 <Icon style={[styles.text_fyrozy, styles.textSize_22]} type="Feather" name='user' />
                             </View>
                             <Text style={[styles.textRegular , styles.text_fyrozy, styles.SelfLeft, styles.marginHorizontal_25, styles.centerContext]}>
                                 { this.props.name }
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]} onPress={() => Linking.openURL(this.props.phone)}>
+                        </View>
+                        <View style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]} onPress={() => Linking.openURL(this.props.phone)}>
                             <View style={[styles.bg_light_oran, styles.iconImg, styles.iconContact, styles.flexCenter]}>
                                 <Icon style={[styles.text_fyrozy, styles.textSize_22]} type="SimpleLineIcons" name='screen-smartphone' />
                             </View>
                             <Text style={[styles.textRegular , styles.text_fyrozy, styles.SelfLeft, styles.marginHorizontal_25, styles.centerContext]}>
                                 { this.props.phone }
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]}>
+                        </View>
+                        <View style={[styles.borderRed, styles.marginVertical_15, styles.Width_80, styles.SelfCenter, styles.height_50, styles.paddingHorizontal_25]}>
                             <View style={[styles.bg_light_oran, styles.iconImg, styles.iconContact, styles.flexCenter]}>
                                 <Icon style={[styles.text_fyrozy, styles.textSize_22]} type="Feather" name='map-pin' />
                             </View>
                             <Text style={[styles.textRegular , styles.text_fyrozy, styles.SelfLeft, styles.marginHorizontal_25, styles.centerContext]}>
                                 { this.props.address }
                             </Text>
-                        </TouchableOpacity>
+                        </View>
 
                         <TouchableOpacity style={[styles.marginVertical_25,styles.flexCenter]} onPress={this.toggleModal}>
                             <Text style={[styles.textRegular , styles.text_darkblue, styles.textDecoration, styles.textSize_16]}>
@@ -143,25 +143,22 @@ class ContactUs extends Component {
                         </View>
 
                         <Modal
+                            onBackdropPress                 ={() => this.toggleModal()}
                             onBackButtonPress               = {() => this.toggleModal()}
                             isVisible                       = {this.state.show_modal}
                             style                           = {styles.bgModel}
-                            hasBackdrop                     = {false}
-                            animationIn                     = {'slideInUp'}
-                            animationOut                    = {'slideOutDown'}
-                            animationInTiming               = {1000}
-                            animationOutTiming              = {1000}
-                            backdropTransitionInTiming      = {1000}
-                            backdropTransitionOutTiming     = {1000}
-                            swipeDirection                  = "bottom"
+                            // animationIn                     = {'slideInUp'}
+                            // animationOut                    = {'slideOutDown'}
+                            // animationInTiming               = {1000}
+                            // animationOutTiming              = {1000}
+                            // backdropTransitionInTiming      = {1000}
+                            // backdropTransitionOutTiming     = {1000}
+                            // swipeDirection                  = "bottom"
                         >
-                            <View style={styles.contentModel}>
-                                <View style={styles.model}>
 
-                                    <Animatable.View animation="fadeInUp" easing="ease-out" delay={500}>
-                                    <View style={[styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10]}>
+                                    <View style={[styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10 , styles.paddingHorizontal_10]}>
                                         <View style={[styles.overHidden]}>
-                                            <Text style={[styles.textRegular, styles.textSize_16, styles.text_black, styles.textCenter]}>
+                                            <Text style={[styles.textRegular, styles.textSize_16, styles.text_black]}>
                                                 { i18n.t('FAsww') }
                                             </Text>
                                             <View style={[styles.position_R, styles.Width_90, styles.marginVertical_10, styles.flexCenter]}>
@@ -185,10 +182,7 @@ class ContactUs extends Component {
                                             </TouchableOpacity>
                                         </View>
                                     </View>
-                                    </Animatable.View>
 
-                                </View>
-                            </View>
                         </Modal>
                 </Content>
                 </ImageBackground>

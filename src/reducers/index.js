@@ -12,6 +12,7 @@ import changePassword from './ChangePasswordReducer';
 import searchHome from './SearchHomeReducer';
 import categoryHome from './CategoryHomeReducer';
 import categoryProvider from './CategoryProviderReducer';
+import categoryProducts from './CategoryProductsReducer';
 import SearchProvider from './SearchProvidersReducer';
 import filterProvider from './FilterProvidersReducer';
 import cities from './CitiesReducer';
@@ -74,6 +75,7 @@ export default combineReducers({
     addProduct,
     subCate,
     deletProduct,
-    updateProduct
+    updateProduct,
+    categoryProducts,
 });
 

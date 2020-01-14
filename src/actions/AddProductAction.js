@@ -24,7 +24,7 @@ export const addProduct = (data, props, lang, token) => {
             dispatch({type: 'addProduct', payload: response.data});
 
             if (response.data.key === 1){
-                props.navigation.navigate('drawerNavigator');
+                props.navigation.navigate('addProductConferm');
             }
 
             Toast.show({

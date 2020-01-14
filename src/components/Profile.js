@@ -176,7 +176,18 @@ class Profile extends Component {
                             </View>
                         </View>
 
-                        <Form style={[styles.Width_100, styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
+                    {
+                        this.props.user != null && this.props.user.type === 'provider' ?
+                            <View>
+                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter , {marginTop:10}]}>{i18n.t('payRequired')}</Text>
+                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter]}>100 {i18n.t('RS')}</Text>
+                            </View>
+                            :
+                            <View/>
+                    }
+
+
+                    <Form style={[styles.Width_100, styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
 
                             <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
                                 <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>

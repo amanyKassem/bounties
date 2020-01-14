@@ -177,7 +177,6 @@ class MapLocation extends Component {
 
 
     render() {
-
         return (
             <Container>
 

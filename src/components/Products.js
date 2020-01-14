@@ -23,7 +23,7 @@ import i18n from "../../locale/i18n";
 import StarRating from 'react-native-star-rating';
 import Modal from "react-native-modal";
 import * as Animatable from 'react-native-animatable';
-import {categoryProviders, searchProviders, filterProviders, getCities} from '../actions';
+import {categoryProducts, getCities} from '../actions';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import COLORS from '../consts/colors'
 
@@ -32,7 +32,7 @@ const height = Dimensions.get('window').height;
 
 const isIOS = Platform.OS === 'ios';
 
-class FilterCategory extends Component {
+class Products extends Component {
     constructor(props) {
         super(props);
 
@@ -42,7 +42,7 @@ class FilterCategory extends Component {
             checked: false,
             toggle: false,
             rating: '',
-            nameSearch: '',
+            categorySearch: '',
             latitude: '',
             longitude: '',
             city_name: '',
@@ -64,8 +64,8 @@ class FilterCategory extends Component {
     componentWillMount() {
 
         this.setState({loader: true});
-        // setTimeout(() => this.props.categoryProviders(this.props.lang, this.props.navigation.state.params.id), 2000);
-        // this.props.categoryProviders(this.props.lang, this.props.navigation.state.params.id);
+        // setTimeout(() => this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id), 2000);
+        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id);
 
         this.props.getCities(this.props.lang);
 
@@ -99,12 +99,11 @@ class FilterCategory extends Component {
         this.setState({show_modal: !this.state.show_modal});
     };
 
-    onSearch(keyword) {
-
-        this.setState({nameSearch: keyword});
-        const data = {keyword, lang: this.props.lang};
-
-        this.props.searchProviders(data);
+    onSearch () {
+        this.props.navigation.navigate('SearchHome', {
+            categorySearch                  : this.state.categorySearch,
+            category_id                  : this.props.navigation.state.params.id,
+        });
     }
 
     onFilter() {
@@ -115,7 +114,7 @@ class FilterCategory extends Component {
             rate: rating,
         };
 
-        this.props.filterProviders(data);
+        // this.props.filterProviders(data);
 
         this.setState({show_modal: !this.state.show_modal , loader:true});
 
@@ -131,7 +130,7 @@ class FilterCategory extends Component {
 
             <View>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('provider', {id: item.id, name: item.name})}
+                    onPress={() => this.props.navigation.navigate('product', {id: item.id, name: item.name})}
                     style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
                     key={key}
                 >
@@ -139,21 +138,36 @@ class FilterCategory extends Component {
                     <View
                         style={[styles.rowGroup, styles.bg_White, styles.Border, styles.paddingVertical_10, styles.paddingHorizontal_10]}>
                         <View style={[styles.flex_40 ,  {marginRight:10}]}>
-                            <Image style={{width:'100%' , height:105}} source={{uri: item.avatar}} resizeMode={'cover'}/>
+                            <Image style={{width:'100%' , height:105}} source={{uri: item.thumbnail}} resizeMode={'cover'}/>
                         </View>
                         <View style={[styles.flex_55]}>
                             <View style={[styles.rowGroup]}>
                                 <Text style={[styles.textRegular, styles.text_darkblue]}>
                                     {item.name}
                                 </Text>
-
+                                <TouchableOpacity onPress = {() => this.toggleFavorite()}>
+                                    <Text>
+                                        <Icon style={[styles.text_red, styles.textSize_18]} type="AntDesign" name={this.state.isFav ? 'heart' : 'hearto'} />
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={[styles.overHidden]}>
+                                <View style={[styles.directionRowC]}>
+                                    <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
+                                        {i18n.t('monyproducer')}
+                                    </Text>
+                                    <Text style={[styles.text_fyrozy, styles.textSize_12, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
+                                        {item.price} {i18n.t('RS')}
+                                    </Text>
+                                </View>
                                 <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                    {item.category}
+                                    {i18n.t('city')} : {item.city}
                                 </Text>
                                 <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                    {item.address}
+                                    {i18n.t('deliveryprice')} : {item.shipping_price} {i18n.t('RS')}
+                                </Text>
+                                <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
+                                    {i18n.t('deliverTime')} : {item.shipping_time}
                                 </Text>
                             </View>
                         </View>
@@ -165,7 +179,7 @@ class FilterCategory extends Component {
 
 
     renderNoData() {
-        if (this.props.providers && (this.props.providers).length <= 0) {
+        if (this.props.categoryProduct && (this.props.categoryProduct).length <= 0) {
             return (
                 <View style={[styles.directionColumnCenter, {height: '95%'}]}>
                     <Image source={require('../../assets/images/no-data.png')} resizeMode={'contain'}
@@ -228,7 +242,6 @@ class FilterCategory extends Component {
     render() {
 
         this.loadingAnimated = [];
-        const providers = this.props.navigation.state.params.providers
 
         return (
             <Container>
@@ -244,7 +257,7 @@ class FilterCategory extends Component {
                     <Body style={styles.bodyText}>
                         <Title
                             style={[styles.textRegular, styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>
-                            {i18n.translate('provider')}
+                            {this.props.navigation.state.params.name}
                         </Title>
                     </Body>
 
@@ -253,9 +266,24 @@ class FilterCategory extends Component {
                     </Right>
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
-                <Content contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
+                    <Content contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
 
-
+                        <View style={[styles.position_R, styles.Width_60, styles.SelfRight]}>
+                            <Item floatingLabel style={styles.item}>
+                                <Input
+                                    placeholder={i18n.translate('searchProduct')}
+                                    style={[styles.input, styles.height_40, styles.bg_light_gray]}
+                                    autoCapitalize='none'
+                                    onChangeText={(categorySearch) => this.setState({categorySearch})}
+                                />
+                            </Item>
+                            <TouchableOpacity
+                                style={[styles.position_A, styles.iconSearch, styles.width_50, styles.height_40, styles.flexCenter,]}
+                                onPress={() => this.onSearch()}
+                            >
+                                <Image style={[styles.ionImage]} source={require('../../assets/images/search.png')}/>
+                            </TouchableOpacity>
+                        </View>
 
                         <View style={[styles.marginVertical_5, styles.overHidden]}>
 
@@ -265,13 +293,13 @@ class FilterCategory extends Component {
                                     <View>
                                         {this.renderNoData()}
                                         {
-                                            this.props.providers ?
+                                            this.props.categoryProduct ?
                                                 <FlatList
-                                                    data={providers}
+                                                    data={this.props.categoryProduct}
                                                     renderItem={({item}) => this.renderItems(item)}
                                                     numColumns={1}
                                                     keyExtractor={this._keyExtractor}
-                                                    // extraData               = {this.props.categoryProviders}
+                                                    // extraData               = {this.props.categoryProduct}
                                                     onEndReachedThreshold={isIOS ? .01 : 1}
                                                 />
                                                 :
@@ -462,7 +490,7 @@ class FilterCategory extends Component {
                             </View>
                         </Modal>
 
-                </Content>
+                    </Content>
                 </ImageBackground>
             </Container>
 
@@ -470,17 +498,14 @@ class FilterCategory extends Component {
     }
 }
 
-const mapStateToProps = ({lang, categoryProvider, SearchProvider, cities}) => {
+const mapStateToProps = ({lang, categoryProducts, cities}) => {
     return {
         lang: lang.lang,
-        providers: categoryProvider.categoryProviders,
-        search: SearchProvider.searchProviders,
+        categoryProduct: categoryProducts.categoryProducts,
         citys: cities.cities,
     };
 };
 export default connect(mapStateToProps, {
-    categoryProviders,
-    searchProviders,
-    filterProviders,
+    categoryProducts,
     getCities
-})(FilterCategory);
+})(Products);

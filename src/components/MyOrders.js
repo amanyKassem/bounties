@@ -213,17 +213,17 @@ class MyOrders extends Component {
 															</View>
 															<View style={[styles.overHidden, styles.rowGroup]}>
 																<Text
-																	style={[styles.textRegular, styles.text_red,{borderRightWidth: 2,
-																		borderRightColor: COLORS.light_red,
+																	style={[styles.textRegular, styles.text_fyrozy,{borderRightWidth: 2,
+																		borderRightColor: COLORS.darkblue,
 																		paddingRight: 5,}]}>{order.order_info.price} {i18n.t('RS')}</Text>
 																<Text
 																	style={[styles.textRegular, styles.text_gray,]}>{order.order_info.date}</Text>
 															</View>
 														</View>
 														<TouchableOpacity
-															style={[styles.width_40, styles.height_40, styles.flexCenter, styles.bg_transRed,  styles.marginVertical_5, styles.position_A, styles.top_5, styles.right_0]}>
+															style={[styles.width_40, styles.height_40, styles.flexCenter, styles.bg_light_oran,  styles.marginVertical_5, styles.position_A, styles.top_5, styles.right_0]}>
 															<Text
-																style={[styles.textRegular, styles.text_red]}>{order.order_info.order_items}</Text>
+																style={[styles.textRegular, styles.text_darkblue]}>{order.order_info.order_items}</Text>
 														</TouchableOpacity>
 													</View>
 												</TouchableOpacity>

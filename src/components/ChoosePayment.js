@@ -35,8 +35,8 @@ class ChoosePayment extends Component {
     }
     render() {
 
-        // alert("provider_id"+this.props.navigation.state.params.provider_id + "shipping_price"+this.props.navigation.state.params.shipping_price +
-        //     " cccccc " +this.props.navigation.state.params.address + this.props.navigation.state.params.latitude + this.props.navigation.state.params.longitude)
+        alert("provider_id"+this.props.navigation.state.params.provider_id + "shipping_price"+this.props.navigation.state.params.shipping_price +
+            " cccccc " +this.props.navigation.state.params.address + this.props.navigation.state.params.latitude + this.props.navigation.state.params.longitude)
 
 
         return (
@@ -65,12 +65,12 @@ class ChoosePayment extends Component {
                         <View style={[styles.rowGroup , styles.paddingHorizontal_10, styles.marginVertical_10]}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('FormPayment' , {
                                 routeName             : this.props.navigation.state.params.routeName,
-                                // provider_id             : this.props.navigation.state.params.provider_id,
-                                // shipping_price          : this.props.navigation.state.params.shipping_price,
-                                // address                 : this.props.navigation.state.params.address,
-                                // lat                     : this.props.navigation.state.params.latitude,
-                                // lng                     : this.props.navigation.state.params.longitude,
-                                // payment_type            : 0,
+                                provider_id             : this.props.navigation.state.params.provider_id,
+                                shipping_price          : this.props.navigation.state.params.shipping_price,
+                                address                 : this.props.navigation.state.params.address,
+                                lat                     : this.props.navigation.state.params.latitude,
+                                lng                     : this.props.navigation.state.params.longitude,
+                                payment_type            : 0,
                             })} style={[styles.bg_White , styles.Border, styles.Width_100, styles.flexCenter, styles.Radius_5, styles.height_120, styles.marginVertical_10]}>
                                 <Image
                                     style       = {[styles.width_70 , styles.height_70, styles.flexCenter]}

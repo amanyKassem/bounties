@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {View, Text, Image, TouchableOpacity, ImageBackground  , FlatList, Platform} from "react-native";
-import {Container, Content, Header, Button, Left, Icon, Body, Title} from 'native-base'
+import {Container, Content, Header, Button, Left, Icon, Body, Title, Right} from 'native-base'
 import styles from '../../assets/style'
 import { DoubleBounce } from 'react-native-loader';
 import {connect} from "react-redux";
@@ -8,7 +8,7 @@ import {NavigationEvents} from "react-navigation";
 import * as Animatable from 'react-native-animatable';
 import i18n from "../../locale/i18n";
 import { getFavs } from '../actions'
-import ProductBlock from './ProductBlock'
+import RowProduct from './RowProduct'
 
 const isIOS = Platform.OS === 'ios';
 
@@ -50,7 +50,7 @@ class Favorite extends Component {
 
 	renderItems = (item , key) => {
 		return(
-			<ProductBlock item={item} key={key} fromFav={true} navigation={this.props.navigation} />
+			<RowProduct item={item} key={key} fromFav={true} navigation={this.props.navigation} />
 		);
 	};
 
@@ -78,18 +78,22 @@ class Favorite extends Component {
 						{ i18n.t('fav') }
 					</Title>
 					</Body>
+
+					<Right style={styles.rightIcon}>
+						<Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
+					</Right>
 				</Header>
 				<ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
 				<Content  contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
 					{ this.renderLoader() }
 
-						<View style={[ styles.rowGroup , styles.marginVertical_15 , styles.paddingHorizontal_20]}>
+						<View style={[ styles.rowGroup , styles.marginVertical_15 ]}>
 							{
 								this.props.products ?
 									<FlatList
 										data                    = {this.props.products}
 										renderItem              = {({item}) => this.renderItems(item)}
-										numColumns              = {2}
+										numColumns              = {1}
 										keyExtractor            = {this._keyExtractor}
 										extraData               = {this.state.refreshed}
 										onEndReachedThreshold   = {isIOS ? .01 : 1}

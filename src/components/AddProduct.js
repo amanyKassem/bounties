@@ -9,6 +9,7 @@ import {profile , addProduct, subCate , updateProduct, deleteProductImage} from 
 import {NavigationEvents} from "react-navigation";
 import Spinner from "react-native-loading-spinner-overlay";
 
+import COLORS from "../consts/colors";
 import {ImageBrowser,CameraBrowser} from 'expo-multiple-imagepicker';
 import * as Permissions from 'expo-permissions';
 
@@ -134,7 +135,7 @@ class AddProduct extends Component {
                     onPress     = {() => this.deleteImage(item)}
                     style       = {[styles.position_A , styles.bg_overlay, styles.Width_100, styles.heightFull, styles.flexCenter]}
                 >
-                    <Icon type={'EvilIcons'} name={'close'} style={[styles.text_red, styles.textSize_20]} />
+                    <Icon type={'EvilIcons'} name={'close'} style={[styles.text_darkblue, styles.textSize_20]} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style       = {[ styles.height_60 , styles.Width_100,  styles.Radius_5]}
@@ -253,10 +254,10 @@ class AddProduct extends Component {
                                 <View style={[styles.lightOverlay, styles.Border , styles.height_150 , {top:10 , left:10}]}/>
                                 <View style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.height_150]}>
                                     <View style={[styles.lightOverlay, styles.Border, {top:0 , left:0}]}/>
-                                    <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent]}>
+                                    <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent ,styles.bg_light_oran]}>
                                         <View style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
                                             <TouchableOpacity onPress={() => this.setState({imageBrowserOpen: true})}>
-                                                <Icon style={[styles.text_White , styles.textSize_20]} type="AntDesign" name='plus' />
+                                                <Icon style={[styles.text_darkblue , styles.textSize_20]} type="AntDesign" name='plus' />
                                             </TouchableOpacity>
                                         </View>
                                     </Animatable.View>
@@ -369,7 +370,7 @@ class AddProduct extends Component {
                                         style           = {[styles.cartBtn , styles.SelfCenter , {marginBottom:20}]}
                                     >
                                         <Text style={[styles.textRegular, styles.text_White,styles.textSize_14, styles.textLeft ]} >
-                                            {i18n.t('confirm')}
+                                            {i18n.t('add')}
                                         </Text>
                                     </TouchableOpacity>
                             }
