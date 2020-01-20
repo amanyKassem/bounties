@@ -31,13 +31,14 @@ export const categoryHome = lang => {
 
 };
 
-export const searchHome = ( { lang , keyword } , category_id ) => {
+export const searchHome = ( { lang , keyword } , category_id , token) => {
 
     return (dispatch) => {
         axios({
             url         : CONST.url + 'search',
             method      : 'POST',
-            data        : { lang , keyword , category_id}
+            data        : { lang , keyword , category_id},
+            headers     : { Authorization: token },
         }).then(response => {
             dispatch({type: 'searchHome', payload: response.data});
             console.log('data Search ==', response.data);

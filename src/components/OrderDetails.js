@@ -9,7 +9,7 @@ import {
 	FlatList,
 	I18nManager,
 	ScrollView,
-	Animated
+	Animated, ActivityIndicator
 } from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea} from 'native-base'
 import styles from '../../assets/style'
@@ -54,7 +54,7 @@ class OrderDetails extends Component {
 		if (this.state.isSubmitted){
 			return(
 				<View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20 , alignSelf:'center' }]}>
-					<DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			)
 		}
@@ -97,7 +97,7 @@ class OrderDetails extends Component {
 		if (this.state.isSubmitted){
 			return(
 				<View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20 }]}>
-					<DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			)
 		}
@@ -121,7 +121,7 @@ class OrderDetails extends Component {
 		if (this.state.isSubmitted){
 			return(
 				<View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20 }]}>
-					<DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			)
 		}
@@ -205,7 +205,7 @@ class OrderDetails extends Component {
 					this.renderAcceptOrder()
 					:
 
-					this.props.orderDetails.order_status === 1  || this.props.orderDetails.order_status === 2  ?
+					this.props.orderDetails.order_status === 1 ?
 
 						this.renderFinishOrder()
 
@@ -215,13 +215,16 @@ class OrderDetails extends Component {
 		}
 
 		return(
-			this.props.orderDetails.order_status === 0 || this.props.orderDetails.order_status === 1 ?
+			this.props.orderDetails.order_status === 0 ?
 				<TouchableOpacity onPress={() => this.toggleModal()}
 					style={[styles.cartBtn, styles.SelfCenter, {marginBottom: 20}]}>
 					<Text
 						style={[styles.textRegular, styles.text_White, styles.textSize_14, styles.textLeft]}>{i18n.t('cancelOrder')}</Text>
 				</TouchableOpacity>
 				:
+				// this.props.orderDetails.order_status === 1 ?
+				// 	this.renderFinishOrder()
+				// 	:
 				<View/>
 		)
 	}
@@ -319,7 +322,9 @@ class OrderDetails extends Component {
 																		</View>
 																		<View style={[styles.Width_100]}>
 																			<Text
-																				style={[styles.textRegular, styles.text_black, styles.textSize_14]}
+																				style={[styles.textRegular, styles.text_black, styles.textSize_14n , {
+																					alignSelf:'flex-start'
+																				}]}
 																				numberOfLines={1} prop with
 																				ellipsizeMode="head">{i18n.t('productSpec')}</Text>
 																			<Text
@@ -392,61 +397,27 @@ class OrderDetails extends Component {
 											</View>
 										</View>
 
-
-										{/*{*/}
-										{/*	this.props.orderDetails.order_status == 2  ?*/}
-										{/*		<View style={[styles.position_R, styles.Width_95, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>*/}
-										{/*			<View style={[styles.lightOverlay, styles.Border]} />*/}
-										{/*			<View*/}
-										{/*				style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7]}>*/}
-										{/*				<Text*/}
-										{/*					style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {marginBottom: 10}]}>{i18n.t('aboutDelegate')}</Text>*/}
-										{/*				<View style={[styles.notiBlock, {*/}
-										{/*					borderBottomWidth: 0,*/}
-										{/*					marginBottom: 0*/}
-										{/*				}]}>*/}
-										{/*					<Image*/}
-										{/*						source={{uri: this.props.orderDetails.provider.avatar}}*/}
-										{/*						resizeMode={'cover'}*/}
-										{/*						style={styles.restImg}/>*/}
-										{/*					<View style={[styles.directionColumn, {flex: 1}]}>*/}
-										{/*						<Text*/}
-										{/*							style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.name}</Text>*/}
-										{/*						<Text*/}
-										{/*							style={[styles.textRegular, styles.text_blue, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.phone}</Text>*/}
-										{/*						<Text*/}
-										{/*							style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('deliveredPlace')} :*/}
-										{/*							{this.props.orderDetails.provider.address}</Text>*/}
-										{/*					</View>*/}
-										{/*				</View>*/}
-										{/*			</View>*/}
-										{/*		</View>*/}
-										{/*		:*/}
-										{/*		<View/>*/}
-										{/*}*/}
-
-
 										{
 											this.renderBtns()
 										}
 
-										{
-											this.props.user.type === 'provider' ? <View/> :
-												this.props.orderDetails.order_status === 1 || this.props.orderDetails.order_status === 2 ?
-													<View>
-														<TouchableOpacity
-															// onPress={() => this.props.navigation.navigate('drawerNavigator')}
-															style={[styles.cartBtn, styles.SelfCenter, {marginBottom: 20 , backgroundColor:COLORS.bold_gray}]}>
-															<Text
-																style={[styles.textRegular, styles.text_White, styles.textSize_14, styles.textLeft]}>{i18n.t('hanging')}</Text>
-														</TouchableOpacity>
-													</View>
-													:
-													<View/>
-										}
+										{/*{*/}
+										{/*	this.props.user.type === 'provider' ? <View/> :*/}
+										{/*		this.props.orderDetails.order_status === 1 || this.props.orderDetails.order_status === 2 ?*/}
+										{/*			<View>*/}
+										{/*				<TouchableOpacity*/}
+										{/*					// onPress={() => this.props.navigation.navigate('drawerNavigator')}*/}
+										{/*					style={[styles.cartBtn, styles.SelfCenter, {marginBottom: 20 , backgroundColor:COLORS.bold_gray}]}>*/}
+										{/*					<Text*/}
+										{/*						style={[styles.textRegular, styles.text_White, styles.textSize_14, styles.textLeft]}>{i18n.t('hanging')}</Text>*/}
+										{/*				</TouchableOpacity>*/}
+										{/*			</View>*/}
+										{/*			:*/}
+										{/*			<View/>*/}
+										{/*}*/}
 
 										{
-											this.props.orderDetails.order_status === 3 || this.props.orderDetails.order_status === 4 ?
+											this.props.orderDetails.order_status === 2 || this.props.orderDetails.order_status === 3 ?
 												<View>
 
 													{

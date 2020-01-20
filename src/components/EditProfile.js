@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground  , TouchableOpacity , KeyboardAvoidingView } from "react-native";
+import {View, Text, Image, ImageBackground  , TouchableOpacity , KeyboardAvoidingView, ActivityIndicator } from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Form, Item, Input, Right, Picker} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -57,7 +57,7 @@ class EditProfile extends Component {
         if (this.state.isSubmitted){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20 }]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }

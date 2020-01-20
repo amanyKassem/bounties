@@ -18,7 +18,7 @@ class MyOrders extends Component {
 		super(props);
 
 		this.state = {
-			activeType: this.props.user.type === 'delegate' ? 1 : 0,
+			activeType: 0,
 			loader: true
 		}
 	}
@@ -112,7 +112,6 @@ class MyOrders extends Component {
 
 	render() {
 
-		const newOrderStatus = this.props.user.type === 'delegate' ? 1 : 0;
 		this.loadingAnimated = [];
 
 		return (
@@ -142,13 +141,22 @@ class MyOrders extends Component {
 
 						<View
 							style={[styles.rowGroup, styles.paddingHorizontal_15, styles.marginVertical_15, styles.overlay_white, styles.Border]}>
-							<TouchableOpacity onPress={() => this.getOrders(newOrderStatus)} style={[{
+							<TouchableOpacity onPress={() => this.getOrders(0)} style={[{
 								borderTopWidth: 3,
-								borderTopColor: this.state.activeType === newOrderStatus ? COLORS.fyrozy : 'transparent'
+								borderTopColor: this.state.activeType === 0 ? COLORS.fyrozy : 'transparent'
 							}, styles.paddingVertical_10]}>
 								<Text
-									style={[styles.textRegular, this.state.activeType === newOrderStatus ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
+									style={[styles.textRegular, this.state.activeType === 0 ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
 									{i18n.t('underProssess')}
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity onPress={() => this.getOrders(1)} style={[{
+								borderTopWidth: 3,
+								borderTopColor: this.state.activeType === 1 ? COLORS.fyrozy : 'transparent'
+							}, styles.paddingVertical_10]}>
+								<Text
+									style={[styles.textRegular, this.state.activeType === 1 ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
+									{i18n.t('accepted')}
 								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity onPress={() => this.getOrders(2)} style={[{
@@ -157,7 +165,7 @@ class MyOrders extends Component {
 							}, styles.paddingVertical_10]}>
 								<Text
 									style={[styles.textRegular, this.state.activeType === 2 ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
-									{i18n.t('accepted')}
+									{i18n.t('done')}
 								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity onPress={() => this.getOrders(3)} style={[{
@@ -166,15 +174,6 @@ class MyOrders extends Component {
 							}, styles.paddingVertical_10]}>
 								<Text
 									style={[styles.textRegular, this.state.activeType === 3 ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
-									{i18n.t('done')}
-								</Text>
-							</TouchableOpacity>
-							<TouchableOpacity onPress={() => this.getOrders(4)} style={[{
-								borderTopWidth: 3,
-								borderTopColor: this.state.activeType === 4 ? COLORS.fyrozy : 'transparent'
-							}, styles.paddingVertical_10]}>
-								<Text
-									style={[styles.textRegular, this.state.activeType === 4 ? styles.text_fyrozy : styles.text_black, styles.textSize_16]}>
 									{i18n.t('canceled')}
 								</Text>
 							</TouchableOpacity>

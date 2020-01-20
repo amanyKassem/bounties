@@ -150,6 +150,8 @@ class MapLocation extends Component {
                     longitude               : this.state.mapRegion.longitude,
                     provider_id             : this.props.navigation.state.params.provider_id,
                     shipping_price          : this.props.navigation.state.params.shipping_price,
+                    deliverd_time           : this.props.navigation.state.params.deliverd_time,
+                    notes                   : this.props.navigation.state.params.notes,
                     address                 : this.state.city,
                 });
             } else {

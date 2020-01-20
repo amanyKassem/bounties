@@ -15,8 +15,9 @@ import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import {connect} from "react-redux";
 import COLORS from '../../src/consts/colors'
-import { getNotifications , deleteNotifications } from '../actions'
+import { getSubscriptions} from '../actions'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import {NavigationEvents} from "react-navigation";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -45,7 +46,7 @@ class ProviderSubscriptions extends Component {
 
     componentWillMount() {
         this.setState({loader: true});
-        setTimeout(() => this.props.getNotifications( this.props.lang , this.props.user.token ), 2000)
+        setTimeout(() => this.props.getSubscriptions( this.props.lang , this.props.user.token ), 2000)
 
     }
 
@@ -53,34 +54,31 @@ class ProviderSubscriptions extends Component {
         this.setState({loader: false});
     }
 
-    deleteNotify(notify_id){
-        this.props.deleteNotifications( this.props.lang , notify_id , this.props.user.token )
-    }
 
     _keyExtractor = (item, index) => item.id;
 
     renderItems = (item , index) => {
         console.log(item);
         return(
-            <TouchableOpacity onPress={() => this.props.navigation.navigate(this.props.user.type === 'delegate' ? 'delegateOrderDetails' : 'orderDetails', { order_id: item.item.order_id })} style={[styles.position_R, styles.Width_95, {marginTop:20}, styles.marginHorizontal_10, styles.SelfCenter]}>
+            <View style={[styles.position_R, styles.Width_95, {marginTop:20}, styles.marginHorizontal_10, styles.SelfCenter]}>
                 <View style={[styles.lightOverlay, styles.Border]} />
                 <View style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White,styles.bgFullWidth,styles.paddingHorizontal_7 , styles.paddingVertical_7
                     , { borderWidth: 1, borderColor : COLORS.lightWhite}]}>
                     <View style={[styles.directionColumn , {flex:1}]}>
                         <View style={[styles.directionRowSpace ]}>
-                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_13, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>تاريخ الاشتراك : خلال ٥ ايام</Text>
+                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('start_at')} : {item.item.start_at}</Text>
                         </View>
                         <View style={[styles.directionRowSpace]}>
-                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_13, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>ميعاد التجديد : خلال ٥ ايام</Text>
+                            <Text style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('expire_date')} : {item.item.expire_date}</Text>
                         </View>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </View>
         );
     }
 
     renderNoData(){
-        if (this.props.notifications && (this.props.notifications).length <= 0){
+        if (this.props.subscriptions && (this.props.subscriptions).length <= 0){
             return(
                 <View style={[styles.directionColumnCenter , {height:'95%'}]}>
                     <Image source={require('../../assets/images/no-data.png')} resizeMode={'contain'} style={{ alignSelf: 'center', width: 200, height: 200 }} />
@@ -159,6 +157,7 @@ class ProviderSubscriptions extends Component {
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
+                        <NavigationEvents onWillFocus={() => this.onFocus()}/>
                         <View style={[styles.paddingHorizontal_10]}>
                             {
                                 this.state.loader ?
@@ -166,9 +165,9 @@ class ProviderSubscriptions extends Component {
                                     <View>
                                         { this.renderNoData() }
                                         {
-                                            this.props.notifications?
+                                            this.props.subscriptions?
                                                 <FlatList
-                                                    data={this.props.notifications}
+                                                    data={this.props.subscriptions}
                                                     renderItem={(item) => this.renderItems(item)}
                                                     numColumns={1}
                                                     keyExtractor={this._keyExtractor}
@@ -188,11 +187,11 @@ class ProviderSubscriptions extends Component {
 }
 
 
-const mapStateToProps = ({ lang , notifications , profile}) => {
+const mapStateToProps = ({ lang , subscriptions , profile}) => {
     return {
         lang                    : lang.lang,
         user                    : profile.user,
-        notifications           : notifications.notifications,
+        subscriptions           : subscriptions.subscriptions,
     };
 };
-export default connect(mapStateToProps, {getNotifications , deleteNotifications})(ProviderSubscriptions);
+export default connect(mapStateToProps, {getSubscriptions})(ProviderSubscriptions);

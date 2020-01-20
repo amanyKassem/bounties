@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground, TouchableOpacity, Linking} from "react-native";
+import {View, Text, Image, ImageBackground, TouchableOpacity, Linking, ActivityIndicator} from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Item, Textarea, Form, Toast} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -8,6 +8,7 @@ import {DoubleBounce} from "react-native-loader";
 import { getContactUs, complaint } from '../actions';
 import  Modal  from "react-native-modal";
 import * as Animatable from 'react-native-animatable';
+import COLORS from "../consts/colors";
 
 class ContactUs extends Component {
     constructor(props){
@@ -27,7 +28,7 @@ class ContactUs extends Component {
         if (this.props.loader){
             return(
                 <View style={[styles.loading, styles.flexCenter]}>
-                    <DoubleBounce size={20} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }

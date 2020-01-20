@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground ,TouchableOpacity } from "react-native";
+import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator} from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Form, Item, Input, Right , Toast} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -57,7 +57,7 @@ class Profile extends Component {
         if (this.state.isSubmitted) {
             return (
                 <View style={[{justifyContent: 'center', alignItems: 'center' , margin:20}]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{alignSelf: 'center'}}/>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }

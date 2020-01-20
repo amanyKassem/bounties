@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground  , FlatList, Platform} from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+	ImageBackground,
+	FlatList,
+	Platform,
+	ActivityIndicator
+} from "react-native";
 import {Container, Content, Header, Button, Left, Icon, Body, Title, Right} from 'native-base'
 import styles from '../../assets/style'
 import { DoubleBounce } from 'react-native-loader';
@@ -9,6 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import i18n from "../../locale/i18n";
 import { getFavs } from '../actions'
 import RowProduct from './RowProduct'
+import COLORS from "../consts/colors";
 
 const isIOS = Platform.OS === 'ios';
 
@@ -42,7 +52,7 @@ class Favorite extends Component {
 		if (this.props.loader){
 			return(
 				<View style={[styles.loading, styles.flexCenter]}>
-					<DoubleBounce size={20} />
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			);
 		}

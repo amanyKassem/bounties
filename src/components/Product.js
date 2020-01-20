@@ -9,12 +9,12 @@ import {
 	FlatList,
 	I18nManager,
 	ScrollView,
+	ActivityIndicator,
 	Animated
 } from "react-native";
-import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea} from 'native-base'
+import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea, Switch, Toast} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
-import {DoubleBounce} from "react-native-loader";
 import * as Animatable from 'react-native-animatable';
 import {connect} from "react-redux";
 import COLORS from '../../src/consts/colors'
@@ -23,7 +23,7 @@ import StarRating from 'react-native-star-rating';
 import Modal from "react-native-modal";
 
 import {NavigationEvents} from "react-navigation";
-import {productDetails, favorite, addCart, addComment, deletProduct} from '../actions';
+import {productDetails, favorite, addCart, addComment, deletProduct , bookPackage} from '../actions';
 
 class Product extends Component {
 	constructor(props) {
@@ -34,13 +34,14 @@ class Product extends Component {
 			starCount: '',
 			value: 1,
 			value2: 1,
-			status: null,
+			status: false,
 			isFav: this.props.user.type == 'user' && this.props.products && this.props.products.is_fav == 1 ? true : false,
 			isHidden: true,
 			fading: false,
 			isModalVisible: false,
 			bounceValue: new Animated.Value(400),  //This is the initial position of the subview
 			isSubmitted: false,
+			SwitchOnValueHolder:false,
 		}
 	}
 
@@ -48,12 +49,48 @@ class Product extends Component {
 		this.props.productDetails(this.props.lang, this.props.navigation.state.params.id, this.props.user.token);
 	}
 
+	specialOrders = (value , package_id) =>{
+		this.setState({SwitchOnValueHolder: value });
+		if(value){
+			if(package_id){
+				return this.props.bookPackage(this.props.lang, package_id , this.props.navigation.state.params.id , this.props.user.token  , this.props )
+			}
+			this.props.navigation.navigate('subscriptionsPackages' , {product_id:this.props.navigation.state.params.id})
+		}
+	};
+
+
+	checkStatus(){
+		if(this.state.status && this.state.SwitchOnValueHolder === false){
+			Toast.show({
+				text: 'تم استهلاك باقه التثبيت بالكاملkkkkk',
+				type: "danger",
+				duration: 3000,
+				textStyle: {
+					color: "white",
+					fontFamily: 'cairo',
+					textAlign: 'center',
+				}
+			});
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({isSubmitted: false , SwitchOnValueHolder: nextProps.products.packeage_info.is_packaged });
+		if(nextProps.key === 2){
+			this.setState({status:true});
+		}
+		if(this.state.status && nextProps.key === 2){
+			this.setState({SwitchOnValueHolder: false});
+		}
+
+	}
 
 	renderAddToCart(){
 		if (this.state.isSubmitted){
 			return(
 				<View style={[{ justifyContent: 'center', alignItems: 'center' , width:'45%', paddingHorizontal: 15, paddingVertical: 7,}]}>
-					<DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			)
 		}
@@ -71,11 +108,6 @@ class Product extends Component {
 		this.setState({ isSubmitted: true });
 		const token = this.props.user ? this.props.user.token : null;
 		this.props.addCart(this.props.lang, id, token, this.state.value , this.props);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.setState({isSubmitted: false});
-
 	}
 
 	toggleModal = () => {
@@ -223,7 +255,6 @@ class Product extends Component {
 	}
 
 	render() {
-
 		return (
 			<Container>
 
@@ -258,6 +289,7 @@ class Product extends Component {
 				</Header>
 				<ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
 				<Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
+					<NavigationEvents onWillFocus={() => this.onFocus()}/>
 						{
 							this.props.products ?
 								<View>
@@ -486,6 +518,28 @@ class Product extends Component {
 													</View>
 												</View>
 												{
+													this.props.user == null || this.props.user.type === 'provider' ?
+														<View style={[styles.rowGroup]}>
+															<View style={[styles.rowGroup]}>
+																<Text
+																	style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
+																	{i18n.t('specialProducts')}
+																</Text>
+																<TouchableOpacity onPress={() => this.checkStatus()}>
+																	<Switch
+																		onValueChange={() => this.specialOrders(!this.state.SwitchOnValueHolder , this.props.products.packeage_info.package_id)}
+																		value={this.state.SwitchOnValueHolder}
+																		thumbColor={'#fff'}
+																		trackColor={{false: COLORS.gray, true: COLORS.fyrozy}}
+																		style={[styles.marginHorizontal_15]}
+																		disabled={this.state.SwitchOnValueHolder || this.state.status}
+																	/>
+																</TouchableOpacity>
+															</View>
+														</View>
+														:<View/>
+												}
+												{
 													this.props.user == null || this.props.user.type === 'user' ?
 														<View style={{ alignSelf: 'center' }}>
 															{this.renderAddToCart()}
@@ -624,14 +678,16 @@ class Product extends Component {
 	}
 }
 
-const mapStateToProps = ({lang, productsDetail, addComment, profile}) => {
+const mapStateToProps = ({lang, productsDetail, addComment, profile , bookPackage}) => {
 	return {
 		lang: lang.lang,
 		products: productsDetail.products,
 		images: productsDetail.images,
 		comments: productsDetail.comments,
 		addComments: addComment.comment,
-		user: profile.user
+		user: profile.user,
+		status: bookPackage.status,
+		key: bookPackage.key,
 	};
 };
-export default connect(mapStateToProps, {productDetails, favorite, addCart, addComment, deletProduct})(Product);
+export default connect(mapStateToProps, {productDetails, favorite, addCart, addComment, deletProduct, bookPackage})(Product);

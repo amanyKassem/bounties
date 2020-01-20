@@ -13,9 +13,9 @@ import * as Permissions from "expo-permissions";
 import { Notifications } from 'expo'
 
 
-// Keystore password: e2ed7a98ae9a44e5b928670d54d5142a
-// Key alias:         QGFtYW55X2thc3NlbS9zb3VxZ29tbGE=
-// Key password:      e91d3aec524b4328a108e44d0dde99ab
+// Keystore password: 40d7bd0bbdea46fa84f6f9b394bc7b5b
+// Key alias:         QGFtYW55X2thc3NlbS9ib3VudGllcw==
+// Key password:      cb4dd0571c4b4d1890c57c8ba0fceae3
 
 
 export default class App extends React.Component {

@@ -26,6 +26,7 @@ import * as Animatable from 'react-native-animatable';
 import {categoryProducts, getCities} from '../actions';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import COLORS from '../consts/colors'
+import RowProduct from './RowProduct'
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -65,7 +66,7 @@ class Products extends Component {
 
         this.setState({loader: true});
         // setTimeout(() => this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id), 2000);
-        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id);
+        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id , this.props.user.token);
 
         this.props.getCities(this.props.lang);
 
@@ -125,57 +126,11 @@ class Products extends Component {
     _keyExtractor = (item, index) => item.id;
 
     renderItems = (item, key) => {
-
-        return (
-
-            <View>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('product', {id: item.id, name: item.name})}
-                    style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
-                    key={key}
-                >
-                    <View style={[styles.lightOverlay, styles.Border]} />
-                    <View
-                        style={[styles.rowGroup, styles.bg_White, styles.Border, styles.paddingVertical_10, styles.paddingHorizontal_10]}>
-                        <View style={[styles.flex_40 ,  {marginRight:10}]}>
-                            <Image style={{width:'100%' , height:105}} source={{uri: item.thumbnail}} resizeMode={'cover'}/>
-                        </View>
-                        <View style={[styles.flex_55]}>
-                            <View style={[styles.rowGroup]}>
-                                <Text style={[styles.textRegular, styles.text_darkblue]}>
-                                    {item.name}
-                                </Text>
-                                <TouchableOpacity onPress = {() => this.toggleFavorite()}>
-                                    <Text>
-                                        <Icon style={[styles.text_red, styles.textSize_18]} type="AntDesign" name={this.state.isFav ? 'heart' : 'hearto'} />
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={[styles.overHidden]}>
-                                <View style={[styles.directionRowC]}>
-                                    <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                        {i18n.t('monyproducer')}
-                                    </Text>
-                                    <Text style={[styles.text_fyrozy, styles.textSize_12, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
-                                        {item.price} {i18n.t('RS')}
-                                    </Text>
-                                </View>
-                                <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                    {i18n.t('city')} : {item.city}
-                                </Text>
-                                <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                    {i18n.t('deliveryprice')} : {item.shipping_price} {i18n.t('RS')}
-                                </Text>
-                                <Text style={[styles.text_gray, styles.textSize_12, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                    {i18n.t('deliverTime')} : {item.shipping_time}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
+        return(
+            <RowProduct item={item} key={key} fromFav={false} navigation={this.props.navigation} />
         );
     };
+
 
 
     renderNoData() {
@@ -498,11 +453,12 @@ class Products extends Component {
     }
 }
 
-const mapStateToProps = ({lang, categoryProducts, cities}) => {
+const mapStateToProps = ({lang, categoryProducts, cities , profile}) => {
     return {
         lang: lang.lang,
         categoryProduct: categoryProducts.categoryProducts,
         citys: cities.cities,
+        user: profile.user,
     };
 };
 export default connect(mapStateToProps, {

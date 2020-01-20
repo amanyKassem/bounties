@@ -22,7 +22,7 @@ class SearchHome extends Component {
 
     componentWillMount() {
         const data  = { keyword : this.props.navigation.state.params.categorySearch , lang : this.props.lang };
-        this.props.searchHome(data , this.props.navigation.state.params.category_id);
+        this.props.searchHome(data , this.props.navigation.state.params.category_id , this.props.user.token);
 
     }
 
@@ -105,11 +105,12 @@ class SearchHome extends Component {
     }
 }
 
-const mapStateToProps = ({ lang, home, searchHome }) => {
+const mapStateToProps = ({ lang, home, searchHome , profile }) => {
     return {
         lang            : lang.lang,
         categories      : searchHome.categories,
-        loader          : home.loader
+        loader          : home.loader,
+        user: profile.user,
     };
 };
 export default connect(mapStateToProps, { searchHome })(SearchHome);

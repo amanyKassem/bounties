@@ -37,6 +37,11 @@ import addProduct from './AddProductReducer';
 import subCate from './SubCategoriesReducer';
 import deletProduct from './DeletProductReducer';
 import updateProduct from './UpdateProductsReducer';
+import bankAcoounts from './BankAcoountsReducer';
+import subscriptions from './SubscriptionsReducer';
+import productsPackages from './ProductsPackagesReducer';
+import bookPackage from './BookPackageReducer';
+import loginPackage from './LoginPackageReducer';
 
 export default combineReducers({
     lang,
@@ -77,5 +82,10 @@ export default combineReducers({
     deletProduct,
     updateProduct,
     categoryProducts,
+    bankAcoounts,
+    subscriptions,
+    productsPackages,
+    bookPackage,
+    loginPackage,
 });
 

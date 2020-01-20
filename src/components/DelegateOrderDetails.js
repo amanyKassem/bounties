@@ -9,7 +9,7 @@ import {
     FlatList,
     I18nManager,
     ScrollView,
-    Animated
+    Animated, ActivityIndicator
 } from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea} from 'native-base'
 import styles from '../../assets/style'
@@ -105,7 +105,7 @@ class DelegateOrderDetails extends Component {
         if (this.state.isSubmitted){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20  , marginTop: 20}]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }
@@ -129,7 +129,7 @@ class DelegateOrderDetails extends Component {
         if (this.state.isSubmitted){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center', alignSelf:'center' , marginVertical: 15 }]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }

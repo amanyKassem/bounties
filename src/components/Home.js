@@ -268,17 +268,17 @@ class Home extends Component {
                                     <Button  onPress={this.toggleModal} style={[styles.text_gray , {right:-7}]} transparent>
                                         <Image style={[styles.ionImage]} source={require('../../assets/images/filter.png')}/>
                                     </Button>
-                                    <Button onPress={() => this.props.navigation.navigate('notifications')} style={[styles.text_gray]} transparent>
+                                    <Button onPress={() => this.props.navigation.navigate(this.props.user?'notifications':'Login')} style={[styles.text_gray]} transparent>
                                         <Image style={[styles.ionImage]} source={require('../../assets/images/alarm.png')}/>
                                     </Button>
-                                    <Button  onPress={() => this.props.navigation.navigate('Basket')} style={[styles.bg_light_oran, styles.Radius_0, styles.iconHeader, styles.flexCenter]} transparent>
+                                    <Button  onPress={() => this.props.navigation.navigate(this.props.user?'Basket':'Login')} style={[styles.bg_light_oran, styles.Radius_0, styles.iconHeader, styles.flexCenter]} transparent>
                                         <Image style={[styles.ionImage]} source={require('../../assets/images/basket.png')}/>
                                     </Button>
                                 </Right>
                                 :
                                 <Right style={styles.rightIcon}>
                                     <Image style={[styles.smallLogo , styles.marginHorizontal_5]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
-                                    <Button  onPress={() => this.props.navigation.navigate('notifications')} style={[styles.bg_light_oran, styles.Radius_0, styles.iconHeader, styles.flexCenter]} transparent>
+                                    <Button  onPress={() => this.props.navigation.navigate(this.props.user?'notifications':'Login')} style={[styles.bg_light_oran, styles.Radius_0, styles.iconHeader, styles.flexCenter]} transparent>
                                         <Image style={[styles.ionImage]} source={require('../../assets/images/alarm.png')}/>
                                     </Button>
                                 </Right>

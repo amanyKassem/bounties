@@ -199,6 +199,13 @@ const ar = {
     'viewComments'            : 'مشاهدة التعليقات',
     'products'            : 'المنتجات',
     'payRequired'            : 'المبلغ المراد تسديده',
+    'specialProducts'            : 'المنتجات المميزة',
+    'subscriptionsPackages'            : 'باقات الاشتراك',
+    'packagePeriod'            : 'مدة الاشتراك',
+    'numOfSpecialProd'            : 'عدد المنتجات المميزة',
+    'subPrice'            : 'سعر الاشتراك',
+    'start_at'            : 'تاريخ الاشتراك',
+    'expire_date'            : 'ميعاد التجديد',
 };
 
 export default ar;

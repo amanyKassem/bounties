@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, ActivityIndicator} from "react-native";
 import {
     Container,
     Content,
@@ -21,7 +21,7 @@ import {connect} from "react-redux";
 import {NavigationEvents} from "react-navigation";
 import i18n from "../../locale/i18n";
 import * as Animatable from "react-native-animatable";
-import {getOrderStore} from '../actions'
+import {getOrderStore , bookPackage , bookLoginPackage} from '../actions'
 import COLORS from "../consts/colors";
 
 class FormPayment extends Component {
@@ -46,16 +46,15 @@ class FormPayment extends Component {
         if (this.state.isSubmitted){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' } , styles.marginVertical_15]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }
-
-        const isSubscription = this.props.navigation.state.params.routeName ==='subscription' ;
+        const isSubscription = this.props.navigation.state.params.routeName ==='subscription' || this.props.navigation.state.params.routeName ==='subscriptionsPackages' ;
 
         return (
             <TouchableOpacity
-                onPress={() =>isSubscription ? false : this.storeOrder()}
+                onPress={() =>isSubscription ? this.navigateScreen() : this.storeOrder()}
                 style={[styles.bg_darkBlue,
                     styles.width_150,
                     styles.flexCenter,
@@ -67,6 +66,22 @@ class FormPayment extends Component {
         );
     }
 
+    navigateScreen(){
+
+        if(this.props.navigation.state.params.routeName ==='subscriptionsPackages'){
+            this.setState({ isSubmitted: true });
+            this.props.bookPackage(this.props.lang, this.props.navigation.state.params.id , this.props.navigation.state.params.product_id , this.props.user.token  , this.props )
+
+        }
+        if(this.props.navigation.state.params.routeName ==='subscription'){
+            this.setState({ isSubmitted: true });
+            this.props.bookLoginPackage(this.props.lang, this.props.navigation.state.params.packageId , this.props.navigation.state.params.user_id  , this.props , this.props.user.token )
+
+        }
+
+        // this.props.navigation.navigate(this.props.navigation.state.params.routeName ==='subscription'?'drawerNavigator' : 'ConfirmPayment')
+    }
+
     storeOrder(){
         this.setState({ isSubmitted: true });
 
@@ -76,14 +91,17 @@ class FormPayment extends Component {
         const lat                     = this.props.navigation.state.params.latitude;
         const lng                     = this.props.navigation.state.params.longitude;
         const payment_type            = this.props.navigation.state.params.payment_type;
+        const deliverd_time           = this.props.navigation.state.params.deliverd_time;
+        const notes                   = this.props.navigation.state.params.notes;
+        const coupon_number           = this.props.navigation.state.params.coupon_number;
 
 
-        this.props.getOrderStore(this.props.lang, provider_id , payment_type , shipping_price.toString() , lat , lng , address , this.props.user.token  , this.props )
+        this.props.getOrderStore(this.props.lang, provider_id , payment_type , lat , lng , coupon_number , notes , deliverd_time , address , this.props.user.token  , this.props )
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ isSubmitted: false});
-        this.props.navigation.navigate(nextProps.navigation.state.params.routeName ==='subscription'?'drawerNavigator' : 'ConfirmPayment')
+        // this.props.navigation.navigate(nextProps.navigation.state.params.routeName ==='subscription' || nextProps.navigation.state.params.routeName ==='subscriptionsPackages'?'drawerNavigator' : 'ConfirmPayment')
 
     }
 
@@ -280,4 +298,4 @@ const mapStateToProps = ({lang , profile}) => {
         user: profile.user,
     };
 };
-export default connect(mapStateToProps, {getOrderStore})(FormPayment);
+export default connect(mapStateToProps, {getOrderStore , bookPackage , bookLoginPackage})(FormPayment);

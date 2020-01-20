@@ -161,7 +161,7 @@ class Basket extends Component {
 																	type="Feather"
 																	name='map-pin'/>
 																<Text
-																	style={[styles.textRegular, styles.text_gray, styles.marginHorizontal_5]}>{cart.address}</Text>
+																	style={[styles.textRegular, styles.text_gray, styles.marginHorizontal_5]}>{cart.address.substr(0,20)}...</Text>
 															</View>
 														</View>
 													</View>

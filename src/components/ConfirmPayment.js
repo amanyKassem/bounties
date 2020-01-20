@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, ActivityIndicator} from "react-native";
 import {Container, Content, Header, Button, Left, Icon, Body, Title, Right,} from 'native-base'
 import styles from '../../assets/style'
 import { DoubleBounce } from 'react-native-loader';
@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {NavigationEvents} from "react-navigation";
 import i18n from "../../locale/i18n";
 import * as Animatable from "react-native-animatable";
+import COLORS from "../consts/colors";
 
 class ConfirmPayment extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ class ConfirmPayment extends Component {
         if (this.props.loader){
             return(
                 <View style={[styles.loading, styles.flexCenter]}>
-                    <DoubleBounce size={20} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }

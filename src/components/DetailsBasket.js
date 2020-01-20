@@ -1,5 +1,14 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, FlatList, Platform} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ImageBackground,
+    FlatList,
+    Platform,
+    KeyboardAvoidingView
+} from "react-native";
 import {Container, Content, Header, Button, Left, Icon, Body, Title, Right, Textarea} from 'native-base'
 import styles from '../../assets/style'
 import {DoubleBounce} from 'react-native-loader';
@@ -25,6 +34,7 @@ class DetailsBasket extends Component {
             count: 1,
             totalPrice: 0,
             deliveryTime: '',
+            otherNotes: '',
         }
     }
 
@@ -158,36 +168,38 @@ class DetailsBasket extends Component {
                                         </Text>
                                         <Text style={[styles.textBold, styles.text_White, styles.textSize_14]}>{Number(this.state.totalPrice) + Number(this.props.cartProducts.prices.shipping_price)} {i18n.t('RS')}</Text>
                                     </View>
+                                    <KeyboardAvoidingView behavior={'padding'} >
+                                        <Textarea placeholder={i18n.t('deliveryTime')}
+                                                  placeholderTextColor={COLORS.bold_gray} autoCapitalize='none'
+                                                  value={this.state.deliveryTime} onChangeText={(deliveryTime) => this.setState({deliveryTime})}
+                                                  style={[styles.textarea, styles.textRegular, styles.Width_90, styles.overHidden, styles.bg_White,
+                                                      styles.Border, styles.paddingHorizontal_7, styles.paddingVertical_7 , styles.SelfCenter , {height:40}]}/>
 
-                                    <Textarea placeholder={i18n.t('deliveryTime')}
-                                              placeholderTextColor={COLORS.bold_gray} autoCapitalize='none'
-                                              value={this.state.reason} onChangeText={(deliveryTime) => this.setState({deliveryTime})}
-                                              style={[styles.textarea, styles.textRegular, styles.Width_90, styles.overHidden, styles.bg_White,
-                                                  styles.Border, styles.paddingHorizontal_7, styles.paddingVertical_7 , styles.SelfCenter , {height:40}]}/>
-
-                                    <Textarea placeholder={i18n.t('otherNotes')}
-                                              placeholderTextColor={COLORS.bold_gray} autoCapitalize='none'
-                                              value={this.state.reason} onChangeText={(deliveryTime) => this.setState({deliveryTime})}
-                                              style={[styles.textarea, styles.textRegular, styles.Width_90, styles.overHidden, styles.bg_White,
-                                                  styles.Border, styles.paddingHorizontal_7, styles.paddingVertical_7 , styles.SelfCenter , styles.marginVertical_15]}/>
-
-                                    <TouchableOpacity
-                                        style={[
-                                            styles.bg_darkBlue,
-                                            styles.width_150,
-                                            styles.flexCenter,
-                                            styles.marginVertical_15,
-                                            styles.height_40
-                                        ]}
-                                        onPress={() => this.props.navigation.navigate('MapLocation', {
-                                            pageName: this.props.navigation.state.routeName,
-                                            provider_id: this.props.navigation.state.params.provider_id,
-                                            shipping_price: this.props.cartProducts.prices.shipping_price
-                                        })}>
-                                        <Text style={[styles.textBold, styles.textSize_16, styles.text_White]}>
-                                            {i18n.translate('confirm')}
-                                        </Text>
-                                    </TouchableOpacity>
+                                        <Textarea placeholder={i18n.t('otherNotes')}
+                                                  placeholderTextColor={COLORS.bold_gray} autoCapitalize='none'
+                                                  value={this.state.otherNotes} onChangeText={(otherNotes) => this.setState({otherNotes})}
+                                                  style={[styles.textarea, styles.textRegular, styles.Width_90, styles.overHidden, styles.bg_White,
+                                                      styles.Border, styles.paddingHorizontal_7, styles.paddingVertical_7 , styles.SelfCenter , styles.marginVertical_15]}/>
+                                        <TouchableOpacity
+                                            style={[
+                                                styles.bg_darkBlue,
+                                                styles.width_150,
+                                                styles.flexCenter,
+                                                styles.marginVertical_15,
+                                                styles.height_40
+                                            ]}
+                                            onPress={() => this.props.navigation.navigate('MapLocation', {
+                                                pageName: this.props.navigation.state.routeName,
+                                                provider_id: this.props.navigation.state.params.provider_id,
+                                                shipping_price: this.props.cartProducts.prices.shipping_price,
+                                                deliverd_time: this.state.deliveryTime,
+                                                notes: this.state.otherNotes,
+                                            })}>
+                                            <Text style={[styles.textBold, styles.textSize_16, styles.text_White]}>
+                                                {i18n.translate('confirm')}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </KeyboardAvoidingView>
                                 </View> :
                                 <View/>
                         }

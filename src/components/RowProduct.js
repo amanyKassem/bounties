@@ -35,7 +35,7 @@ class RowProduct extends Component {
         return (
             <TouchableOpacity
                 style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
-                onPress     = {() => this.props.navigation.navigate('product', { id : this.props.item.id })}
+                onPress     = {() => this.props.navigation.navigate(this.props.user?'product':'Login', { id : this.props.item.id })}
             >
                 <View style={[styles.lightOverlay, styles.Border]} />
                 <View style={[styles.rowGroup, styles.bg_White, styles.Border, styles.paddingVertical_10, styles.paddingHorizontal_10]}>
@@ -51,11 +51,17 @@ class RowProduct extends Component {
                             <Text style={[styles.textRegular, styles.text_darkblue]}>
                                 { this.props.item.name }
                             </Text>
-                            <TouchableOpacity onPress = {() => this.toggleFavorite(this.props.item.id)}>
-                                <Text>
-                                    <Icon style={[styles.text_red, styles.textSize_18]} type="AntDesign" name={this.state.isFav ? 'heart' : 'hearto'} />
-                                </Text>
-                            </TouchableOpacity>
+                            {
+                                this.props.user?
+                                    <TouchableOpacity onPress = {() => this.toggleFavorite(this.props.item.id)}>
+                                        <Text>
+                                            <Icon style={[styles.text_red, styles.textSize_18]} type="AntDesign" name={this.state.isFav ? 'heart' : 'hearto'} />
+                                        </Text>
+                                    </TouchableOpacity>
+                                    :
+                                    null
+                            }
+
                         </View>
 
                         <View style={[styles.overHidden]}>

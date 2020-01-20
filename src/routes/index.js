@@ -52,6 +52,8 @@ import ProviderSubscriptions from "../components/ProviderSubscriptions";
 import BankAccounts from "../components/BankAccounts";
 import AddBankAcc from "../components/AddBankAcc";
 import Products from "../components/Products";
+import SubscriptionsPackages from "../components/SubscriptionsPackages";
+import EditBankAcc from "../components/EditBankAcc";
 
 
 const drawerCust = (props) => (<DrawerCustomization {...props} />);
@@ -303,6 +305,18 @@ const appStack =  createStackNavigator({
     },
     products: {
         screen: Products,
+        navigationOptions: {
+            header: null
+        }
+    },
+    subscriptionsPackages: {
+        screen: SubscriptionsPackages,
+        navigationOptions: {
+            header: null
+        }
+    },
+    editBankAcc: {
+        screen: EditBankAcc,
         navigationOptions: {
             header: null
         }

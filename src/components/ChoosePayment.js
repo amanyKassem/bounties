@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, ActivityIndicator} from "react-native";
 import {Container, Content, Header, Button, Left, Icon, Body, Title, Right} from 'native-base'
 import styles from '../../assets/style'
 import { DoubleBounce } from 'react-native-loader';
 import {connect} from "react-redux";
 import {NavigationEvents} from "react-navigation";
 import i18n from "../../locale/i18n";
+import COLORS from "../consts/colors";
 
 class ChoosePayment extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ class ChoosePayment extends Component {
         if (this.props.loader){
             return(
                 <View style={[styles.loading, styles.flexCenter]}>
-                    <DoubleBounce size={20} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
@@ -35,8 +36,8 @@ class ChoosePayment extends Component {
     }
     render() {
 
-        alert("provider_id"+this.props.navigation.state.params.provider_id + "shipping_price"+this.props.navigation.state.params.shipping_price +
-            " cccccc " +this.props.navigation.state.params.address + this.props.navigation.state.params.latitude + this.props.navigation.state.params.longitude)
+        // alert("provider_id"+this.props.navigation.state.params.provider_id + "shipping_price"+this.props.navigation.state.params.shipping_price +
+        //     " cccccc " +this.props.navigation.state.params.address + this.props.navigation.state.params.latitude + this.props.navigation.state.params.longitude)
 
 
         return (
@@ -70,6 +71,13 @@ class ChoosePayment extends Component {
                                 address                 : this.props.navigation.state.params.address,
                                 lat                     : this.props.navigation.state.params.latitude,
                                 lng                     : this.props.navigation.state.params.longitude,
+                                deliverd_time           : this.props.navigation.state.params.deliverd_time,
+                                notes                   : this.props.navigation.state.params.notes,
+                                coupon_number                   : this.props.navigation.state.params.coupon_number,
+                                product_id                   : this.props.navigation.state.params.product_id,
+                                id                   : this.props.navigation.state.params.id,
+                                user_id                   : this.props.navigation.state.params.user_id,
+                                packageId                   : this.props.navigation.state.params.packageId,
                                 payment_type            : 0,
                             })} style={[styles.bg_White , styles.Border, styles.Width_100, styles.flexCenter, styles.Radius_5, styles.height_120, styles.marginVertical_10]}>
                                 <Image

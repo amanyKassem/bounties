@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground,KeyboardAvoidingView} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground,KeyboardAvoidingView , ActivityIndicator} from "react-native";
 import {Container, Content, Form, Item, Input, Toast, Icon} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -94,7 +94,7 @@ class ActivationCode extends Component {
         if (this.state.spinner){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' , marginBottom:20 }]}>
-                    <DoubleBounce size={20} color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             )
         }

@@ -131,7 +131,7 @@ class FilterCategory extends Component {
 
             <View>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('provider', {id: item.id, name: item.name})}
+                    onPress={() => this.props.navigation.navigate(this.props.user?'provider':'Login', {id: item.id, name: item.name})}
                     style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
                     key={key}
                 >
@@ -470,12 +470,13 @@ class FilterCategory extends Component {
     }
 }
 
-const mapStateToProps = ({lang, categoryProvider, SearchProvider, cities}) => {
+const mapStateToProps = ({lang, categoryProvider, SearchProvider, cities , profile}) => {
     return {
         lang: lang.lang,
         providers: categoryProvider.categoryProviders,
         search: SearchProvider.searchProviders,
         citys: cities.cities,
+        user                : profile.user,
     };
 };
 export default connect(mapStateToProps, {

@@ -5,7 +5,7 @@ import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import {connect} from "react-redux";
 import {DoubleBounce} from "react-native-loader";
-import { getTerms } from '../actions'
+import { getAddProductTerms } from '../actions'
 import * as Animatable from 'react-native-animatable';
 
 class AddProductTerms extends Component {
@@ -19,18 +19,10 @@ class AddProductTerms extends Component {
 
 
     componentWillMount() {
-        this.props.getTerms( this.props.lang )
+        this.props.getAddProductTerms( this.props.lang , this.props.auth.data.token )
     }
 
-    renderLoader(){
-        if (this.props.loader){
-            return(
-                <View style={[styles.loading, styles.flexCenter]}>
-                    <DoubleBounce size={20} />
-                </View>
-            );
-        }
-    }
+
 
     static navigationOptions = () => ({
         header      : null,
@@ -42,7 +34,7 @@ class AddProductTerms extends Component {
 
         return (
             <Container>
-                { this.renderLoader() }
+                {/*{ this.renderLoader() }*/}
                 <Header style={styles.headerView}>
                     <Left style={styles.leftIcon}>
                         <Button style={styles.Button} transparent onPress={() => this.props.navigation.goBack()}>
@@ -97,11 +89,12 @@ class AddProductTerms extends Component {
     }
 }
 
-const mapStateToProps = ({ lang, terms }) => {
+const mapStateToProps = ({ lang,profile, terms , auth}) => {
     return {
         lang        : lang.lang,
-        Terms       : terms.Terms,
-        loader      : terms.loader
+        ProductTerms       : terms.ProductTerms,
+        user: profile.user,
+        auth: auth.user,
     };
 };
-export default connect(mapStateToProps, { getTerms })(AddProductTerms);
+export default connect(mapStateToProps, { getAddProductTerms })(AddProductTerms);

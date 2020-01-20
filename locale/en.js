@@ -183,6 +183,8 @@ const en = {
     'deliverTime'            : 'Deliver time',
     'productQuantity'            : 'Product quantity',
     'availTime'            : 'Available times and delivery locations',
+    'deliverUSAa'            : 'Full delivery to Saudi Arabia',
+    'deliver24'            : 'Delivery of the order within 24 hours',
     'add'            : 'Add',
     'addConfirm'            : 'The content of the product has been sent to the administration, and while the product matches the conditions of application, it will be approved for upload and the customer can view it',
     'subscriptions'            : 'Subscriptions',
@@ -194,6 +196,13 @@ const en = {
     'viewComments'            : 'View comments',
     'products'            : 'Products',
     'payRequired'            : 'The amount to be paid',
+    'specialProducts'            : 'Special orders',
+    'subscriptionsPackages'            : 'Subscriptions packages',
+    'packagePeriod'            : 'Package period',
+    'numOfSpecialProd'            : 'Number of special products',
+    'subPrice'            : 'Subscription price',
+    'start_at'            : 'Subscription date',
+    'expire_date'            : 'Renewal date',
 
 };
 

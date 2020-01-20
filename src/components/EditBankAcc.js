@@ -21,16 +21,16 @@ import {connect} from "react-redux";
 import {NavigationEvents} from "react-navigation";
 import i18n from "../../locale/i18n";
 import * as Animatable from "react-native-animatable";
-import {addBankAcoounts} from '../actions'
+import {editBankAcoounts} from '../actions'
 import COLORS from "../consts/colors";
 
-class AddBankAcc extends Component {
+class EditBankAcc extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            bankName: '',
-            bankNum: '',
+            bankName: this.props.navigation.state.params.bankName,
+            bankNum: this.props.navigation.state.params.bankNum,
             bankNameStatus: 0,
             bankNumStatus: 0,
             isSubmitted: false,
@@ -78,7 +78,7 @@ class AddBankAcc extends Component {
 
     onAddBank(){
         this.setState({ isSubmitted: true });
-        this.props.addBankAcoounts(this.state.bankName , this.state.bankNum , this.props,  this.props.lang , this.props.user.token );
+        this.props.editBankAcoounts( this.props.navigation.state.params.id , this.state.bankName , this.state.bankNum , this.props,  this.props.lang , this.props.user.token );
     }
     componentWillReceiveProps(nextProps) {
         this.setState({ isSubmitted: false});
@@ -167,6 +167,7 @@ class AddBankAcc extends Component {
                                             onChangeText={(bankName) => this.setState({bankName})}
                                             onBlur={() => this.unActiveInput('bankName')}
                                             onFocus={() => this.activeInput('bankName')}
+                                            value={this.state.bankName}
                                         />
                                     </Item>
                                 </View>
@@ -181,6 +182,7 @@ class AddBankAcc extends Component {
                                             onChangeText={(bankNum) => this.setState({bankNum})}
                                             onBlur={() => this.unActiveInput('bankNum')}
                                             onFocus={() => this.activeInput('bankNum')}
+                                            value={this.state.bankNum}
                                         />
                                     </Item>
                                 </View>
@@ -206,4 +208,4 @@ const mapStateToProps = ({lang , profile}) => {
         user: profile.user,
     };
 };
-export default connect(mapStateToProps, {addBankAcoounts})(AddBankAcc);
+export default connect(mapStateToProps, {editBankAcoounts})(EditBankAcc);

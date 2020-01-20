@@ -15,17 +15,13 @@ import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import {connect} from "react-redux";
 import COLORS from '../../src/consts/colors'
-import { getNotifications , deleteNotifications } from '../actions'
+import { getBankAcoounts , deleteBankAcoounts } from '../actions'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import {NavigationEvents} from "react-navigation";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const bankAcc = [
-    {name:'الراجحي' , num:'000000' , image :require('../../assets/images/bank.png')},
-    {name:'الراجحي' , num:'000000' , image :require('../../assets/images/bank.png')},
-    {name:'الراجحي' , num:'000000' , image :require('../../assets/images/bank.png')},
-];
 
 class BankAccounts extends Component {
     constructor(props){
@@ -37,8 +33,7 @@ class BankAccounts extends Component {
             activeType          : 0,
             isFav               : false,
             refreshed           : false,
-            loader: true,
-            bankAcc,
+            loader              : true,
         }
     }
 
@@ -51,8 +46,8 @@ class BankAccounts extends Component {
 
 
     componentWillMount() {
-        // this.setState({loader: true});
-        // setTimeout(() => this.props.getNotifications( this.props.lang , this.props.user.token ), 2000)
+        this.setState({loader: true});
+        setTimeout(() => this.props.getBankAcoounts( this.props.lang , this.props.user.token ), 2000)
 
     }
 
@@ -60,6 +55,9 @@ class BankAccounts extends Component {
         this.setState({loader: false});
     }
 
+    deleteBank(bankId){
+        this.props.deleteBankAcoounts( this.props.lang , bankId , this.props.user.token )
+    }
 
     _keyExtractor = (item, index) => item.id;
 
@@ -76,20 +74,24 @@ class BankAccounts extends Component {
                     {/*</View>*/}
                     <View style={[styles.flex_100]}>
 
-                        <TouchableOpacity style={{width:20 , height:20 , position:'absolute' , right:0 , top:-15 }}>
+                        <TouchableOpacity
+                            onPress         = {() => this.props.navigation.navigate('editBankAcc' , {id:item.item.id , bankName:item.item.bank_name , bankNum:item.item.account_number})}
+                            style={{width:20 , height:20 , position:'absolute' , right:0 , top:-15 }}>
                             <Image style={{width:'100%' , height:'100%' }} source={require('../../assets/images/edit.png')} resizeMode={'contain'}/>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{width:20 , height:20 , position:'absolute' , right:0 , bottom:-15 }}>
+                        <TouchableOpacity
+                            onPress         = {() => this.deleteBank(item.item.id)}
+                            style={{width:20 , height:20 , position:'absolute' , right:0 , bottom:-15 }}>
                             <Image style={{width:'100%' , height:'100%' }} source={require('../../assets/images/trash.png')} resizeMode={'contain'}/>
                         </TouchableOpacity>
 
                         <View style={[styles.overHidden]}>
                             <Text style={[styles.text_White, styles.textSize_13, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                {i18n.t('bankName')} : {item.item.name}
+                                {i18n.t('bankName')} : {item.item.bank_name}
                             </Text>
                             <Text style={[styles.text_White, styles.textSize_13, styles.textRegular,styles.textLeft, styles.paddingHorizontal_5]}>
-                                {i18n.t('bankNum')} : {item.item.num}
+                                {i18n.t('bankNum')} : {item.item.account_number}
                             </Text>
                         </View>
                     </View>
@@ -99,7 +101,7 @@ class BankAccounts extends Component {
     }
 
     renderNoData(){
-        if (this.props.notifications && (this.props.notifications).length <= 0){
+        if (this.props.bankAcoounts && (this.props.bankAcoounts).length <= 0){
             return(
                 <View style={[styles.directionColumnCenter , {height:'95%'}]}>
                     <Image source={require('../../assets/images/no-data.png')} resizeMode={'contain'} style={{ alignSelf: 'center', width: 200, height: 200 }} />
@@ -178,22 +180,23 @@ class BankAccounts extends Component {
                 </Header>
                 <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
+                        <NavigationEvents onWillFocus={() => this.onFocus()}/>
                         <View style={[styles.paddingHorizontal_10]}>
                             {
-                                // this.state.loader ?
-                                //     this._renderRows(this.loadingAnimated, 5, '5rows') :
+                                this.state.loader ?
+                                    this._renderRows(this.loadingAnimated, 5, '5rows') :
                                     <View>
                                         {/*{ this.renderNoData() }*/}
-                                        {/*{*/}
-                                        {/*    this.props.notifications?*/}
+                                        {
+                                            this.props.bankAcoounts?
                                                 <FlatList
-                                                    data={this.state.bankAcc}
+                                                    data={this.props.bankAcoounts}
                                                     renderItem={(item) => this.renderItems(item)}
                                                     numColumns={1}
                                                     keyExtractor={this._keyExtractor}
                                                 />
-                                        {/*        :<View/>*/}
-                                        {/*}*/}
+                                                :<View/>
+                                        }
                                         <TouchableOpacity
                                             style={[
                                                 styles.bg_darkBlue,
@@ -219,10 +222,11 @@ class BankAccounts extends Component {
 }
 
 
-const mapStateToProps = ({ lang  , profile}) => {
+const mapStateToProps = ({ lang , bankAcoounts , profile}) => {
     return {
         lang                    : lang.lang,
         user                    : profile.user,
+        bankAcoounts           : bankAcoounts.bankAcoounts,
     };
 };
-export default connect(mapStateToProps, {})(BankAccounts);
+export default connect(mapStateToProps, {getBankAcoounts , deleteBankAcoounts})(BankAccounts);
