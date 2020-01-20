@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager} from "react-native";
 import {Container, Content, Form, Item, Input, Toast, Icon, Button} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -74,14 +74,14 @@ class ForgetPassword extends Component {
                 <Spinner
                     visible={this.state.spinner}
                 />
-                <ImageBackground source={require('../../assets/images/background.png')}
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')}
                                  style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth}>
                         <View
                             style={[styles.position_R, styles.bgFullWidth, styles.marginVertical_15, styles.SelfCenter, styles.Width_100]}>
 
                             <Button style={styles.Button} transparent onPress={() => this.props.navigation.navigate('Login')}>
-                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name='right' />
+                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name={I18nManager.isRTL ?'right' :'left'} />
                             </Button>
 
                             <Animatable.View animation="fadeInDown" easing="ease-out" delay={500}

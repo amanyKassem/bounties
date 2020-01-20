@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground , TouchableOpacity , KeyboardAvoidingView } from "react-native";
+import {View, Text, Image, ImageBackground , TouchableOpacity , KeyboardAvoidingView , I18nManager} from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Form, Item, Input, Right,Textarea} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -134,7 +134,7 @@ class EditShop extends Component {
                         </Button>
                     </Right>
                 </Header>
-                <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
 
 

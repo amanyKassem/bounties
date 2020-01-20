@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, Linking, FlatList, Platform, ScrollView, Dimensions} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, Linking, FlatList, Platform, ScrollView, Dimensions, I18nManager} from "react-native";
 import {
     Container,
     Content,
@@ -284,7 +284,7 @@ class Home extends Component {
                                 </Right>
                         }
                 </Header>
-                <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                 <Content  contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
                         {
                             this.props.user == null || this.props.user.type !== 'delegate' ?

@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground,KeyboardAvoidingView , ActivityIndicator} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ImageBackground,
+    KeyboardAvoidingView,
+    ActivityIndicator,
+    I18nManager
+} from "react-native";
 import {Container, Content, Form, Item, Input, Toast, Icon} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -199,7 +208,7 @@ class ActivationCode extends Component {
 
                 <NavigationEvents onWillFocus={() => this.onFocus()} />
 
-                <ImageBackground source={require('../../assets/images/background.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth}>
                         <View style={[styles.position_R, styles.bgFullWidth, styles.marginVertical_15, styles.SelfCenter, styles.Width_100]}>
                             <Animatable.View animation="fadeInDown" easing="ease-out" delay={500} style={[styles.flexCenter]}>

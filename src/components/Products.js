@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, Platform, FlatList, Animated , Dimensions} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, Platform, FlatList, Animated , Dimensions, I18nManager} from "react-native";
 import {
     Container,
     Content,
@@ -220,7 +220,7 @@ class Products extends Component {
                         <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                     </Right>
                 </Header>
-                <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
 
                         <View style={[styles.position_R, styles.Width_60, styles.SelfRight]}>

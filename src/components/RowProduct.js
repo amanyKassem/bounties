@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground  , FlatList, Platform} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground  , FlatList, Platform, I18nManager} from "react-native";
 import { Icon } from 'native-base'
 import styles from '../../assets/style'
 import {connect} from "react-redux";

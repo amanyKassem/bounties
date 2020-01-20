@@ -1,5 +1,15 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, AsyncStorage, KeyboardAvoidingView , Dimensions} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ImageBackground,
+    AsyncStorage,
+    KeyboardAvoidingView,
+    Dimensions,
+    I18nManager
+} from "react-native";
 import {Container, Content, Form, Item, Input, Button, Toast, Icon,} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -34,7 +44,7 @@ class SelectUser extends Component {
         return (
 
             <Container>
-                <ImageBackground source={require('../../assets/images/background.png')}
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')}
                                  style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth}>
                         <View

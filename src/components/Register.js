@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager} from "react-native";
 import {Container, Content, Form, Item, Input, Toast, CheckBox, Picker, Icon, Button} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -298,7 +298,7 @@ class Register extends Component {
                     visible={this.state.spinner}
                 />
 
-                <ImageBackground source={require('../../assets/images/background.png')}
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')}
                                  style={[styles.bgFullWidth]}>
                 <NavigationEvents onWillFocus={() => this.onFocus()}/>
 
@@ -308,7 +308,7 @@ class Register extends Component {
 
 
                             <Button style={styles.Button} transparent onPress={() => this.props.navigation.navigate('selectUser')}>
-                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name='right' />
+                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name={I18nManager.isRTL ?'right' :'left'} />
                             </Button>
 
 

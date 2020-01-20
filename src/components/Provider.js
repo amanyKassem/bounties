@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground, ScrollView, TouchableOpacity, FlatList, Platform, Animated,Dimensions} from "react-native";
+import {View, Text, Image, ImageBackground, ScrollView, TouchableOpacity, FlatList, Platform, Animated,Dimensions, I18nManager} from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Right, Textarea} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -92,7 +92,7 @@ class Provider extends Component {
                         <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                     </Right>
                 </Header>
-                <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
                         {
                             provider_info?

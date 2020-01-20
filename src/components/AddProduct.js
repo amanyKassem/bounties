@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground , TouchableOpacity , KeyboardAvoidingView, ImageEditor, ImageStore, FlatList } from "react-native";
+import {View, Text, Image, ImageBackground , TouchableOpacity , KeyboardAvoidingView, ImageEditor, ImageStore, FlatList, I18nManager } from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Form, Item, Input, Textarea, Picker, Toast} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import {profile , addProduct, subCate , updateProduct, deleteProductImage} from '../actions';
 import {NavigationEvents} from "react-navigation";
 import Spinner from "react-native-loading-spinner-overlay";
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 import COLORS from "../consts/colors";
 import {ImageBrowser,CameraBrowser} from 'expo-multiple-imagepicker';
@@ -155,8 +157,8 @@ class AddProduct extends Component {
         let index = this.state.photos.indexOf(item);
         let photos = this.state.photos;
         photos.splice(index, 1);
+        base64.splice(index, 1);
         this.setState({ photos, refreshed: !this.state.refreshed, imageId: null })
-        this.props.deleteProductImage(this.props.lang, this.props.user.token , item.id);
     }
 
 
@@ -173,24 +175,18 @@ class AddProduct extends Component {
             for (var i =0; i < imgs.length; i++){
                 const imageURL = imgs[i].file;
                 Image.getSize(imageURL, (width, height) => {
-                    var imageSize = {
-                        size: {
+                    var imageSize = [{
+                        resize: {
                             width,
                             height
-                        },
-                        offset: {
-                            x: 0,
-                            y: 0,
-                        },
-                    };
+                        }
+                    }];
 
-                    ImageEditor.cropImage(imageURL, imageSize, (imageURI) => {
-                        console.log(imageURI);
-                        ImageStore.getBase64ForTag(imageURI, (base64Data) => {
-                            base64.push(base64Data);
-                            ImageStore.removeImageForTag(imageURI);
-                        }, (reason) => console.log(reason) )
-                    }, (reason) => console.log(reason) )
+                    console.log('imgURI', imageURL);
+                    ImageManipulator.manipulateAsync(imageURL, imageSize, { format: 'png', base64: true }).then(res => {
+                       base64.push(res.base64);
+                       console.log('res____', res)
+                   });
                 }, (reason) => console.log(reason))
             }
         }).catch((e) => console.log(e))
@@ -246,7 +242,7 @@ class AddProduct extends Component {
                         </Title>
                     </Body>
                 </Header>
-                <ImageBackground source={require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
 
                         <View style={[styles.rowGroup, styles.marginVertical_10]}>

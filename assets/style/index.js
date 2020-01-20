@@ -1241,6 +1241,9 @@ const styles = ({
         borderWidth:1,
         borderColor:'#fff'
     },
+    transform:{
+        transform: I18nManager.isRTL ? [{rotateY : '0deg'}] : [{rotateY : '-180deg'}]
+    },
 });
 
 export default styles;

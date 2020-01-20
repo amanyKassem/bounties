@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, I18nManager} from "react-native";
 import {Container, Content, Icon} from 'native-base'
 import styles from '../../assets/style';
 import {connect} from "react-redux";

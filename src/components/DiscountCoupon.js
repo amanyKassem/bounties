@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground,KeyboardAvoidingView, ActivityIndicator} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ImageBackground,
+    KeyboardAvoidingView,
+    ActivityIndicator,
+    I18nManager
+} from "react-native";
 import {Container, Content, Form, Item, Input, Toast, Icon, Left, Button, Body, Title, Right, Header} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -154,7 +163,7 @@ class DiscountCoupon extends Component {
                         <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                     </Right>
                 </Header>
-                <ImageBackground source={require('../../assets/images/background.png')} style={[styles.bgFullWidth]}>
+                <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth}>
                         <View style={[styles.position_R, styles.bgFullWidth, styles.marginVertical_15, styles.SelfCenter, styles.Width_100]}>
                             <Text
