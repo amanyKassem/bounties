@@ -25,11 +25,9 @@ export default class App extends React.Component {
     this.state = {
       isReady: false,
     };
-
   }
 
   async componentDidMount() {
-
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('orders', {
         name: 'Chat messages',
@@ -51,38 +49,6 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
 
     // AsyncStorage.clear();
-
-  }
-
-  //
-  // handleNotification = (notification) => {
-  //   if (notification && notification.origin !== 'received') {
-  //     this.props.navigation.navigate('notifications');
-  //   }
-  // }
-
-
-  async componentWillMount() {
-
-    const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-    );
-
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-
-    if (finalStatus !== 'granted') {
-      return;
-    }
-
-    const deviceId = await Notifications.getExpoPushTokenAsync();
-    console.log('deviceIddeviceId' , deviceId)
-
-    AsyncStorage.setItem('deviceID', deviceId);
 
   }
 

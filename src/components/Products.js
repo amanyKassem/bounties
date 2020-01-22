@@ -66,7 +66,8 @@ class Products extends Component {
 
         this.setState({loader: true});
         // setTimeout(() => this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id), 2000);
-        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id , this.props.user.token);
+        const token = this.props.user ? this.props.user.token : null;
+        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id , token);
 
         this.props.getCities(this.props.lang);
 
@@ -461,7 +462,4 @@ const mapStateToProps = ({lang, categoryProducts, cities , profile}) => {
         user: profile.user,
     };
 };
-export default connect(mapStateToProps, {
-    categoryProducts,
-    getCities
-})(Products);
+export default connect(mapStateToProps, { categoryProducts, getCities })(Products);

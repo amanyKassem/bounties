@@ -31,9 +31,6 @@ import EditShop                 from "../components/EditShop";
 import AddProduct               from "../components/AddProduct";
 import SearchHome               from "../components/SearchHome";
 import DrawerCustomization      from "./DrawerCustomization";
-
-//// amaaaany
-
 import Provider                 from "../components/Provider";
 import Product                  from "../components/Product";
 import Notifications            from "../components/Notifications";
@@ -42,18 +39,18 @@ import OrderDetails             from "../components/OrderDetails";
 import EditProfile              from "../components/EditProfile";
 import DelegateOrderDetails     from "../components/DelegateOrderDetails";
 import Confirmation             from "../components/Confirmation";
-import UpdateProduct from "../components/UpdateProduct";
-import SelectUser from "../components/SelectUser";
-import AddProductTerms from "../components/AddProductTerms";
-import Subscription from "../components/Subscription";
-import DiscountCoupon from "../components/DiscountCoupon";
-import AddProductConferm from "../components/AddProductConferm";
-import ProviderSubscriptions from "../components/ProviderSubscriptions";
-import BankAccounts from "../components/BankAccounts";
-import AddBankAcc from "../components/AddBankAcc";
-import Products from "../components/Products";
-import SubscriptionsPackages from "../components/SubscriptionsPackages";
-import EditBankAcc from "../components/EditBankAcc";
+import UpdateProduct            from "../components/UpdateProduct";
+import SelectUser               from "../components/SelectUser";
+import AddProductTerms          from "../components/AddProductTerms";
+import Subscription             from "../components/Subscription";
+import DiscountCoupon           from "../components/DiscountCoupon";
+import AddProductConferm        from "../components/AddProductConferm";
+import ProviderSubscriptions    from "../components/ProviderSubscriptions";
+import BankAccounts             from "../components/BankAccounts";
+import AddBankAcc               from "../components/AddBankAcc";
+import Products                 from "../components/Products";
+import SubscriptionsPackages    from "../components/SubscriptionsPackages";
+import EditBankAcc              from "../components/EditBankAcc";
 
 
 const drawerCust = (props) => (<DrawerCustomization {...props} />);
@@ -85,8 +82,6 @@ const drawerNavigator = createDrawerNavigator({
 
 
 const appStack =  createStackNavigator({
-
-    // Sh3wza
 
     drawerNavigator: {
         screen: drawerNavigator,
@@ -208,11 +203,6 @@ const appStack =  createStackNavigator({
             header: null
         }
     },
-
-
-
-
-    /// Amaany
     delegateOrderDetails: {
         screen: DelegateOrderDetails,
         navigationOptions: {
@@ -325,68 +315,68 @@ const appStack =  createStackNavigator({
 });
 
 const authStack = createStackNavigator({
-    selectUser: {
-            screen: SelectUser,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Login: {
-            screen: Login,
-            navigationOptions: {
-                header: null
-            }
-        },
-        ForgetPassword: {
-            screen: ForgetPassword,
-            navigationOptions: {
-                header: null
-            }
-        },
-        NewPassword: {
-            screen: NewPassword,
-            navigationOptions: {
-                header: null
-            }
-        },
-        ActivationCode: {
-            screen: ActivationCode,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Register: {
-            screen: Register,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Terms: {
-            screen: Terms,
-            navigationOptions: {
-                header: null
-            }
-        },
-        MapLocation : {
-            screen: MapLocation,
-            navigationOptions: {
-                header: null
-            }
-        },
+		selectUser: {
+			screen: SelectUser,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Login: {
+			screen: Login,
+			navigationOptions: {
+				header: null
+			}
+		},
+		ForgetPassword: {
+			screen: ForgetPassword,
+			navigationOptions: {
+				header: null
+			}
+		},
+		NewPassword: {
+			screen: NewPassword,
+			navigationOptions: {
+				header: null
+			}
+		},
+		ActivationCode: {
+			screen: ActivationCode,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Register: {
+			screen: Register,
+			navigationOptions: {
+				header: null
+			}
+		},
+		Terms: {
+			screen: Terms,
+			navigationOptions: {
+				header: null
+			}
+		},
+		MapLocation: {
+			screen: MapLocation,
+			navigationOptions: {
+				header: null
+			}
+		},
 
-    addProductTerms: {
-        screen: AddProductTerms,
-        navigationOptions: {
-            header: null
-        }
-    },
-    subscription: {
-        screen: Subscription,
-        navigationOptions: {
-            header: null
-        }
-    },
-    }
+		addProductTerms: {
+			screen: AddProductTerms,
+			navigationOptions: {
+				header: null
+			}
+		},
+		subscription: {
+			screen: Subscription,
+			navigationOptions: {
+				header: null
+			}
+		},
+	}
 );
 
 const AppNavigator = createSwitchNavigator({

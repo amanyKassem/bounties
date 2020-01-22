@@ -10,7 +10,7 @@ export const categoryProducts = ( lang , category_id , token ) => {
             url         : CONST.url + 'products/category',
             method      : 'POST',
             data        : { lang , category_id },
-            headers     : { Authorization: token },
+            headers     : token ? { Authorization: token } : null,
         }).then(response => {
 
             dispatch({type: 'categoryProducts', payload: response.data});

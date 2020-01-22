@@ -97,8 +97,9 @@ class AddProduct extends Component {
             const { namePro, pricePro, discount, info, kindPro } = this.state;
             const data = { namePro, pricePro, discount, info, kindPro , base64};
 
+            console.log('base64_length', base64.length);
+
             this.props.addProduct(data, this.props, this.props.lang, this.props.user.token);
-            this.setState({ spinner: false });
 
         }else {
 
@@ -107,7 +108,13 @@ class AddProduct extends Component {
         }
     }
 
-    onChangeProudct(){
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.product);
+		this.setState({ spinner: false });
+
+	}
+
+	onChangeProudct(){
 
         this.setState({ spinner: true });
 
@@ -196,6 +203,7 @@ class AddProduct extends Component {
     componentWillMount() {
 		base64 = [];
 
+		this.setState({ spinner: false });
         this.props.subCate( this.props.lang, this.props.user.token);
 
         if(this.props.navigation.state.params !== undefined){
@@ -381,11 +389,12 @@ class AddProduct extends Component {
 }
 
 
-const mapStateToProps = ({ lang, profile, subCate }) => {
+const mapStateToProps = ({ lang, profile, subCate, addProduct }) => {
     return {
         lang                : lang.lang,
         user                : profile.user,
-        subCategory         : subCate.subCate
+        subCategory         : subCate.subCate,
+        product             : addProduct.product
     };
 };
 export default connect(mapStateToProps, {addProduct , profile, subCate , updateProduct, deleteProductImage})(AddProduct);

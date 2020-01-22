@@ -402,9 +402,7 @@ class Home extends Component {
                                                 </Text>
                                                 <View style={[styles.locationView]}>
                                                     <Icon style={[styles.text_White , styles.textSize_12 ,{marginRight:5}]} type="Feather" name='map-pin' />
-                                                    <Text style={[styles.textRegular, styles.text_White,styles.textSize_12]}>
-                                                        {provider_info.address}
-                                                    </Text>
+                                                    <Text style={[styles.textRegular, styles.text_White,styles.textSize_12, { alignSelf: 'flex-start', textAlign: 'right' }]}> {provider_info.address} </Text>
                                                 </View>
                                             </View>
                                         </Animatable.View>
