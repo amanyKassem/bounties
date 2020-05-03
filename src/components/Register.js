@@ -338,7 +338,7 @@ class Register extends Component {
                                     <Image style={[styles.icoImage]} source={require('../../assets/images/logo.png')}/>
                                 </View>
                             </Animatable.View>
-                            <KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>
+                            {/*<KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>*/}
                                 <Form
                                     style={[styles.Width_100, styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
                                     <View
@@ -465,14 +465,11 @@ class Register extends Component {
                                     <TouchableOpacity
                                         style={[styles.borderBold, styles.marginVertical_15, styles.Width_100, styles.height_50, styles.directionRowSpace, styles.paddingHorizontal_10]}
                                         onPress={() => this.props.navigation.navigate('MapLocation', {pageName: this.props.navigation.state.routeName})}>
-                                        <Text style={[styles.textRegular, styles.text_fyrozy, styles.width_150]}
-                                              numberOfLines={1} prop with ellipsizeMode="head">
+                                        <Text style={[styles.textRegular, styles.text_fyrozy , {width:'94%' , overflow:'hidden'}]}>
                                             {this.state.city_name}
                                         </Text>
-                                        <View style={[styles.overHidden]}>
-                                            <Icon style={[styles.text_black, styles.textSize_16]} type="Feather"
+                                            <Icon style={[styles.text_black, styles.textSize_16 , styles.iconPicker]} type="Feather"
                                                   name='map-pin'/>
-                                        </View>
                                     </TouchableOpacity>
 
 
@@ -550,7 +547,7 @@ class Register extends Component {
                                         <Item floatingLabel
                                               style={[styles.item, styles.position_R, styles.overHidden]}>
                                             <Input
-                                                placeholder={i18n.t('password')}
+                                                placeholder={i18n.t('confirmPassword')}
                                                 style={[styles.input, styles.height_50, (this.state.rePasswordStatus === 1 ? styles.Active : styles.noActive)]}
                                                 onChangeText={(confirmpassword) => this.setState({confirmpassword})}
                                                 onBlur={() => this.unActiveInput('rePasswordStatus')}
@@ -598,7 +595,7 @@ class Register extends Component {
                                     </TouchableOpacity>
 
                                 </Form>
-                            </KeyboardAvoidingView>
+                            {/*</KeyboardAvoidingView>*/}
 
                         </View>
                 </Content>
