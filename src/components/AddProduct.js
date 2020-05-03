@@ -9,6 +9,7 @@ import {profile , addProduct, subCate , updateProduct, deleteProductImage} from 
 import {NavigationEvents} from "react-navigation";
 import Spinner from "react-native-loading-spinner-overlay";
 import * as ImageManipulator from 'expo-image-manipulator';
+import * as ImagePicker from 'expo-image-picker';
 
 
 import COLORS from "../consts/colors";
@@ -24,7 +25,7 @@ class AddProduct extends Component {
         this.state={
             namePro		            : '',
             pricePro                : '',
-            discount                : '',
+            discount                : 0,
             info	                : '',
             kindPro	                : null,
             imageBrowserOpen        : false,
@@ -49,9 +50,6 @@ class AddProduct extends Component {
         }else if (this.state.pricePro.length <= 0){
             isError     = true;
             msg         = i18n.t('monypro');
-        }else if(this.state.discount.length <= 0){
-            isError     = true;
-            msg         = i18n.t('discount');
         }else if (this.state.info === ''){
             isError     = true;
             msg         = i18n.t('info');
@@ -216,9 +214,7 @@ class AddProduct extends Component {
                 kindPro             : this.props.navigation.state.params.data.sub_category_id,
                 photos              : this.props.navigation.state.params.data.images,
             });
-
         }
-
     }
 
     onFocus(){
@@ -226,6 +222,21 @@ class AddProduct extends Component {
         this.componentWillMount();
     }
 
+   async getImages(){
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            aspect    : [4, 3],
+            base64    : true
+        });
+
+        if (!result.cancelled) {
+            this.setState({
+                photos: this.state.photos.concat(result.uri)
+            });
+            base64.push(result.base64);
+        }
+    }
     render() {
         if (this.state.imageBrowserOpen) {
             return(<ImageBrowser base64={true} max={5} callback={this.imageBrowserCallback}/>);
@@ -260,7 +271,8 @@ class AddProduct extends Component {
                                     <View style={[styles.lightOverlay, styles.Border, {top:0 , left:0}]}/>
                                     <Animatable.View animation="fadeInRight" easing="ease-out" delay={500} style={[styles.blockContent ,styles.bg_light_oran]}>
                                         <View style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
-                                            <TouchableOpacity onPress={() => this.setState({imageBrowserOpen: true})}>
+                                            {/*<TouchableOpacity onPress={() => this.setState({imageBrowserOpen: true})}>*/}
+                                            <TouchableOpacity onPress={() => this.getImages()}>
                                                 <Icon style={[styles.text_darkblue , styles.textSize_20]} type="AntDesign" name='plus' />
                                             </TouchableOpacity>
                                         </View>
@@ -348,7 +360,7 @@ class AddProduct extends Component {
                                         <Textarea
                                             auto-capitalization             = {false}
                                             rowSpan                         = {5}
-                                            placeholder                     = {i18n.t('massmtger')}
+                                            placeholder                     = {i18n.t('massprod')}
                                             style                           = {[ styles.textArea , styles.borderBlack, styles.paddingHorizontal_20]}
                                             onChangeText                    = {(info) => this.setState({info})}
                                             value                           = {this.state.info}

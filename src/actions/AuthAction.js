@@ -26,7 +26,7 @@ export const tempAuth = () => {
 };
 
 const handelLogin = (dispatch, data) => {
-    if (!data.key){
+     if (data.key === 0 || data.key === 3){
         loginFailed(dispatch, data)
     }else{
         loginSuccess(dispatch, data)
@@ -42,3 +42,5 @@ const loginSuccess = (dispatch, data) => {
 const loginFailed = (dispatch, error) => {
     dispatch({type: 'login_failed', error});
 };
+
+

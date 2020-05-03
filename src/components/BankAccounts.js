@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     FlatList,
     I18nManager,
-    Animated
+    Animated,
+
 } from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Right} from 'native-base'
 import styles from '../../assets/style'
@@ -18,6 +19,8 @@ import COLORS from '../../src/consts/colors'
 import { getBankAcoounts , deleteBankAcoounts } from '../actions'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import {NavigationEvents} from "react-navigation";
+import axios from "axios";
+import CONST from "../consts";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -34,6 +37,7 @@ class BankAccounts extends Component {
             isFav               : false,
             refreshed           : false,
             loader              : true,
+            amount              : 0,
         }
     }
 
@@ -44,11 +48,19 @@ class BankAccounts extends Component {
     });
 
 
-
     componentWillMount() {
         this.setState({loader: true});
-        setTimeout(() => this.props.getBankAcoounts( this.props.lang , this.props.user.token ), 2000)
+        setTimeout(() => this.props.getBankAcoounts( this.props.lang , this.props.user.token ), 2000);
+        axios({
+            url         : CONST.url + 'settlements',
+            method      : 'POST',
+            headers     : { Authorization: this.props.user.token },
+            data        : {  }
+        }).then(response => {
+            console.log('data ' ,  response.data.data );
 
+            this.setState({amount : response.data.data})
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -181,6 +193,11 @@ class BankAccounts extends Component {
                 <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                     <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
                         <NavigationEvents onWillFocus={() => this.onFocus()}/>
+                        <View style={{flexDirection : 'row' ,justifyContent:'center',alignItems:'center' , borderWidth : .5 , borderColor : COLORS.fyrozy}}>
+                            <Text style={{textAlign:'center' ,fontFamily : 'cairoBold' , marginVertical: 20,fontSize:20, color :COLORS.darkblue}}>{i18n.t('total_Amount')} </Text>
+                                <Text> : </Text>
+                            <Text  style={{textAlign:'center' ,fontFamily : 'cairoBold',fontSize:22, color :COLORS.red}}>{this.state.amount} {i18n.t('rs')} </Text>
+                        </View>
                         <View style={[styles.paddingHorizontal_10]}>
                             {
                                 this.state.loader ?

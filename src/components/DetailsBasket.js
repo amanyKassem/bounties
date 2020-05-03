@@ -194,6 +194,7 @@ class DetailsBasket extends Component {
                                                 shipping_price: this.props.cartProducts.prices.shipping_price,
                                                 deliverd_time: this.state.deliveryTime,
                                                 notes: this.state.otherNotes,
+                                                total : Number(this.state.totalPrice) + Number(this.props.cartProducts.prices.shipping_price)
                                             })}>
                                             <Text style={[styles.textBold, styles.textSize_16, styles.text_White]}>
                                                 {i18n.translate('confirm')}

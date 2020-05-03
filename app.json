@@ -4,12 +4,13 @@
     "slug": "bounties",
     "privacy": "public",
     "sdkVersion": "36.0.0",
+    "scheme": "bountiesapp",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.1",
+    "version": "2.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -26,16 +27,20 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.shabaka.bounties",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSCameraUsageDescription": "App need this permission to update profile photo.",
         "NSPhotoLibraryAddUsageDescription": "App need this permission to update profile photo.",
-        "NSLocationWhenInUseUsageDescription": "App need this permission to determine your order location.",
-        "NSPhotoLibraryUsageDescription": "App need this permission to update profile photo."
+        "NSLocationWhenInUseUsageDescription": "we need your location to show nearest orders of you",
+        "NSPhotoLibraryUsageDescription": "App need this permission to update profile photo.",
+        "NSLocationAlwaysUsageDescription": "app need location to show the nearest ads of you.",
+        "NSMotionUsageDescription": "app need location to show the nearest products of you."
       }
     },
     "android": {
       "package": "app.aait.bounties",
-      "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 17,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyDdsxnqpoSlY8u8nNlXDCKsP75mx8z5il0"

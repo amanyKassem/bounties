@@ -35,7 +35,7 @@ class RowProduct extends Component {
         return (
             <TouchableOpacity
                 style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
-                onPress     = {() => this.props.navigation.navigate(this.props.user?'product':'Login', { id : this.props.item.id })}
+                onPress     = {() => this.props.navigation.navigate(this.props.user?'product':'product', { id : this.props.item.id })}
             >
                 <View style={[styles.lightOverlay, styles.Border]} />
                 <View style={[styles.rowGroup, styles.bg_White, styles.Border, styles.paddingVertical_10, styles.paddingHorizontal_10]}>

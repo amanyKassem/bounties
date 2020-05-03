@@ -27,6 +27,9 @@ import {categoryProducts, getCities} from '../actions';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import COLORS from '../consts/colors'
 import RowProduct from './RowProduct'
+import Swiper from 'react-native-swiper';
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -36,7 +39,6 @@ const isIOS = Platform.OS === 'ios';
 class Products extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             country: null,
             show_modal: false,
@@ -46,10 +48,12 @@ class Products extends Component {
             categorySearch: '',
             latitude: '',
             longitude: '',
+            lat: '',
+            lng: '',
             city_name: '',
             loader: true,
             isFav: 0
-        }
+        };
     }
 
     static navigationOptions = () => ({
@@ -62,12 +66,32 @@ class Products extends Component {
         this.setState({ isFav: ! this.state.isFav });
     }
 
+    async get_places(){
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            alert('صلاحيات تحديد موقعك الحالي ملغاه');
+        }else {
+            const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
+            const userLocation = { latitude, longitude };
+            const token = this.props.user ? this.props.user.token : null;
+            this.props.categoryProducts(
+                this.props.lang,
+                this.props.navigation.state.params.id ,
+                userLocation.latitude ,
+                userLocation.longitude ,
+                token);
+            this.setState({
+                 lat : userLocation.latitude,
+                 lng : userLocation.longitude
+            });
+        }
+    }
     componentWillMount() {
 
+        this.get_places();
         this.setState({loader: true});
         // setTimeout(() => this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id), 2000);
-        const token = this.props.user ? this.props.user.token : null;
-        this.props.categoryProducts(this.props.lang, this.props.navigation.state.params.id , token);
+
 
         this.props.getCities(this.props.lang);
 
@@ -104,7 +128,9 @@ class Products extends Component {
     onSearch () {
         this.props.navigation.navigate('SearchHome', {
             categorySearch                  : this.state.categorySearch,
-            category_id                  : this.props.navigation.state.params.id,
+            category_id                     : this.props.navigation.state.params.id,
+            lat                             : this.state.lat,
+            lng                             : this.state.lng,
         });
     }
 
@@ -115,13 +141,7 @@ class Products extends Component {
             city_id: country,
             rate: rating,
         };
-
-        // this.props.filterProviders(data);
-
         this.setState({show_modal: !this.state.show_modal , loader:true});
-
-        console.log('data filter', data);
-
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -255,7 +275,6 @@ class Products extends Component {
                                                     renderItem={({item}) => this.renderItems(item)}
                                                     numColumns={1}
                                                     keyExtractor={this._keyExtractor}
-                                                    // extraData               = {this.props.categoryProduct}
                                                     onEndReachedThreshold={isIOS ? .01 : 1}
                                                 />
                                                 :

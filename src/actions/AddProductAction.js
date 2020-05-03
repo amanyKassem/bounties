@@ -38,7 +38,9 @@ export const addProduct = (data, props, lang, token) => {
                 }
             });
 
-        })
+        }).catch((e)=> {
+            console.log('e')
+        });
 
     }
 };

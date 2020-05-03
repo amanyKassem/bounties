@@ -21,6 +21,7 @@ import COLORS from '../../src/consts/colors'
 import Swiper from 'react-native-swiper';
 import StarRating from 'react-native-star-rating';
 import Modal from "react-native-modal";
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 import {NavigationEvents} from "react-navigation";
 import {productDetails, favorite, addCart, addComment, deletProduct , bookPackage} from '../actions';
@@ -28,14 +29,14 @@ import {productDetails, favorite, addCart, addComment, deletProduct , bookPackag
 class Product extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
+ 		this.state = {
 			desc: '',
 			starCount: '',
 			value: 1,
 			value2: 1,
 			status: false,
-			isFav: this.props.user.type == 'user' && this.props.products && this.props.products.is_fav == 1 ? true : false,
+            isImageViewVisible: false,
+			isFav: this.props.user  &&this.props.user.type == 'user' && this.props.products && this.props.products.is_fav == 1 ? true : false,
 			isHidden: true,
 			fading: false,
 			isModalVisible: false,
@@ -46,24 +47,25 @@ class Product extends Component {
 	}
 
 	componentWillMount() {
-		this.props.productDetails(this.props.lang, this.props.navigation.state.params.id, this.props.user.token);
+		this.props.productDetails(this.props.lang, this.props.navigation.state.params.id, this.props.user ? this.props.user.token : null);
 	}
 
 	specialOrders = (value , package_id) =>{
 		this.setState({SwitchOnValueHolder: value });
+
 		if(value){
 			if(package_id){
-				return this.props.bookPackage(this.props.lang, package_id , this.props.navigation.state.params.id , this.props.user.token  , this.props )
+
+				return this.props.bookPackage(this.props.lang, package_id , this.props.navigation.state.params.id , this.props.user? this.props.user.token :null , this.props ,this.props.navigation.state.params.id )
 			}
 			this.props.navigation.navigate('subscriptionsPackages' , {product_id:this.props.navigation.state.params.id})
 		}
 	};
 
-
 	checkStatus(){
 		if(this.state.status && this.state.SwitchOnValueHolder === false){
 			Toast.show({
-				text: 'تم استهلاك باقه التثبيت بالكاملkkkkk',
+				text: 'تم استهلاك باقه التثبيت بالكامل',
 				type: "danger",
 				duration: 3000,
 				textStyle: {
@@ -96,11 +98,15 @@ class Product extends Component {
 		}
 
 		return (
+
+            (this.props.user)
+                ?
 			<TouchableOpacity style={[styles.cartBtn]}
 				onPress={() => this.addToCart(this.props.products.id)}>
 				<Text
 					style={[styles.textRegular, styles.text_White, styles.textSize_14, styles.textLeft]}>{i18n.t('addToCart')}</Text>
 			</TouchableOpacity>
+				:null
 		);
 	}
 
@@ -158,7 +164,6 @@ class Product extends Component {
 				// dismissed
 			}
 		} catch (error) {
-			alert(error.message);
 		}
 	};
 
@@ -253,7 +258,6 @@ class Product extends Component {
 	onFocus() {
 		this.componentWillMount();
 	}
-
 	render() {
 		return (
 			<Container>
@@ -311,41 +315,53 @@ class Product extends Component {
 											loop={true}
 											autoplayTimeout={2}
 										>
-
 											{
 												this.props.images ?
 													this.props.images.map((img) => (
 
 														<View style={[styles.viewBlock]}>
+                                                            <TouchableOpacity  onPress={() => { this.setState({ isImageViewVisible: true })}}>
 															<Image style={[styles.Width_95, styles.swiper]}
 																source={{uri: img.image}} resizeMode={'cover'}/>
+															</TouchableOpacity>
 															{
+
 																this.props.user == null || this.props.user.type === 'user' ?
 																	<Animatable.View animation="fadeInRight"
 																		easing="ease-out" delay={500}
 																		style={[styles.blockContent]}>
-																		<View
-																			style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
-																			<TouchableOpacity
-																				onPress={() => this.toggleFavorite(this.props.products.id)}>
-																				{
-																					this.state.isFav ?
-																						<Icon
-																							style={[styles.text_red, styles.textSize_20]}
-																							type="AntDesign"
-																							name='heart'/>
-																						:
-																						<Icon
-																							style={[styles.text_red, styles.textSize_20]}
-																							type="AntDesign"
-																							name='hearto'/>
-																				}
-																			</TouchableOpacity>
-																		</View>
+
+																		{
+                                                                            (this.props.user)
+                                                                                ?
+                                                                                <View
+                                                                                    style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
+                                                                                    <TouchableOpacity
+                                                                                        onPress={() => this.toggleFavorite(this.props.products.id)}>
+                                                                                        {
+                                                                                            this.state.isFav ?
+                                                                                                <Icon
+                                                                                                    style={[styles.text_red, styles.textSize_20]}
+                                                                                                    type="AntDesign"
+                                                                                                    name='heart'/>
+                                                                                                :
+                                                                                                <Icon
+                                                                                                    style={[styles.text_red, styles.textSize_20]}
+                                                                                                    type="AntDesign"
+                                                                                                    name='hearto'/>
+                                                                                        }
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+
+																				:null
+                                                                        }
+
 																	</Animatable.View>
 																	:
 																	<View/>
+
 															}
+
 															{
 																this.props.user == null || this.props.user.type === 'user' ?
 																	<Animatable.View animation="fadeInRight"
@@ -389,15 +405,20 @@ class Product extends Component {
 																	<Animatable.View animation="fadeInRight"
 																		easing="ease-out" delay={500}
 																		style={[styles.blockContent, styles.top_5, styles.marginVertical_10]}>
-																		<View
-																			style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
-																			<TouchableOpacity
-																				onPress={() => this.editProdect()}>
-																				<Icon
-																					style={[styles.text_White, styles.textSize_20]}
-																					type="AntDesign" name='edit'/>
-																			</TouchableOpacity>
-																		</View>
+																		{
+																			(this.props.user)
+																			?
+                                                                                <View
+                                                                                    style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
+                                                                                    <TouchableOpacity
+                                                                                        onPress={() => this.editProdect()}>
+                                                                                        <Icon
+                                                                                            style={[styles.text_White, styles.textSize_20]}
+                                                                                            type="AntDesign" name='edit'/>
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+																				:null
+																		}
 																	</Animatable.View>
 																	:
 																	<View/>
@@ -407,15 +428,22 @@ class Product extends Component {
 																	<Animatable.View animation="fadeInRight"
 																		easing="ease-out" delay={500}
 																		style={[styles.blockContent, styles.top_35, styles.marginVertical_25]}>
-																		<View
-																			style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
-																			<TouchableOpacity
-																				onPress={() => this.deletProduct()}>
-																				<Icon
-																					style={[styles.text_White, styles.textSize_20]}
-																					type="AntDesign" name='close'/>
-																			</TouchableOpacity>
-																		</View>
+                                                                        {
+                                                                            (this.props.user)
+                                                                                ?
+                                                                                <View
+                                                                                    style={[styles.paddingVertical_10, styles.paddingHorizontal_10]}>
+                                                                                    <TouchableOpacity
+                                                                                        onPress={() => this.deletProduct()}>
+                                                                                        <Icon
+                                                                                            style={[styles.text_White, styles.textSize_20]}
+                                                                                            type="AntDesign"
+                                                                                            name='close'/>
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+                                                                                :
+                                                                                null
+                                                                        }
 																	</Animatable.View>
 																	:
 																	<View/>
@@ -497,22 +525,50 @@ class Product extends Component {
 													<View style={[styles.rowGroup]}>
 														<Text
 															style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
-															{i18n.t('productPrice')}
+															{i18n.t('time')}
 														</Text>
-														<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
-																borderRightWidth: 2,
-																borderRightColor: COLORS.darkblue,
-																paddingRight: 5,
-																marginLeft: 5
-															}]}>
-															{this.props.products.discount_price * this.state.value } {i18n.t('RS')}</Text>
 
 														<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
 															borderRightWidth: 2,
 															borderRightColor: COLORS.darkblue,
 															paddingRight: 5,
 															marginLeft: 5,
-															textDecorationLine: 'line-through'
+															textDecorationLine: this.props.products.discount > 0 ? 'none' : 'none'
+														}]}>
+															{this.props.products.time  }</Text>
+													</View>
+												</View>
+
+
+												<View style={[styles.rowGroup, styles.marginVertical_15]}>
+													<View style={[styles.rowGroup]}>
+														<Text
+															style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
+															{i18n.t('productPrice')}
+														</Text>
+
+														{
+                                                            this.props.products.discount > 0
+															?
+                                                                <Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
+                                                                    borderRightWidth: 2,
+                                                                    borderRightColor: COLORS.darkblue,
+                                                                    paddingRight: 5,
+                                                                    marginLeft: 5
+                                                                }]}>
+
+                                                                    {this.props.products.discount_price * this.state.value } {i18n.t('RS')}</Text>
+
+																:null
+                                                        }
+
+
+														<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
+															borderRightWidth: 2,
+															borderRightColor: COLORS.darkblue,
+															paddingRight: 5,
+															marginLeft: 5,
+															textDecorationLine: this.props.products.discount > 0 ? 'line-through' : 'none'
 														}]}>
 															{this.props.products.price * this.state.value } {i18n.t('RS')}</Text>
 													</View>
@@ -520,22 +576,32 @@ class Product extends Component {
 												{
 													this.props.user == null || this.props.user.type === 'provider' ?
 														<View style={[styles.rowGroup]}>
-															<View style={[styles.rowGroup]}>
-																<Text
-																	style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
-																	{i18n.t('specialProducts')}
-																</Text>
-																<TouchableOpacity onPress={() => this.checkStatus()}>
-																	<Switch
-																		onValueChange={() => this.specialOrders(!this.state.SwitchOnValueHolder , this.props.products.packeage_info.package_id)}
-																		value={this.state.SwitchOnValueHolder}
-																		thumbColor={'#fff'}
-																		trackColor={{false: COLORS.gray, true: COLORS.fyrozy}}
-																		style={[styles.marginHorizontal_15]}
-																		disabled={this.state.SwitchOnValueHolder || this.state.status}
-																	/>
-																</TouchableOpacity>
-															</View>
+
+															{
+																this.props.user ?
+
+                                                                    <View style={[styles.rowGroup,{marginVertical : 20}]}>
+                                                                        <Text
+                                                                            style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
+                                                                            {i18n.t('specialProducts')}
+                                                                        </Text>
+
+
+                                                                        <TouchableOpacity onPress={() => this.checkStatus()}>
+                                                                            <Switch
+                                                                                onValueChange={() => this.specialOrders(!this.state.SwitchOnValueHolder , this.props.products.packeage_info.package_id)}
+                                                                                value={this.state.SwitchOnValueHolder}
+                                                                                thumbColor={'#fff'}
+                                                                                trackColor={{false: COLORS.gray, true: COLORS.fyrozy}}
+                                                                                style={[styles.marginHorizontal_15]}
+                                                                                disabled={this.state.SwitchOnValueHolder || this.state.status}
+                                                                            />
+                                                                        </TouchableOpacity>
+
+                                                                    </View>
+																:null
+                                                            }
+
 														</View>
 														:<View/>
 												}
@@ -592,9 +658,7 @@ class Product extends Component {
 											{i18n.t('viewComments')}</Text>
 								}
 							</TouchableOpacity>
-
 						</View>
-
 						{
 							this.props.comments.length !== 0 ?
 								<ScrollView showsHorizontalScrollIndicator={false}>
@@ -614,13 +678,13 @@ class Product extends Component {
 								</ScrollView>
 								:
 								<View />
-
 						}
 					</TouchableOpacity>
-
 				</Animated.View>
 
-				<Modal style={{}} isVisible={this.state.isModalVisible} onBackdropPress={() => this.toggleModal()}>
+				<Modal style={{}}                      isVisible={this.state.isModalVisible}
+                       avoidKeyboard                   = { true }
+                       onBackdropPress={() 			   => this.toggleModal()}>
 					<View style={[styles.commentModal, {padding: 15}]}>
 						<Text style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>
 							{i18n.t('comment')}
@@ -672,6 +736,13 @@ class Product extends Component {
 						</TouchableOpacity>
 					</View>
 				</Modal>
+
+                <Modal onBackdropPress={() => this.setState({ isImageViewVisible: false })} avoidKeyboard={ false} visible={this.state.isImageViewVisible} transparent={true} enableImageZoom={true}  enableSwipeDown={true} >
+                    <ImageViewer style={{backgroundColor:'transparent'}}  imageUrls={this.props.images}/>
+                    <TouchableOpacity  style={{ position:'absolute' , top : 30 , right : 20}} onPress={() => this.setState({isImageViewVisible: false})}>
+                        <Icon name="close" style={{fontSize:30,color : 'white'   }}/>
+                    </TouchableOpacity>
+                </Modal>
 			</Container>
 
 		);

@@ -51,6 +51,10 @@ import AddBankAcc               from "../components/AddBankAcc";
 import Products                 from "../components/Products";
 import SubscriptionsPackages    from "../components/SubscriptionsPackages";
 import EditBankAcc              from "../components/EditBankAcc";
+import WebViewPayment           from "../components/WebViewPayment";
+import PaymentUser              from "../components/PaymentUser";
+import ConfirmUserPayment       from "../components/ConfirmUserPayment";
+import WebViewUser              from "../components/WebViewUser";
 
 
 const drawerCust = (props) => (<DrawerCustomization {...props} />);
@@ -91,6 +95,12 @@ const appStack =  createStackNavigator({
     },
     AddProduct : {
         screen: AddProduct,
+        navigationOptions: {
+            header: null
+        }
+    },
+    WebViewPayment : {
+        screen: WebViewPayment,
         navigationOptions: {
             header: null
         }
@@ -193,6 +203,24 @@ const appStack =  createStackNavigator({
     },
     MapLocation : {
         screen: MapLocation,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PaymentUser : {
+        screen: PaymentUser,
+        navigationOptions: {
+            header: null
+        }
+    },
+    WebViewUser : {
+        screen: WebViewUser,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ConfirmUserPayment : {
+        screen: ConfirmUserPayment,
         navigationOptions: {
             header: null
         }

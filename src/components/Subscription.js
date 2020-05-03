@@ -79,7 +79,8 @@ class Subscription extends Component {
                                                         styles.marginVertical_15,
                                                         styles.height_40
                                                     ]}
-                                                    onPress={() => this.props.navigation.navigate('ChoosePayment' , {routeName:'subscription', packageId:this.props.loginPackage.id , user_id:this.props.user.id})}>
+                                                    //onPress={() => this.props.navigation.navigate('ChoosePayment' , {routeName:'subscription', packageId:this.props.loginPackage.id , user_id:this.props.user.id})}>
+                                                    onPress={() => this.props.navigation.navigate('WebViewPayment' , {routeName:'subscription', packageId:this.props.loginPackage.id , user_id:this.props.user.id})}>
                                                     <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
                                                         {i18n.t('subscription')}
                                                     </Text>

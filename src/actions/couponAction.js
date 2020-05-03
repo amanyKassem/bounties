@@ -2,7 +2,7 @@ import axios from "axios";
 import CONST from "../consts";
 import {Toast} from "native-base";
 
-export const getCoupon = (lang , routeName , city_name , provider_id , latitude , longitude , coupon_number , notes , deliverd_time, address , token , props) => {
+export const getCoupon = (lang , routeName , city_name , provider_id , latitude , longitude , coupon_number , notes , deliverd_time, address , token , props,total) => {
     return (dispatch) => {
 
         axios({
@@ -13,7 +13,7 @@ export const getCoupon = (lang , routeName , city_name , provider_id , latitude 
         }).then(response => {
             dispatch({type: 'getOrderStore', payload: response.data})
             if (response.data.key == 1){
-                props.navigation.navigate('ChoosePayment' ,
+                props.navigation.navigate('PaymentUser' ,
                     {
                         routeName,
                         city_name ,
@@ -23,7 +23,8 @@ export const getCoupon = (lang , routeName , city_name , provider_id , latitude 
                         deliverd_time,
                         notes ,
                         address,
-                        coupon_number
+                        coupon_number,
+                        total
                     })
             }
             Toast.show({

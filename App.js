@@ -11,6 +11,7 @@ import { store, persistedStore } from './src/store';
 import './ReactotronConfig';
 import * as Permissions from "expo-permissions";
 import { Notifications } from 'expo'
+// import Branch, { BranchEvent } from 'expo-branch';
 
 
 // Keystore password: 40d7bd0bbdea46fa84f6f9b394bc7b5b
@@ -28,6 +29,12 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+      // Branch.subscribe(bundle => {
+      //     if (bundle && bundle.params && !bundle.error) {
+      //         // `bundle.params` contains all the info about the link.
+      //     }
+      // });
+
     if (Platform.OS === 'android') {
       Notifications.createChannelAndroidAsync('orders', {
         name: 'Chat messages',

@@ -9,7 +9,7 @@ import i18n from "../../locale/i18n";
 import * as Animatable from "react-native-animatable";
 import COLORS from "../consts/colors";
 
-class ConfirmPayment extends Component {
+class ConfirmUserPayment extends Component {
     constructor(props){
         super(props);
 
@@ -48,16 +48,16 @@ class ConfirmPayment extends Component {
                         </Button>
                     </Left>
                     <Body style={styles.bodyText}>
-                        <Title style={[styles.textRegular , styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>
-                            { i18n.t('confirmpayment') }
-                        </Title>
+                    <Title style={[styles.textRegular , styles.text_black, styles.textSize_20, styles.textLeft, styles.Width_100, styles.paddingHorizontal_0, styles.paddingVertical_0]}>
+                        { i18n.t('confirmpayment') }
+                    </Title>
                     </Body>
                     <Right style={styles.rightIcon}>
                         <Image style={[styles.smallLogo , styles.marginHorizontal_10 , {top:0}]} source={require('../../assets/images/small_logo.png')} resizeMode={'contain'}/>
                     </Right>
                 </Header>
                 <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
-                <Content  contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
+                    <Content  contentContainerStyle={styles.bgFullWidth} style={styles.bgFullWidth}>
 
                         <View style={[styles.overHidden, styles.marginVertical_25, styles.paddingHorizontal_20]}>
                             <View style={[styles.overHidden, styles.SelfRight]}>
@@ -71,7 +71,7 @@ class ConfirmPayment extends Component {
 
                             <View style={[styles.overHidden, styles.flexCenter, styles.marginVertical_25, styles.Width_80]}>
                                 <Text style={[styles.textRegular , styles.textSize_18, styles.text_black, styles.textCenter]}>
-                                    { i18n.t('confirmationPayment') }
+                                    { i18n.t('confirmationPaymentUser') }
                                 </Text>
                             </View>
 
@@ -90,7 +90,7 @@ class ConfirmPayment extends Component {
                             </TouchableOpacity>
                         </View>
 
-                </Content>
+                    </Content>
                 </ImageBackground>
             </Container>
 
@@ -103,4 +103,4 @@ const mapStateToProps = ({ lang }) => {
         lang        : lang.lang,
     };
 };
-export default connect(mapStateToProps, { })(ConfirmPayment);
+export default connect(mapStateToProps, { })(ConfirmUserPayment);

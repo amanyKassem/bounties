@@ -18,7 +18,6 @@ const isIOS = Platform.OS === 'ios';
 class Provider extends Component {
     constructor(props){
         super(props);
-
         this.state={
             status              : null,
             activeType          : 0,
@@ -31,7 +30,7 @@ class Provider extends Component {
     }
 
     componentWillMount() {
-        this.props.providerProduct( this.props.lang , this.props.navigation.state.params.id, this.props.user.token , null);
+        this.props.providerProduct( this.props.lang , this.props.navigation.state.params.id, (this.props.user) ? this.props.user.token  : null, null);
     }
 
     toggleModal = () => {
@@ -40,7 +39,7 @@ class Provider extends Component {
 
     onSubCategories ( id ){
         this.setState({spinner: true, active : id });
-        this.props.providerProduct( this.props.lang , this.props.navigation.state.params.id, this.props.user.token ,id);
+        this.props.providerProduct( this.props.lang , this.props.navigation.state.params.id, (this.props.user) ? this.props.user.token  : null ,id);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -116,12 +115,7 @@ class Provider extends Component {
                                             <Text style={[styles.textRegular, styles.text_White, styles.Width_100 ,styles.textSize_12, styles.textLeft]} numberOfLines = { 1 } prop with ellipsizeMode = "head">
                                                 {provider_info.details}
                                             </Text>
-                                            <View style={[styles.locationView]}>
-                                                <Icon style={[styles.text_White , styles.textSize_12 ,{marginRight:5}]} type="Feather" name='map-pin' />
-                                                <Text style={[styles.textRegular, styles.text_White,styles.textSize_12]}>
-                                                    {provider_info.address}
-                                                </Text>
-                                            </View>
+
                                         </View>
                                     </Animatable.View>
                                 </View>

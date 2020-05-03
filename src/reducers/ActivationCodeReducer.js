@@ -6,7 +6,20 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 user            : action.payload,
                 loader          : action.payload.key === 1 ? false : true,
-                activeKey       : action.payload.key
+                activeKey       : action.payload.key,
+                resend          : 0
+
+            };
+        }
+
+        case 'resendCode':{
+            return {
+                user            : action.payload,
+                loader          : action.payload.key === 1 ? false : true,
+                resend          : 3,
+                activeKey       : 3,
+
+
             };
         }
 

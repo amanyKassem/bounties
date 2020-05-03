@@ -9,13 +9,13 @@ import {
     ActivityIndicator,
     I18nManager
 } from "react-native";
-import {Container, Content, Form, Item, Input, Toast, Icon} from 'native-base'
+import {Container, Content, Form, Item, Input, Toast, Icon, Button} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import {NavigationEvents} from "react-navigation";
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
-import { activeCode, profile, userLogin } from "../actions";
+import { activeCode,resendCode, profile, userLogin } from "../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import activationCode from "../reducers/ActivationCodeReducer";
 import {DoubleBounce} from "react-native-loader";
@@ -30,34 +30,28 @@ class ActivationCode extends Component {
             userId              : null,
             spinner             : false,
             type				: 0,
+            activeCode		    : this.props.navigation.state.params.code,
             activeKey           : 0
         }
     }
 
     componentWillMount() {
 
-        const code  = this.props.navigation.state.params.code;
-        alert(code);
+       // const code  = this.props.navigation.state.params.code;
         this.setState({ userId: null });
-
     }
 
     activeInput(type){
-
         if (type === 'code' || this.state.code !== ''){
             this.setState({ codeStatus: 1 })
         }
-
     }
 
     unActiveInput(type){
-
         if (type === 'code' && this.state.code === ''){
             this.setState({ codeStatus: 0 })
         }
-
     }
-
 
     validate = () => {
         let isError = false;
@@ -125,15 +119,19 @@ class ActivationCode extends Component {
         );
     }
 
+
+    resend(){
+         const {  phone } = this.props.navigation.state.params;
+         this.setState({ spinner: true });
+         this.props.resendCode({ phone }, this.props , this.props.lang);
+    }
+
     onPressed() {
-
-
         const { password, phone, deviceId } = this.props.navigation.state.params;
-
         const err = this.validate();
         if (!err){
             const {code , type} = this.state;
-            const activeCode  = this.props.navigation.state.params.code;
+            const activeCode  = this.state.activeCode;
             if (activeCode == code){
                 this.setState({ spinner: true });
                 this.props.activeCode({ code, password, phone, deviceId }, this.props , this.props.lang);
@@ -156,36 +154,11 @@ class ActivationCode extends Component {
 
     componentWillReceiveProps(newProps){
         this.setState({ spinner: false });
-        console.log('props auth ...PPP', newProps, newProps.activeKey);
-
-        if (this.state.activeKey == 0){
-            const { password, phone, deviceId } = this.props.navigation.state.params;
-            this.props.userLogin({ phone, password, deviceId }, this.props.lang);
-
-            this.setState({ activeKey: newProps.activeKey })
-        }
-
-        if (newProps.auth !== null && newProps.auth.key === 1 && this.state.activeKey != 0){
-
-            if (this.state.userId === null){
-                this.setState({ userId: newProps.auth.data.id });
-                this.props.profile(newProps.auth.data.token);
-            }
-
-            if(this.props.navigation.state.params.userType == 'provider'){
-                this.props.navigation.navigate('addProductTerms');
-            }else{
-                this.props.navigation.navigate('drawerNavigator');
-            }
-
-
-        }
-
-        if (newProps.auth !== null) {
-            this.setState({spinner: false});
-            Toast.show({
+        if(newProps.activeKey  === 3){
+            this.setState({activeCode : newProps.auth.data.code})
+             Toast.show({
                 text		: newProps.auth.msg,
-                type		: newProps.auth.key === 1 ? "success" : "danger",
+                type		: newProps.activeKey === 3 ? "success" : "success",
                 duration	: 3000,
                 textStyle     : {
                     color           : "white",
@@ -193,8 +166,42 @@ class ActivationCode extends Component {
                     textAlign       : 'center',
                 }
             });
-        }
+        }else {
 
+            if (this.state.activeKey == 0){
+                const { password, phone, deviceId } = this.props.navigation.state.params;
+                this.props.userLogin({ phone, password, deviceId }, this.props.lang);
+                this.setState({ activeKey: newProps.activeKey })
+            }
+
+            if (newProps.auth !== null && newProps.auth.key === 1 && this.state.activeKey != 0){
+
+                if (this.state.userId === null){
+                    this.setState({ userId: newProps.auth.data.id });
+                    this.props.profile(newProps.auth.data.token);
+                }
+
+                if(this.props.navigation.state.params.userType == 'provider'){
+                    this.props.navigation.navigate('Home');
+                }else{
+                    this.props.navigation.navigate('drawerNavigator');
+                }
+            }
+
+            if (newProps.auth !== null) {
+                this.setState({spinner: false});
+                // Toast.show({
+                //     text		: newProps.auth.msg,
+                //     type		: newProps.auth.key === 1 ? "success" : "danger",
+                //     duration	: 3000,
+                //     textStyle     : {
+                //         color           : "white",
+                //         fontFamily      : 'cairo',
+                //         textAlign       : 'center',
+                //     }
+                // });
+            }
+        }
     }
 
     onFocus(){
@@ -211,6 +218,9 @@ class ActivationCode extends Component {
                 <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth}>
                         <View style={[styles.position_R, styles.bgFullWidth, styles.marginVertical_15, styles.SelfCenter, styles.Width_100]}>
+                            <Button style={styles.Button} transparent onPress={() => this.props.navigation.navigate('selectUser')}>
+                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name={I18nManager.isRTL ?'right' :'left'} />
+                            </Button>
                             <Animatable.View animation="fadeInDown" easing="ease-out" delay={500} style={[styles.flexCenter]}>
                                 <View style={[styles.overHidden, styles.marginVertical_15]}>
                                     <Image style={[styles.icoImage]} source={require('../../assets/images/logo.png')}/>
@@ -234,6 +244,10 @@ class ActivationCode extends Component {
                                         <Icon style = {[styles.text_fyrozy, styles.textSize_22]} type="MaterialCommunityIcons" name='cellphone' />
                                     </View>
                                 </View>
+
+                                    <TouchableOpacity onPress={()=> {this.resend()}} style={{justifyContent: 'center' , alignItems:  'center' , marginVertical : 15}}>
+                                        <Text style={styles.text_darkblue}>{i18n.t('resend_code')}</Text>
+                                    </TouchableOpacity>
 
                                     {
                                         this.renderSubmit()
@@ -259,4 +273,4 @@ const mapStateToProps = ({ lang, profile, auth, activationCode }) => {
         activeUser  : activationCode.user
     };
 };
-export default connect(mapStateToProps, { activeCode, profile, userLogin })(ActivationCode);
+export default connect(mapStateToProps, { activeCode,resendCode, profile, userLogin })(ActivationCode);

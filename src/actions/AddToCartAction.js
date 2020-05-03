@@ -18,16 +18,6 @@ export const addCart = ( lang , product_id , token, quantity , props) => {
                 if(response.data.key == 1){
                     props.navigation.navigate('Basket')
                 }
-                // Toast.show({
-                //     text        : response.data.msg,
-                //     type        : "danger",
-                //     duration    : 3000,
-                //     textStyle       : {
-                //         color           : "white",
-                //         fontFamily      : 'cairo',
-                //         textAlign       : 'center'
-                //     }
-                // });
             });
         });
 

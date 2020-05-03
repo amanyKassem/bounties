@@ -172,15 +172,22 @@ class Profile extends Component {
                         <View style={[styles.position_R, styles.Width_90, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter,{right:20}]}>
                             <View style={[styles.blueOverlay, styles.Border , {top:10 , left:10}]}/>
                             <View style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White,styles.bgFullWidth]}>
-                                <Image style={[styles.Width_100, styles.swiper]} source={{uri: this.props.user.avatar}} resizeMode={'cover'}/>
+                                {
+                                    this.props.user
+                                    ?
+                                        <Image style={[styles.Width_100, styles.swiper]} source={{uri: this.props.user.avatar}} resizeMode={'cover'}/>
+
+                                        :null
+
+                                }
                             </View>
                         </View>
 
                     {
                         this.props.user != null && this.props.user.type === 'provider' ?
                             <View>
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter , {marginTop:10}]}>{i18n.t('payRequired')}</Text>
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter]}>100 {i18n.t('RS')}</Text>
+                                {/*<Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter , {marginTop:10}]}>{i18n.t('payRequired')}</Text>*/}
+                                {/*<Text style={[styles.textRegular , styles.text_black, styles.textSize_16, styles.SelfCenter]}>100 {i18n.t('RS')}</Text>*/}
                             </View>
                             :
                             <View/>

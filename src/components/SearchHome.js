@@ -21,7 +21,7 @@ class SearchHome extends Component {
     }
 
     componentWillMount() {
-        const data  = { keyword : this.props.navigation.state.params.categorySearch , lang : this.props.lang };
+        const data  = { keyword : this.props.navigation.state.params.categorySearch  , lang : this.props.lang , lat :  this.props.navigation.state.params.lat ,lng :  this.props.navigation.state.params.lng};
         this.props.searchHome(data , this.props.navigation.state.params.category_id , this.props.user.token);
 
     }

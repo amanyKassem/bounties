@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import {DoubleBounce} from "react-native-loader";
 import { getAddProductTerms } from '../actions'
 import * as Animatable from 'react-native-animatable';
+import axios from "axios";
+import CONST from "../consts";
 
 class AddProductTerms extends Component {
     constructor(props){
@@ -14,15 +16,24 @@ class AddProductTerms extends Component {
 
         this.state={
             status              : null,
-        }
+            subscribed          : 0,
+        };
+        axios({
+            url         :    CONST.url +'is_subscribed',
+            method      :    'POST',
+            data        :    {},
+            headers     :    this.props.auth.data.token != null ? { Authorization:  this.props.auth.data.token } : null,
+        }).then(response => {
+            this.setState({
+                subscribed  : response.data.is_subscribed
+            });
+        }).catch(e => {});
     }
 
 
     componentWillMount() {
-        this.props.getAddProductTerms( this.props.lang , this.props.auth.data.token )
+        this.props.getAddProductTerms( this.props.lang , this.props.auth.data.token );
     }
-
-
 
     static navigationOptions = () => ({
         header      : null,
@@ -61,9 +72,8 @@ class AddProductTerms extends Component {
                                             { i18n.t('termsForAddProduct') }
                                         </Text>
                                         <Text style={[styles.textRegular , styles.text_black, styles.textCenter, styles.Width_100, styles.marginVertical_15]}>
-                                            { this.props.Terms }
+                                            { this.props.ProductTerms }
                                         </Text>
-
                                         <TouchableOpacity
                                             style={[
                                                 styles.bg_darkBlue,
@@ -72,7 +82,11 @@ class AddProductTerms extends Component {
                                                 styles.marginVertical_15,
                                                 styles.height_40
                                             ]}
-                                            onPress={() => this.props.navigation.navigate(this.props.navigation.state.params && (this.props.navigation.state.params.routeName = 'homeProvider') ?'AddProduct':'subscription')}>
+                                            onPress={() => {
+                                                 this.props.navigation.navigate(this.props.navigation.state.params &&
+                                                (this.state.subscribed === 1) ?'AddProduct':'subscription')
+                                                //(this.props.navigation.state.params.routeName = 'homeProvider') ?'AddProduct':'subscription')
+                                            }}>
                                             <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
                                                 {i18n.t('confirm')}
                                             </Text>

@@ -44,6 +44,8 @@ export const bookPackage = (lang, id , product_id , token , props) => {
                         textAlign: 'center',
                     }
                 });
+                props.navigation.navigate('subscriptionsPackages',{product_id : product_id})
+
             }
         })
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "283108047353",
+    "firebase_url": "https://bounties-97967.firebaseio.com",
+    "project_id": "bounties-97967",
+    "storage_bucket": "bounties-97967.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283108047353:android:1359798683f5a1f6aa2528",
+        "android_client_info": {
+          "package_name": "app.aait.bounties"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283108047353-ds1va6bhjgb297ne72debmkhhm5cb56g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASXAwljN1wjBLRzZPJnzfcs58Ek3HKoZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283108047353-ds1va6bhjgb297ne72debmkhhm5cb56g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "283108047353-fr7cg97gjuktdc6saqf1tepjbt0k1e05.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shabaka.bounties"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

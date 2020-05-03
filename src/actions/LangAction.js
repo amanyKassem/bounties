@@ -25,3 +25,10 @@ const setLang = async lang => {
         Updates.reload();
     });
 };
+
+
+
+
+
+
+

@@ -91,7 +91,7 @@ class DiscountCoupon extends Component {
                     styles.marginVertical_15,
                     styles.height_40
                 ]}
-                onPress={() => this.state.code ? this.checkCoupon() :this.props.navigation.navigate('ChoosePayment' ,
+                onPress={() => this.state.code ? this.checkCoupon() :this.props.navigation.navigate('PaymentUser' ,
                     {
                         routeName:'discountCoupon' ,
                         city_name               : this.props.navigation.state.params.city_name,
@@ -100,6 +100,7 @@ class DiscountCoupon extends Component {
                         provider_id             : this.props.navigation.state.params.provider_id,
                         deliverd_time           : this.props.navigation.state.params.deliverd_time,
                         notes                   : this.props.navigation.state.params.notes,
+                        total                   : this.props.navigation.state.params.total,
                         address                 : this.props.navigation.state.params.address,
                         coupon_number           : this.state.code,
                     })}
@@ -124,9 +125,10 @@ class DiscountCoupon extends Component {
         const deliverd_time           = this.props.navigation.state.params.deliverd_time;
         const notes                   = this.props.navigation.state.params.notes;
         const address                 = this.props.navigation.state.params.address;
+        const total                   = this.props.navigation.state.params.total;
         const coupon_number           = this.state.code;
 
-        this.props.getCoupon(this.props.lang ,routeName , city_name, provider_id , latitude , longitude , coupon_number , notes , deliverd_time , address , this.props.user.token  , this.props )
+        this.props.getCoupon(this.props.lang ,routeName , city_name, provider_id , latitude , longitude , coupon_number , notes , deliverd_time , address , this.props.user.token  , this.props ,total)
     }
 
     componentWillReceiveProps(nextProps) {

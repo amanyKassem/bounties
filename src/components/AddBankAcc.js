@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, ActivityIndicator} from "react-native";
+import {View, Text, I18nManager,Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, ActivityIndicator} from "react-native";
 import {
     Container,
     Content,

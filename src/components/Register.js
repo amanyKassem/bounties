@@ -11,7 +11,7 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import {getCities, register, categoryHome} from "../actions";
 import axios from "axios";
-
+import  CONST from '../consts';
 
 import Spinner from "react-native-loading-spinner-overlay";
 
@@ -27,6 +27,9 @@ class Register extends Component {
             deviceId: '',
             latitude: '',
             longitude: '',
+            map_key: '',
+            map: '',
+            payment: '',
             city_name: '',
             usernameStatus: 0,
             phoneStatus: 0,
@@ -60,40 +63,57 @@ class Register extends Component {
             this.setState({latitude: this.props.navigation.getParam('latitude')});
             this.setState({longitude: this.props.navigation.getParam('longitude')});
         } else {
-            let {status} = await Permissions.askAsync(Permissions.LOCATION);
-            if (status !== 'granted') {
-                alert('صلاحيات تحديد موقعك الحالي ملغاه');
-            } else {
-                const {coords: {latitude, longitude}} = await Location.getCurrentPositionAsync({});
-                const userLocation = {latitude, longitude};
+
+            axios({
+                url         :  CONST.url + 'settings',
+                method      :  'POST',
+                data        :  {},
+            }).then(response => {
                 this.setState({
-                    initMap: false,
-                    mapRegion: userLocation,
-                    latitude: userLocation.latitude,
-                    longitude: userLocation.longitude
+                    map_key   : response.data.map_key,
+                    map       : response.data.map,
+                    payment   : response.data.payment
                 });
-
-            }
-
-            let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
-            getCity += this.state.mapRegion.latitude + ',' + this.state.mapRegion.longitude;
-            getCity += '&key=AIzaSyCJTSwkdcdRpIXp2yG7DfSRKFWxKhQdYhQ&language=' + this.props.lang + '&sensor=true';
-
-            console.log(getCity);
-
-            try {
-                const {data} = await axios.get(getCity);
-                this.setState({city_name: data.results[0].formatted_address});
-
-            } catch (e) {
-                console.log(e);
-            }
+                this.get_places(response.data.map_key,response.data.map)
+            });
         }
 
         this.props.categoryHome(this.props.lang);
         this.props.getCities(this.props.lang);
 
 
+    }
+
+    async get_places(allow,key){
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            alert('صلاحيات تحديد موقعك الحالي ملغاه');
+        }else {
+            const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
+            const userLocation = { latitude, longitude };
+            this.setState({
+                initMap: false,
+                mapRegion: userLocation,
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude
+            });
+        }
+
+        let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+        getCity    += this.state.mapRegion.latitude + ',' + this.state.mapRegion.longitude;
+        if(allow === '1'){
+            getCity    += '&key=AIzaSyCJTSwkdcdRpIXp2yG7DfSRKFWxKhQdYhQ&language=ar&sensor=true';
+        }else{
+            getCity    += '&key='+key+'&language=ar&sensor=true';
+        }
+
+        try {
+            const { data } = await axios.get(getCity);
+            this.setState({ city_name: data.results[0].formatted_address });
+
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     _handleMapRegionChange = async (mapRegion) => {

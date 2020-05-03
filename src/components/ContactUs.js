@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import {View, Text, Image, ImageBackground, TouchableOpacity, Linking, ActivityIndicator, I18nManager} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    ImageBackground,
+    TouchableOpacity,
+    Linking,
+    ActivityIndicator,
+    I18nManager,
+    KeyboardAvoidingView
+} from "react-native";
 import {Container, Content, Icon, Header, Left, Button, Body, Title, Item, Textarea, Form, Toast} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
@@ -143,11 +153,14 @@ class ContactUs extends Component {
                             }
                         </View>
 
+
+
                         <Modal
                             onBackdropPress                 ={() => this.toggleModal()}
                             onBackButtonPress               = {() => this.toggleModal()}
                             isVisible                       = {this.state.show_modal}
                             style                           = {styles.bgModel}
+                            avoidKeyboard                   = { true }
                             // animationIn                     = {'slideInUp'}
                             // animationOut                    = {'slideOutDown'}
                             // animationInTiming               = {1000}
@@ -156,12 +169,12 @@ class ContactUs extends Component {
                             // backdropTransitionOutTiming     = {1000}
                             // swipeDirection                  = "bottom"
                         >
-
                                     <View style={[styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10 , styles.paddingHorizontal_10]}>
                                         <View style={[styles.overHidden]}>
                                             <Text style={[styles.textRegular, styles.textSize_16, styles.text_black]}>
                                                 { i18n.t('FAsww') }
                                             </Text>
+
                                             <View style={[styles.position_R, styles.Width_90, styles.marginVertical_10, styles.flexCenter]}>
                                                 <Form style={[styles.position_R, styles.Width_90, styles.marginVertical_10, styles.flexCenter]}>
                                                     <Item style={[styles.item, styles.position_R]}>

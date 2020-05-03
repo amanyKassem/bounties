@@ -190,7 +190,8 @@ class MyOrders extends Component {
 									{
 										this.props.userOrders.map((order, i) => {
 											const myOrders = this.props.user.type === 'provider' ? order.order_user : order.order_provider
-											return (
+											console.log(myOrders.avatar)
+                                            return (
 												<TouchableOpacity key={i}
 													onPress={() => this.props.navigation.navigate(this.props.user.type === 'delegate' ? 'delegateOrderDetails' : 'orderDetails', { order_id: order.order_info.order_id })}
 													style={[styles.position_R, styles.flexCenter, styles.Width_90, {marginTop: 20}]}>

@@ -77,7 +77,7 @@ class DrawerCustomization extends Component {
 
                         <View style={[styles.viewUser, styles.SelfLeft, styles.justifyCenter]}>
                             <View style={[styles.bg_darkBlue, styles.width_150, styles.height_70, styles.position_A, styles.zIndexDown]}/>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('profile')} style={[styles.position_R, styles.flexCenter, styles.zIndexUp, styles.Width_100, styles.marginHorizontal_25, styles.top_30]}>
+                            <TouchableOpacity onPress={() =>  (this.props.user) ?this.props.navigation.navigate('profile') : this.props.navigation.navigate('Login')} style={[styles.position_R, styles.flexCenter, styles.zIndexUp, styles.Width_100, styles.marginHorizontal_25, styles.top_30]}>
                                 <Image style={[styles.width_90, styles.height_90, styles.Radius_5]} source={{ uri: user.avatar }}/>
                                 <View style={styles.nameUser} >
                                     <Text style={[styles.textRegular, styles.textSize_16, styles.text_darkblue]}>{ user.name }</Text>

@@ -15,6 +15,12 @@ const en = {
     'confirmpass': 'confirm the new password',
     'actcode': 'activation code',
     "save": 'save',
+    "shipping_price": 'shipping price',
+    "time": 'shipping time',
+    'resend_code'               : 'resend code',
+    "cashPay": 'Cash Payment',
+    "payment_way": 'Checkout',
+    "massprod": 'product description',
     'chickLogin': 'You must first register',
     'Full': 'Full name must be entered',
     'tryagain': 'Something went wrong please try again',
@@ -177,7 +183,9 @@ const en = {
     'idNum'            : 'ID number',
     'deliveryTime'            : 'Enter delivery time',
     'otherNotes'            : 'Write any other notes',
-    'continue'            : 'Continue',
+    'continue'               : 'Continue',
+    'rs'                     : 'USD',
+    'total_Amount'              : 'Total financial dues',
     'discountCoupon'            : 'Discount coupon',
     'enterCoupon'            : 'Please enter discount coupon',
     'deliverTime'            : 'Deliver time',
@@ -203,7 +211,6 @@ const en = {
     'subPrice'            : 'Subscription price',
     'start_at'            : 'Subscription date',
     'expire_date'            : 'Renewal date',
-
 };
 
 export default en;

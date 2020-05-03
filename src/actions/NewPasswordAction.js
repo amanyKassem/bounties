@@ -22,6 +22,7 @@ export const newPass = (data , lang, props) => {
                 props.navigation.navigate('Login');
             }
 
+
             Toast.show({
                 text        	: response.data.msg,
                 type			: response.data.key === 1 ? "success" : "danger",

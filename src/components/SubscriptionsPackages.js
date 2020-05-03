@@ -63,7 +63,7 @@ class SubscriptionsPackages extends Component {
                             styles.height_40,
                             {marginTop:50}
                         ]}
-                        onPress={() => navigation.navigate('ChoosePayment' , {routeName:'subscriptionsPackages' , product_id:this.props.navigation.state.params.product_id , id:item.id})}>
+                        onPress={() => navigation.navigate('WebViewPayment' , {routeName:'subscriptionsPackages' , product_id:this.props.navigation.state.params.product_id , packageId:item.id ,user_id:this.props.user.id})}>
                         <Text style={[styles.textRegular, styles.textSize_14, styles.text_White]}>
                             {i18n.t('subscription')}
                         </Text>

@@ -128,10 +128,9 @@ class FilterCategory extends Component {
     renderItems = (item, key) => {
 
         return (
-
             <View>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate(this.props.user?'provider':'Login', {id: item.id, name: item.name})}
+                    onPress={() => this.props.navigation.navigate(this.props.user?'provider':'provider', {id: item.id, name: item.name})}
                     style={[styles.position_R, styles.flexCenter, styles.Width_90, styles.marginVertical_15]}
                     key={key}
                 >
@@ -257,7 +256,7 @@ class FilterCategory extends Component {
 
 
 
-                        <View style={[styles.marginVertical_5, styles.overHidden]}>
+                         <View style={[styles.marginVertical_5, styles.overHidden]}>
 
                             {
                                 this.state.loader ?

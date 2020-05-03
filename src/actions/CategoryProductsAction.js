@@ -3,13 +3,13 @@ import CONST from "../consts";
 import { Toast } from 'native-base'
 import i18n from "../../locale/i18n";
 
-export const categoryProducts = ( lang , category_id , token ) => {
+export const categoryProducts = ( lang , category_id ,lat,lng, token ) => {
 
     return (dispatch) => {
         axios({
             url         : CONST.url + 'products/category',
             method      : 'POST',
-            data        : { lang , category_id },
+            data        : { lang , category_id ,lat , lng},
             headers     : token ? { Authorization: token } : null,
         }).then(response => {
 

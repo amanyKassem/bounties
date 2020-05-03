@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager,} from "react-native";
-import {Container, Content, Form, Item, Input, Toast, Icon} from 'native-base'
+import {Container, Content, Form, Item, Input, Toast, Icon, Button} from 'native-base'
 import styles from '../../assets/style'
 import i18n from '../../locale/i18n'
 import {NavigationEvents} from "react-navigation";
@@ -25,7 +25,7 @@ class NewPassword extends Component {
     componentWillMount() {
 
         const code  = this.props.navigation.state.params.code;
-        alert(code);
+        //alert(code);
 
     }
 
@@ -112,7 +112,11 @@ class NewPassword extends Component {
                 <NavigationEvents onWillFocus={() => this.onFocus()} />
                 <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/background.png') : require('../../assets/images/bg_img.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth}>
+
                         <View style={[styles.position_R, styles.bgFullWidth, styles.marginVertical_15, styles.SelfCenter, styles.Width_100]}>
+                            <Button style={styles.Button} transparent onPress={() => this.props.navigation.navigate('Login')}>
+                                <Icon style={[styles.text_darkblue, styles.textSize_22]} type="AntDesign" name={I18nManager.isRTL ?'right' :'left'} />
+                            </Button>
                             <Animatable.View animation="fadeInDown" easing="ease-out" delay={500} style={[styles.flexCenter]}>
                                 <View style={[styles.overHidden, styles.marginVertical_15]}>
                                     <Image style={[styles.icoImage]} source={require('../../assets/images/logo.png')}/>

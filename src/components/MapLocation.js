@@ -9,6 +9,7 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import axios from "axios";
 import MapView from 'react-native-maps';
+import CONST from "../consts";
 
 class MapLocation extends Component {
     constructor(props){
@@ -20,6 +21,55 @@ class MapLocation extends Component {
             hasLocationPermissions    : false,
             initMap                   : true,
             location                  : '',
+            longitude                  : '',
+            latitude                  : '',
+        }
+
+
+        axios({
+            url         :  CONST.url + 'settings',
+            method      :  'POST',
+            data        :  {},
+        }).then(response => {
+            this.setState({
+                map_key   : response.data.map_key,
+                map       : response.data.map,
+                payment   : response.data.payment
+            });
+            this.get_places(response.data.map_key,response.data.map)
+        });
+    }
+
+
+    async get_places(allow,key){
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            alert('صلاحيات تحديد موقعك الحالي ملغاه');
+        }else {
+            const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
+            const userLocation = { latitude, longitude };
+            this.setState({
+                initMap: false,
+                mapRegion: userLocation,
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude
+            });
+        }
+
+        let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+        getCity    += this.state.mapRegion.latitude + ',' + this.state.mapRegion.longitude;
+        if(allow === '1'){
+            getCity    += '&key=AIzaSyCJTSwkdcdRpIXp2yG7DfSRKFWxKhQdYhQ&language=ar&sensor=true';
+        }else{
+            getCity    += '&key='+key+'&language=ar&sensor=true';
+        }
+
+        try {
+            const { data } = await axios.get(getCity);
+            this.setState({ city: data.results[0].formatted_address });
+
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -49,7 +99,6 @@ class MapLocation extends Component {
         } catch (e) {
             console.log(e);
         }
-
     }
 
     async componentDidMount(){
@@ -63,13 +112,17 @@ class MapLocation extends Component {
     }
 
     _handleMapRegionChange  = async (mapRegion) =>  {
+
         this.setState({ mapRegion });
 
         let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
         getCity += mapRegion.latitude + ',' + mapRegion.longitude;
-        getCity += '&key=AIzaSyCJTSwkdcdRpIXp2yG7DfSRKFWxKhQdYhQ&language=ar&sensor=true';
 
-        console.log('locations data', getCity);
+        if(this.state.map_key === '1'){
+            getCity    += '&key=AIzaSyCJTSwkdcdRpIXp2yG7DfSRKFWxKhQdYhQ&language=ar&sensor=true';
+        }else{
+            getCity    += '&key='+this.state.map+'&language=ar&sensor=true';
+        }
 
         try {
             const { data } = await axios.get(getCity);
@@ -79,7 +132,6 @@ class MapLocation extends Component {
             console.log(e);
         }
     };
-
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
@@ -152,6 +204,7 @@ class MapLocation extends Component {
                     shipping_price          : this.props.navigation.state.params.shipping_price,
                     deliverd_time           : this.props.navigation.state.params.deliverd_time,
                     notes                   : this.props.navigation.state.params.notes,
+                    total                   : this.props.navigation.state.params.total,
                     address                 : this.state.city,
                 });
             } else {

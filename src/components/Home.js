@@ -21,10 +21,10 @@ import {NavigationEvents} from "react-navigation";
 import Swiper from 'react-native-swiper';
 import * as Animatable from 'react-native-animatable';
 import {sliderHome, categoryHome, searchHome, homeProvider, homeDelegate, getCities, filterProviders} from '../actions';
-import i18n from "../../locale/i18n";
-import StarRating from "react-native-star-rating";
-import COLORS from "../consts/colors";
-import Spinner from "react-native-loading-spinner-overlay";
+import i18n            from "../../locale/i18n";
+import StarRating      from "react-native-star-rating";
+import COLORS          from "../consts/colors";
+import Spinner         from "react-native-loading-spinner-overlay";
 import {Notifications} from "expo";
 import Masonry from 'react-native-masonry';
 import Modal from "react-native-modal";
@@ -67,31 +67,22 @@ class Home extends Component {
             lang: this.props.lang,
             city_id: country,
         };
-
         this.props.filterProviders(data , this.props);
-
         this.setState({show_modal: !this.state.show_modal , loader:true});
-
-        console.log('data filter', data);
-
     }
 
     componentWillMount() {
-
-        this.props.getCities(this.props.lang);
-
-        if (this.props.auth === null || this.props.auth.data.type === 'user') {
-            this.props.sliderHome(this.props.lang);
-            this.props.categoryHome(this.props.lang);
-        } else if (this.props.auth.data.type === 'provider') {
-            this.props.homeProvider(this.props.lang, null, this.props.auth.data.token);
-        } else if (this.props.auth.data.type === 'delegate') {
-            this.props.homeDelegate(this.props.lang, this.state.status, this.props.auth.data.token);
-        }
-
-
-        this.setState({ spinner: false });
-
+            console.log('componentWillMount' ,this.props.auth);
+            this.props.getCities(this.props.lang);
+            if (this.props.auth === null || this.props.auth.data.type === 'user') {
+                this.props.sliderHome(this.props.lang);
+                this.props.categoryHome(this.props.lang);
+            } else if (this.props.auth.data.type === 'provider') {
+                this.props.homeProvider(this.props.lang, null, this.props.auth.data.token);
+            } else if (this.props.auth.data.type === 'delegate') {
+                this.props.homeDelegate(this.props.lang, this.state.status, this.props.auth.data.token);
+            }
+           this.setState({ spinner: false });
     }
 
     componentDidMount() {
@@ -99,10 +90,8 @@ class Home extends Component {
     }
 
     onSubCategories ( id ){
-
         this.setState({active : id });
         this.props.homeProvider( this.props.lang , id ,this.props.user.token );
-
     }
 
     componentWillReceiveProps(nextProps) {

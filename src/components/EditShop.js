@@ -23,11 +23,13 @@ class EditShop extends Component {
             cityName            : this.props.navigation.state.params.data.address,
             storeImage          : this.props.navigation.state.params.data.avatar,
             base64              : null,
+            time                : this.props.navigation.state.params.data.time,
+            shipping_price      : JSON.stringify(this.props.navigation.state.params.data.shipping_price),
         }
+
     }
 
     componentWillMount() {
-
 
 
     }
@@ -59,6 +61,8 @@ class EditShop extends Component {
             lng                 : this.state.longitude,
             token               : this.props.user.token,
             category_id         : this.props.user.category_id,
+            shipping_price      : this.state.shipping_price,
+            time                : this.state.time,
         };
 
             this.setState({ isSubmitted: true });
@@ -189,6 +193,39 @@ class EditShop extends Component {
                                     </Item>
                                     <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.nameStoreStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
                                         <Icon style = {[styles.text_blue, styles.textSize_22]} type="AntDesign" name='user' />
+                                    </View>
+                                </View>
+
+                                <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
+                                    <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
+                                        <Input
+                                            placeholder             = {i18n.translate('shipping_price')}
+                                            style                   = {[ styles.input , styles.height_50 , (this.state.nameStoreStatus === 1 ? styles.Active : styles.noActive )]}
+                                            onChangeText            = {(shipping_price) => this.setState({shipping_price})}
+                                            onBlur                  = {() => this.unActiveInput('nameStore')}
+                                            onFocus                 = {() => this.activeInput('nameStore')}
+                                            value                   = {this.state.shipping_price}
+                                        />
+                                    </Item>
+                                    <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.nameStoreStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="FontAwesome" name='dollar' />
+                                    </View>
+                                </View>
+
+
+                                <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
+                                    <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
+                                        <Input
+                                            placeholder             = {i18n.translate('time')}
+                                            style                   = {[ styles.input , styles.height_50 , (this.state.nameStoreStatus === 1 ? styles.Active : styles.noActive )]}
+                                            onChangeText            = {(time) => this.setState({time})}
+                                            onBlur                  = {() => this.unActiveInput('nameStore')}
+                                            onFocus                 = {() => this.activeInput('nameStore')}
+                                            value                   = {this.state.time}
+                                        />
+                                    </Item>
+                                    <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.nameStoreStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="MaterialIcons" name='access-time' />
                                     </View>
                                 </View>
 

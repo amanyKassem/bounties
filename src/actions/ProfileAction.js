@@ -34,7 +34,9 @@ export const updateProfile = (data) => {
                 address             : data.address,
                 category_id         : data.category_id,
                 provider_details    : data.provider_details,
+                shipping_price      : data.shipping_price,
                 lang                : data.lang,
+                time                : data.time,
             }}).then(response => {
 
             if (response.data.key == 1) {
@@ -70,7 +72,10 @@ export const logout = (data) => {
                 AsyncStorage.multiRemove(['token', 'auth', 'profile'])
                 dispatch({type: 'logout'})
             }
-        )
+        ).catch(()=>{
+            AsyncStorage.multiRemove(['token', 'auth', 'profile'])
+            dispatch({type: 'logout'})
+        })
     }
 };
 

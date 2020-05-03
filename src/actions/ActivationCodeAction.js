@@ -32,3 +32,20 @@ export const activeCode = (data , props, lang) => {
 
     }
 };
+
+export const resendCode = (data , props, lang) => {
+    return (dispatch) => {
+
+        axios({
+            url         : CONST.url + 'resendCode',
+            method      : 'POST',
+            data        : {
+                phone			    : data.phone,
+                lang
+            }
+        }).then(response => {
+            dispatch({type: 'resendCode', payload: response.data});
+        })
+
+    }
+};

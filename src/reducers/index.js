@@ -27,6 +27,7 @@ import userOrders from './UserOrdersReducer';
 import orderDetails from './OrderDetailsReducer';
 import register from './RegisterReducer';
 import activeCode from './ActivationCodeReducer';
+import resendCode from './ActivationCodeReducer';
 import forgetPassword from './ForgetPasswordReducer';
 import newPassword from './NewPasswordReducer';
 import offers from './OffersReducer';
@@ -71,6 +72,7 @@ export default combineReducers({
     orderDetails,
     register,
     activeCode,
+    resendCode,
     forgetPassword,
     newPassword,
     offers,
