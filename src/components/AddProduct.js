@@ -292,7 +292,7 @@ class AddProduct extends Component {
                             </View>
                         </View>
 
-                        <KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>
+                        {/*<KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>*/}
                             <Form style={[styles.Width_100, styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
 
                                 <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
@@ -391,7 +391,7 @@ class AddProduct extends Component {
                                     </TouchableOpacity>
                             }
 
-                        </KeyboardAvoidingView>
+                        {/*</KeyboardAvoidingView>*/}
                 </Content>
                     </ImageBackground>
             </Container>

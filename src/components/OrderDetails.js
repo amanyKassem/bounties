@@ -264,7 +264,7 @@ class OrderDetails extends Component {
 									<View>
 										<View style={styles.viewBlock}>
 											<Swiper
-												containerStyle={[styles.Width_100, styles.marginVertical_15, {height: 400}, styles.viewBlock]}
+												containerStyle={[styles.Width_100, {height: 400}, styles.viewBlock]}
 												autoplay={true}
 												paginationStyle={{
 													top: -150,
@@ -393,6 +393,28 @@ class OrderDetails extends Component {
 														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('orderStatus')}</Text>
 													<Text
 														style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.status_text}</Text>
+												</View>
+											</View>
+										</View>
+
+										<View
+											style={[styles.position_R, styles.Width_95,  styles.marginHorizontal_10, styles.SelfCenter]}>
+											<View style={[styles.lightOverlay, styles.Border]}></View>
+											<View
+												style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7
+													, {
+														borderWidth: 1,
+														borderTopColor: COLORS.lightWhite,
+														borderBottomColor: COLORS.lightWhite,
+														borderRightColor: COLORS.lightWhite,
+														borderLeftWidth: 5,
+														borderLeftColor: COLORS.fyrozy
+													}]}>
+												<View style={[styles.directionColumn, {flex: 1}]}>
+													<Text
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.phone}</Text>
+													<Text
+														style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.address}</Text>
 												</View>
 											</View>
 										</View>

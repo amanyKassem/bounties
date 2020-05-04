@@ -275,7 +275,7 @@ class EditProfile extends Component {
                                                     itemTextStyle           = {[styles.textRegular,{ color: "#7C7C7C", writingDirection: 'rtl', width : '100%', }]}
                                                 >
 
-                                                    <Picker.Item style={[styles.Width_100]} label={i18n.t('category')} value={null} />
+                                                    {/*<Picker.Item style={[styles.Width_100]} label={i18n.t('category')} value={null} />*/}
                                                     {
                                                         this.props.categories.map((cate, i) => (
                                                             <Picker.Item style={styles.Width_100} key={i} label={cate.name} value={cate.id} />
@@ -306,7 +306,7 @@ class EditProfile extends Component {
                                             placeholder             = {i18n.translate('city')}
                                             itemTextStyle           = {[styles.textRegular,{ color: "#121212", writingDirection: 'rtl', width : '100%', }]}
                                         >
-                                            <Picker.Item style={[styles.Width_100]} label={i18n.t('city')} value={null} />
+                                            {/*<Picker.Item style={[styles.Width_100]} label={i18n.t('city')} value={null} />*/}
                                             {
                                                 this.props.cities.map((city, i) => (
                                                     <Picker.Item key={i} label={city.name} value={city.id} />
@@ -336,7 +336,7 @@ class EditProfile extends Component {
                                     <Item onPress={() => this.props.navigation.navigate('MapLocation', {pageName : this.props.navigation.state.routeName})} floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
                                         <Input
                                             placeholder             = {i18n.translate('map')}
-                                            style                   = {[ styles.input , styles.height_50 , styles.Active]}
+                                            style                   = {[ styles.input , styles.height_50 , styles.Active, {paddingRight:0 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}
                                             value                   = {this.state.city_name}
                                             disabled
                                         />

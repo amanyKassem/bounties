@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, I18nManager} from "react-native";
+import {View, Text, Image, TouchableOpacity, I18nManager , Share} from "react-native";
 import {Button, Container, Content, Icon} from 'native-base';
 import { DrawerItems } from 'react-navigation-drawer';
 
@@ -17,6 +17,28 @@ class DrawerCustomization extends Component {
             user: [],
         }
     }
+
+    onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:'https://s.ll.sa/bounties'
+                // Platform.OS === 'ios'? 'https://apps.apple.com/us/app/reesh-ريش/id1490248883?ls=1' : 'https://play.google.com/store/apps/details?id=com.app.reesh',
+            })
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
 
     changeLang(){
         const lang = I18nManager.isRTL ? 'en' : 'ar';
@@ -94,7 +116,7 @@ class DrawerCustomization extends Component {
                                              if (route.route.key === 'logout') {
                                                  this.logout()
                                              }else {
-                                                 this.props.navigation.navigate(route.route.key);
+                                                 route.route.key === 'ShareApp' ? this.onShare(): this.props.navigation.navigate(route.route.key)
                                              }
                                          }
                                      }

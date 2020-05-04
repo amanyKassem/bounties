@@ -447,8 +447,8 @@ class Register extends Component {
                                                 }]}
                                             >
 
-                                                <Picker.Item style={[styles.Width_100]} label={i18n.t('city')}
-                                                             value={null}/>
+                                                {/*<Picker.Item style={[styles.Width_100]} label={i18n.t('city')}*/}
+                                                             {/*value={null}/>*/}
                                                 {
                                                     this.props.citys.map((city, i) => (
                                                         <Picker.Item style={styles.Width_100} key={i}

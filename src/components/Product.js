@@ -458,7 +458,7 @@ class Product extends Component {
 									</View>
 
 									<View
-										style={[styles.Width_90, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>
+										style={[styles.Width_90 , styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter , {marginBottom:150}]}>
 										<View style={[styles.lightOverlay, styles.Border]}/>
 										<View
 											style={[styles.Width_100, styles.overHidden, styles.bg_White, styles.Border, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7]}>

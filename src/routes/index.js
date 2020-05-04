@@ -55,6 +55,7 @@ import WebViewPayment           from "../components/WebViewPayment";
 import PaymentUser              from "../components/PaymentUser";
 import ConfirmUserPayment       from "../components/ConfirmUserPayment";
 import WebViewUser              from "../components/WebViewUser";
+import ShareApp                 from "../components/ShareApp";
 
 
 const drawerCust = (props) => (<DrawerCustomization {...props} />);
@@ -69,6 +70,7 @@ const drawerNavigator = createDrawerNavigator({
     bankAccounts            : BankAccounts,
     AboutApp            : AboutApp,
     Faq                 : Faq,
+    ShareApp                 : ShareApp,
     Terms               : Terms,
     ContactUs           : ContactUs,
 },

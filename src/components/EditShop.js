@@ -17,8 +17,10 @@ class EditShop extends Component {
         this.state={
             status              : null,
             nameStoreStatus     : 1,
+            workTimeStatus     : 1,
             infoStoreStatus     : 1,
             nameStore		    : this.props.navigation.state.params.data.name,
+            workTime		    : this.props.navigation.state.params.data.dates_shipping_times,
             info	            : this.props.navigation.state.params.data.details,
             cityName            : this.props.navigation.state.params.data.address,
             storeImage          : this.props.navigation.state.params.data.avatar,
@@ -63,6 +65,7 @@ class EditShop extends Component {
             category_id         : this.props.user.category_id,
             shipping_price      : this.state.shipping_price,
             time                : this.state.time,
+            dates_shipping_times : this.state.workTime,
         };
 
             this.setState({ isSubmitted: true });
@@ -101,6 +104,10 @@ class EditShop extends Component {
         if (type === 'info' || this.state.info !== ''){
             this.setState({ infoStoreStatus: 1 })
         }
+
+        if (type === 'workTime' || this.state.workTime !== ''){
+            this.setState({ workTimeStatus: 1 })
+        }
     }
 
     unActiveInput(type){
@@ -111,6 +118,10 @@ class EditShop extends Component {
 
         if (type === 'info' && this.state.info === ''){
             this.setState({ infoStoreStatus: 0 })
+        }
+
+        if (type === 'workTime' && this.state.workTime === ''){
+            this.setState({ workTimeStatus: 0 })
         }
 
     }
@@ -177,7 +188,7 @@ class EditShop extends Component {
                             </View>
                         }
 
-                        <KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>
+                        {/*<KeyboardAvoidingView behavior={'padding'} style={styles.keyboardAvoid}>*/}
                             <Form style={[styles.Width_100, styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
 
                                 <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
@@ -193,6 +204,36 @@ class EditShop extends Component {
                                     </Item>
                                     <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.nameStoreStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
                                         <Icon style = {[styles.text_blue, styles.textSize_22]} type="AntDesign" name='user' />
+                                    </View>
+                                </View>
+
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('MapLocation', {pageName : this.props.navigation.state.routeName})}  style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
+                                    <Item onPress={() => this.props.navigation.navigate('MapLocation', {pageName : this.props.navigation.state.routeName})} floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
+                                        <Input
+                                            placeholder             = {i18n.translate('map')}
+                                            style                   = {[ styles.input , styles.height_50 , styles.Active , {paddingRight:0 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}
+                                            value                   = {this.state.cityName}
+                                            disabled
+                                        />
+                                    </Item>
+                                    <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput, styles.left_0 ]}>
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="Feather" name='map-pin' />
+                                    </View>
+                                </TouchableOpacity>
+
+                                <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
+                                    <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
+                                        <Input
+                                            placeholder             = {i18n.translate('workTime')}
+                                            style                   = {[ styles.input , styles.height_50 , (this.state.workTimeStatus === 1 ? styles.Active : styles.noActive )]}
+                                            onChangeText            = {(workTime) => this.setState({workTime})}
+                                            onBlur                  = {() => this.unActiveInput('workTime')}
+                                            onFocus                 = {() => this.activeInput('workTime')}
+                                            value                   = {this.state.workTime}
+                                        />
+                                    </Item>
+                                    <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.workTimeStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="AntDesign" name='date' />
                                     </View>
                                 </View>
 
@@ -229,20 +270,6 @@ class EditShop extends Component {
                                     </View>
                                 </View>
 
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('MapLocation', {pageName : this.props.navigation.state.routeName})}  style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
-                                    <Item onPress={() => this.props.navigation.navigate('MapLocation', {pageName : this.props.navigation.state.routeName})} floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
-                                        <Input
-                                            placeholder             = {i18n.translate('map')}
-                                            style                   = {[ styles.input , styles.height_50 , styles.Active]}
-                                            value                   = {this.state.cityName}
-                                            disabled
-                                        />
-                                    </Item>
-                                    <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput, styles.left_0 ]}>
-                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="Feather" name='map-pin' />
-                                    </View>
-                                </TouchableOpacity>
-
                                 <View style={[styles.position_R, styles.overHidden, styles.flexCenter ]}>
                                     <Item style={[styles.item, styles.position_R, styles.overHidden]}>
                                         <Textarea
@@ -267,7 +294,7 @@ class EditShop extends Component {
                                 <Text style={[styles.textRegular, styles.text_White,styles.textSize_14, styles.textLeft]}>{ i18n.t('confirm') }</Text>
                             </TouchableOpacity>
 
-                        </KeyboardAvoidingView>
+                        {/*</KeyboardAvoidingView>*/}
                 </Content>
                 </ImageBackground>
             </Container>

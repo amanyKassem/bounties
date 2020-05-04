@@ -37,6 +37,7 @@ export const updateProfile = (data) => {
                 shipping_price      : data.shipping_price,
                 lang                : data.lang,
                 time                : data.time,
+                dates_shipping_times                : data.dates_shipping_times,
             }}).then(response => {
 
             if (response.data.key == 1) {

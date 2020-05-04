@@ -189,7 +189,7 @@ class ContactUs extends Component {
                                                     </Item>
                                                 </Form>
                                             </View>
-                                            <TouchableOpacity style={[styles.overHidden, styles.paddingVertical_5 , styles.bg_darkBlue, styles.Width_50, styles.flexCenter, styles.Radius_5]} onPress={() => this.onSent()}>
+                                            <TouchableOpacity style={[styles.overHidden , {marginBottom:20}, styles.paddingVertical_5 , styles.bg_darkBlue, styles.Width_50, styles.flexCenter, styles.Radius_5]} onPress={() => this.onSent()}>
                                                 <Text style={[styles.textRegular, styles.textSize_18, styles.text_White, styles.textCenter]}>
                                                     { i18n.t('sent') }
                                                 </Text>

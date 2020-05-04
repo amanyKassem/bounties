@@ -8,7 +8,7 @@ import * as Animatable from 'react-native-animatable';
 import {connect} from "react-redux";
 import COLORS from '../../src/consts/colors'
 import Modal from "react-native-modal";
-import {getChangePassword} from "../actions";
+import {getChangePassword , profile} from "../actions";
 
 
 class Profile extends Component {
@@ -42,6 +42,7 @@ class Profile extends Component {
 
     componentWillMount() {
         this.setState({ messageError: '', isSubmitted: false });
+        this.props.profile(this.props.user.token);
     }
 
     renderSubmit(){
@@ -240,7 +241,7 @@ class Profile extends Component {
                                 <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
                                     <Input
                                         placeholder             = {i18n.translate('map')}
-                                        style                   = {[ styles.input , styles.height_50 , styles.Active]}
+                                        style                   = {[ styles.input , styles.height_50 , styles.Active, {paddingRight:0 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}
                                         value                   = {this.props.user.address}
                                         disabled
                                     />
@@ -413,4 +414,4 @@ const mapStateToProps = ({ lang , changePassword , profile }) => {
         message                 : changePassword.message
     };
 };
-export default connect(mapStateToProps, {getChangePassword})(Profile);
+export default connect(mapStateToProps, {getChangePassword , profile})(Profile);

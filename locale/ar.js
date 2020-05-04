@@ -7,7 +7,7 @@ const ar = {
     'pass'                      : 'قم بإدخال كلمه المرور',
     'phone'                     : 'رقم الجوال',
     'password'                  : 'كلمه المرور',
-    'forgetPassword'            : 'نسيت كلمه السر ؟',
+    'forgetPassword'            : 'هل نسيت كلمه السر ؟',
     'doHaveAcc'                 : 'تسجيل',
     'registerUser'              : 'تسجيل كمستخدم عادي',
     'registerProvider'          : 'تسجيل كأسرة منتجة',
@@ -104,7 +104,7 @@ const ar = {
     'addpro'                    : 'إضافه منتج',
     'nameproducer'              : 'اسم المنتج',
     'producer'                  : 'نوع المنتج',
-    'monyproducer'              : 'سعر المنتج',
+    'monyproducer'              : 'سعر المنتج بالريال',
     'sallproducer'              : 'نسبه الخصم',
     'searchCat'                 : 'بحث بالقسم',
     'searchcom'                 : 'آكتب شئ ف البحث',
@@ -215,6 +215,8 @@ const ar = {
     'subPrice'            : 'سعر الاشتراك',
     'start_at'            : 'تاريخ الاشتراك',
     'expire_date'            : 'ميعاد التجديد',
+    'workTime'            : 'مواعيد العمل',
+    'shareApp'            : 'مشاركة التطبيق',
 };
 
 export default ar;

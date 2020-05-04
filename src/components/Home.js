@@ -438,6 +438,22 @@ class Home extends Component {
 
                                     </View>
 
+                                    <Modal style={{}} isVisible={this.state.isModalVisible} onBackdropPress={() => this.toggleModalInfo()}>
+                                        <View style={[styles.commentModal, {padding: 15}]}>
+                                            <View style={[styles.directionRowC , styles.SelfCenter]}>
+                                                <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/green_calender.png')} resizeMode={'contain'}/>
+                                                <Text style={[styles.textRegular, styles.text_fyrozy,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
+                                            </View>
+
+                                            <View style={[styles.directionColumnCenter]}>
+                                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{provider_info.dates_shipping_times}</Text>
+                                                {/*<Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{provider_info.shipping_places}</Text>*/}
+                                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{provider_info.time}</Text>
+                                            </View>
+
+                                        </View>
+                                    </Modal>
+
                                 </View>
                                 :
                                 <View/>
@@ -594,21 +610,7 @@ class Home extends Component {
                         </View>
                     </Modal>
 
-                    <Modal style={{}} isVisible={this.state.isModalVisible} onBackdropPress={() => this.toggleModalInfo()}>
-                        <View style={[styles.commentModal, {padding: 15}]}>
-                            <View style={[styles.directionRowC , styles.SelfCenter]}>
-                                <Image style={[{width:22 , marginRight:5}]} source={require('../../assets/images/green_calender.png')} resizeMode={'contain'}/>
-                                <Text style={[styles.textRegular, styles.text_fyrozy,styles.textSize_14 ,styles.textDecoration]}>{ i18n.t('availTime') }</Text>
-                            </View>
 
-                            <View style={[styles.directionColumnCenter]}>
-                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>10 ص : 10 م يوميا ماعدا الجمعه والبسبت</Text>
-                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliverUSAa') }</Text>
-                                <Text style={[styles.textRegular, styles.text_darkblue,styles.textSize_14 , {marginBottom:10}]}>{ i18n.t('deliver24') }</Text>
-                            </View>
-
-                        </View>
-                    </Modal>
 
                 </Content>
                     </ImageBackground>

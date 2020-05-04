@@ -99,7 +99,7 @@ const en = {
     'addpro': 'add product',
     'nameproducer': 'product name',
     'producer': 'product type',
-    'monyproducer': 'product price',
+    'monyproducer': 'product price in RS',
     'sallproducer': 'discount rate',
     'searchCat': 'search by section',
     'searchcom': 'write something for your search',
@@ -211,6 +211,8 @@ const en = {
     'subPrice'            : 'Subscription price',
     'start_at'            : 'Subscription date',
     'expire_date'            : 'Renewal date',
+    'workTime'            : 'Work time',
+    'shareApp'            : 'Share app',
 };
 
 export default en;
