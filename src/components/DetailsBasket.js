@@ -168,7 +168,7 @@ class DetailsBasket extends Component {
                                         </Text>
                                         <Text style={[styles.textBold, styles.text_White, styles.textSize_14]}>{Number(this.state.totalPrice) + Number(this.props.cartProducts.prices.shipping_price)} {i18n.t('RS')}</Text>
                                     </View>
-                                    <KeyboardAvoidingView behavior={'padding'} >
+                                    {/*<KeyboardAvoidingView behavior={'padding'} >*/}
                                         <Textarea placeholder={i18n.t('deliveryTime')}
                                                   placeholderTextColor={COLORS.bold_gray} autoCapitalize='none'
                                                   value={this.state.deliveryTime} onChangeText={(deliveryTime) => this.setState({deliveryTime})}
@@ -200,7 +200,7 @@ class DetailsBasket extends Component {
                                                 {i18n.translate('confirm')}
                                             </Text>
                                         </TouchableOpacity>
-                                    </KeyboardAvoidingView>
+                                    {/*</KeyboardAvoidingView>*/}
                                 </View> :
                                 <View/>
                         }

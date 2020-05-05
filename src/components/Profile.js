@@ -170,7 +170,7 @@ class Profile extends Component {
                 <ImageBackground source={I18nManager.isRTL ?require('../../assets/images/bg_img.png'):require('../../assets/images/bg_img2.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={styles.bgFullWidth} style={styles.contentView}>
 
-                        <View style={[styles.position_R, styles.Width_90, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter,{right:20}]}>
+                        <View style={[styles.position_R, styles.Width_75, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter,{right:40}]}>
                             <View style={[styles.blueOverlay, styles.Border , {top:10 , left:10}]}/>
                             <View style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White,styles.bgFullWidth]}>
                                 {

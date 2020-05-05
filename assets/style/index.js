@@ -404,6 +404,10 @@ const styles = ({
         alignItems          : "center",
         flexWrap            : 'wrap'
     },
+    rowDir : {
+        flexDirection       : "row",
+        alignItems          : "center",
+    },
     rowCenter : {
         flexDirection       : "row",
         alignSelf           : 'center',
@@ -489,6 +493,9 @@ const styles = ({
     },
     Width_70 : {
         width               : '70%'
+    },
+    Width_75 : {
+        width               : '75%'
     },
     Width_80 : {
         width               : '80%'

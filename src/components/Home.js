@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, Linking, FlatList, Platform, ScrollView, Dimensions, I18nManager} from "react-native";
+import {View , Vibration, Text, Image, TouchableOpacity, ImageBackground, AsyncStorage, FlatList, Platform, ScrollView, Dimensions, I18nManager} from "react-native";
 import {
     Container,
     Content,
@@ -129,11 +129,11 @@ class Home extends Component {
                                 styles.paddingHorizontal_5 ,
                                 styles.paddingVertical_5 ,
                                 styles.width_120,
-                                styles.rowGroup,
+                                styles.rowDir,
                                 styles.paddingHorizontal_15
                             ]}>
                                 <Image style={styles.ionImage} source={{ uri: item.item.icon }}/>
-                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter ,]}>
+                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter ,{marginLeft:5}]}>
                                     { item.item.name }
                                 </Text>
                             </View>
@@ -228,11 +228,19 @@ class Home extends Component {
         if (notification && notification.origin !== 'received') {
             this.props.navigation.navigate('notifications');
         }
+        if (notification.remote) {
+            Vibration.vibrate();
+            const notificationId = Notifications.presentLocalNotificationAsync({
+                title: notification.data.title ? notification.data.title : i18n.t('newNotification'),
+                body: notification.data.body ? notification.data.body : i18n.t('_newNotification'),
+                ios: { _displayInForeground: true }
+            });
+        }
     };
 
     render() {
         const provider_info = this.props.provider;
-
+        AsyncStorage.getItem('deviceID').then(device_id => console.log(device_id))
         return (
             <Container>
                 <Spinner visible = { this.state.spinner } />
@@ -573,8 +581,8 @@ class Home extends Component {
                                                             }]}
                                                         >
 
-                                                            <Picker.Item style={[styles.Width_100]}
-                                                                         label={i18n.t('city')} value={null}/>
+                                                            {/*<Picker.Item style={[styles.Width_100]}*/}
+                                                                         {/*label={i18n.t('city')} value={null}/>*/}
                                                             {
                                                                 this.props.citys ?
                                                                     this.props.citys.map((city, i) => (

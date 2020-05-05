@@ -53,7 +53,7 @@ class WebViewUser extends Component {
                 { this.renderLoader() }
                 <Header style={styles.headerView}>
                     <Left style={styles.leftIcon}>
-                        <Button style={styles.Button} transparent onPress={() => this.props.navigation.navigate('Home')}>
+                        <Button style={styles.Button} transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon style={[styles.text_black, styles.textSize_22]} type="AntDesign" name='right' />
                         </Button>
                     </Left>

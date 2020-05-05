@@ -213,6 +213,9 @@ const en = {
     'expire_date'            : 'Renewal date',
     'workTime'            : 'Work time',
     'shareApp'            : 'Share app',
+    'clientPhone'            : 'Client phone',
+    'newNotification'            : 'New notification',
+    '_newNotification'            : 'There is new notification',
 };
 
 export default en;

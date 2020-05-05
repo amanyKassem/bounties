@@ -217,6 +217,9 @@ const ar = {
     'expire_date'            : 'ميعاد التجديد',
     'workTime'            : 'مواعيد العمل',
     'shareApp'            : 'مشاركة التطبيق',
+    'clientPhone'            : 'رقم العميل',
+    'newNotification'            : 'اشعار جديد',
+    '_newNotification'            : 'يوجد اشعار جديد',
 };
 
 export default ar;

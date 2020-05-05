@@ -6,7 +6,7 @@ import {
 	ImageBackground,
 	Dimensions,
 	TouchableOpacity,
-	FlatList,
+	Linking,
 	I18nManager,
 	ScrollView,
 	Animated, ActivityIndicator
@@ -155,6 +155,20 @@ class OrderDetails extends Component {
 	componentDidMount() {
 		this.runPlaceHolder();
 	}
+
+    _linkGoogleMap(lat, lng){
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lat},${lng}`;
+        const label = 'Custom Label';
+
+        let url = Platform.select({
+            ios : `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label}`
+        });
+
+        Linking.openURL(url);
+    }
+
 
 	runPlaceHolder() {
 		if (Array.isArray(this.loadingAnimated) && this.loadingAnimated.length > 0) {
@@ -412,9 +426,11 @@ class OrderDetails extends Component {
 													}]}>
 												<View style={[styles.directionColumn, {flex: 1}]}>
 													<Text
-														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.phone}</Text>
-													<Text
-														style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.provider.address}</Text>
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('clientPhone')} : {this.props.orderDetails.user.phone}</Text>
+													<TouchableOpacity onPress={()=> this._linkGoogleMap( this.props.orderDetails.user.lat , this.props.orderDetails.user.lng)}>
+                                                        <Text
+                                                            style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('map')} : {this.props.orderDetails.user.address}</Text>
+                                                    </TouchableOpacity>
 												</View>
 											</View>
 										</View>

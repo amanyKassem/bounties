@@ -491,25 +491,25 @@ class Product extends Component {
 													{this.props.products.category} - {this.props.products.sub_category}
 												</Text>
 
-												{
-													this.props.user == null || this.props.user.type === 'user' ?
-														<View style={[styles.directionRowC, styles.marginVertical_10]}>
-															<Text
-																style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.writing, {
-																	alignSelf: 'flex-start',
-																	marginRight: 5
-																}]}
-																numberOfLines={1} prop with ellipsizeMode="head">
-																{i18n.t('productQuantity')}
-															</Text>
-															<Text
-																style={[styles.textRegular, styles.text_fyrozy, styles.width_60, styles.height_20, styles.borderLightOran, styles.textCenter, {lineHeight: 22}]}>
-																3
-															</Text>
-														</View>
-														:
-														<View/>
-												}
+												{/*{*/}
+													{/*this.props.user == null || this.props.user.type === 'user' ?*/}
+														{/*<View style={[styles.directionRowC, styles.marginVertical_10]}>*/}
+															{/*<Text*/}
+																{/*style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.writing, {*/}
+																	{/*alignSelf: 'flex-start',*/}
+																	{/*marginRight: 5*/}
+																{/*}]}*/}
+																{/*numberOfLines={1} prop with ellipsizeMode="head">*/}
+																{/*{i18n.t('productQuantity')}*/}
+															{/*</Text>*/}
+															{/*<Text*/}
+																{/*style={[styles.textRegular, styles.text_fyrozy, styles.width_60, styles.height_20, styles.borderLightOran, styles.textCenter, {lineHeight: 22}]}>*/}
+																{/*3*/}
+															{/*</Text>*/}
+														{/*</View>*/}
+														{/*:*/}
+														{/*<View/>*/}
+												{/*}*/}
 												<View style={[styles.directionColumn]}>
 														<Text
 															style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.writing , {alignSelf:'flex-start'}]}
