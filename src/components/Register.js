@@ -464,7 +464,8 @@ class Register extends Component {
 
                                     <TouchableOpacity
                                         style={[styles.borderBold, styles.marginVertical_15, styles.Width_100, styles.height_50, styles.directionRowSpace, styles.paddingHorizontal_10]}
-                                        onPress={() => this.props.navigation.navigate('MapLocation', {pageName: this.props.navigation.state.routeName})}>
+                                        onPress={() => this.props.navigation.navigate('MapLocation', {pageName: this.props.navigation.state.routeName ,
+                                            latitude: this.state.latitude , longitude : this.state.longitude})}>
                                         <Text style={[styles.textRegular, styles.text_fyrozy , {width:'94%' , overflow:'hidden'}]}>
                                             {this.state.city_name}
                                         </Text>

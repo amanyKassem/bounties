@@ -53,7 +53,7 @@ class EditShop extends Component {
         const data = {
             name                : this.state.nameStore,
             provider_details    : this.state.info,
-            address             : this.state.city_name,
+            address             : this.state.cityName,
             avatar              : this.state.base64,
             lang                : this.props.lang,
             props               : this.props,

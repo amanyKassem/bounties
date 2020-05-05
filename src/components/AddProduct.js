@@ -150,7 +150,7 @@ class AddProduct extends Component {
                 >
                     <Image
                         style   = {[ styles.height_60 , styles.Width_100 , styles.Radius_5]}
-                        source  = {{uri: item.file}}
+                        source  = {{uri: item}}
                     />
                 </TouchableOpacity>
             </View>
@@ -230,12 +230,15 @@ class AddProduct extends Component {
             base64    : true
         });
 
-        if (!result.cancelled) {
-            this.setState({
-                photos: this.state.photos.concat(result.uri)
-            });
-            base64.push(result.base64);
-        }
+       if (!result.cancelled) {
+
+           let photos = this.state.photos;
+           photos.push(result.uri);
+
+           this.setState({ photos });
+
+           base64.push(result.base64);
+       }
     }
     render() {
         if (this.state.imageBrowserOpen) {

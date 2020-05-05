@@ -47,7 +47,10 @@ class MapLocation extends Component {
             alert('صلاحيات تحديد موقعك الحالي ملغاه');
         }else {
             const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
-            const userLocation = { latitude, longitude };
+            let userLocation = { latitude, longitude };
+            if (this.props.navigation.state.params.latitude){
+                userLocation = { latitude: this.props.navigation.state.params.latitude, longitude: this.props.navigation.state.params.longitude };
+            }
             this.setState({
                 initMap: false,
                 mapRegion: userLocation,
@@ -82,7 +85,10 @@ class MapLocation extends Component {
             alert('صلاحيات تحديد موقعك الحالي ملغاه');
         }else {
             const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
-            const userLocation = { latitude, longitude };
+            let userLocation = { latitude, longitude };
+            if (this.props.navigation.state.params.latitude){
+                userLocation = { latitude: this.props.navigation.state.params.latitude, longitude: this.props.navigation.state.params.longitude };
+            }
             this.setState({  initMap: false, mapRegion: userLocation });
         }
 
