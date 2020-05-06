@@ -242,7 +242,7 @@ class Product extends Component {
 					</View>
 					<View style={[styles.directionRowSpace]}>
 						<Text
-							style={[styles.textRegular, styles.text_black, styles.textSize_12, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>
+							style={[styles.textRegular, styles.text_black, styles.textSize_12, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' , width:'85%'}]}>
 							{item.comment}
 						</Text>
 						<Text
