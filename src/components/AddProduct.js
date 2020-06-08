@@ -12,8 +12,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 
 
-import COLORS from "../consts/colors";
-import {ImageBrowser,CameraBrowser} from 'expo-multiple-imagepicker';
+ import {ImageBrowser,CameraBrowser} from 'expo-multiple-imagepicker';
 import * as Permissions from 'expo-permissions';
 
 let base64   = [];
@@ -26,6 +25,7 @@ class AddProduct extends Component {
             namePro		            : '',
             pricePro                : '',
             discount                : 0,
+            time                    : '',
             info	                : '',
             kindPro	                : null,
             imageBrowserOpen        : false,
@@ -56,6 +56,9 @@ class AddProduct extends Component {
         }else if (this.state.kindPro === null){
             isError     = true;
             msg         = i18n.t('kindpro');
+        }else if (this.state.time === ''){
+            isError     = true;
+            msg         = i18n.t('time_end');
         }
         else if (this.state.photos.length <= 0){
             isError     = true;
@@ -92,10 +95,8 @@ class AddProduct extends Component {
 
         if (!err){
 
-            const { namePro, pricePro, discount, info, kindPro } = this.state;
-            const data = { namePro, pricePro, discount, info, kindPro , base64};
-
-            console.log('base64_length', base64.length);
+            const { namePro, pricePro, discount, info, kindPro , time } = this.state;
+            const data = { namePro, pricePro, discount, info, kindPro ,time, base64};
 
             this.props.addProduct(data, this.props, this.props.lang, this.props.user.token);
 
@@ -354,6 +355,17 @@ class AddProduct extends Component {
                                             onChangeText            = {(discount) => this.setState({discount})}
                                             keyboardType            = {'number-pad'}
                                             value                   = {this.state.discount}
+                                        />
+                                    </Item>
+                                </View>
+
+                                <View style={[styles.position_R, styles.overHidden, styles.height_70, styles.flexCenter ]}>
+                                    <Item floatingLabel style={[ styles.item, styles.position_R, styles.overHidden ]}>
+                                        <Input
+                                            placeholder             = {i18n.t('time_end')}
+                                            style                   = {[ styles.input , styles.height_50 , styles.borderBlack, styles.paddingHorizontal_20]}
+                                            onChangeText            = {(time) => this.setState({time})}
+                                            value                   = {this.state.time}
                                         />
                                     </Item>
                                 </View>

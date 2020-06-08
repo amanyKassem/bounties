@@ -15,6 +15,7 @@ const en = {
     'confirmpass': 'confirm the new password',
     'actcode': 'activation code',
     "save": 'save',
+    "time_end": 'Expected time for delivery and prepare',
     "shipping_price": 'shipping price',
     "time": 'shipping time',
     'resend_code'               : 'resend code',

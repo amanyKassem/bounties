@@ -61,12 +61,7 @@ class ConfirmUserPayment extends Component {
 
                         <View style={[styles.overHidden, styles.marginVertical_25, styles.paddingHorizontal_20]}>
                             <View style={[styles.overHidden, styles.SelfRight]}>
-                                <Animatable.View animation="fadeInLeft" easing="ease-out" delay={500} style={[styles.flexCenter]}>
-                                    <Image
-                                        style       = {[styles.sizeImage , styles.flexCenter]}
-                                        source      = {require('../../assets/images/accepted.png')}
-                                    />
-                                </Animatable.View>
+
                             </View>
 
                             <View style={[styles.overHidden, styles.flexCenter, styles.marginVertical_25, styles.Width_80]}>

@@ -150,9 +150,8 @@ class Product extends Component {
 	onShare = async () => {
 		try {
 			const result = await Share.share({
-				message:
-					'Chifz App',
-			});
+                message:'https://s.ll.sa/bounties'
+            });
 
 			if (result.action === Share.sharedAction) {
 				if (result.activityType) {
@@ -539,6 +538,24 @@ class Product extends Component {
 													</View>
 												</View>
 
+												<View style={[styles.rowGroup, styles.marginVertical_15]}>
+													<View style={[styles.rowGroup]}>
+														<Text
+															style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
+															{i18n.t('deliveryprice')}
+														</Text>
+
+														<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
+															borderRightWidth: 2,
+															borderRightColor: COLORS.darkblue,
+															paddingRight: 5,
+															marginLeft: 5,
+															textDecorationLine: this.props.products.discount > 0 ? 'none' : 'none'
+														}]}>
+															{this.props.products.shipping_price  }  {i18n.t('RS')}</Text>
+													</View>
+												</View>
+
 
 												<View style={[styles.rowGroup, styles.marginVertical_15]}>
 													<View style={[styles.rowGroup]}>
@@ -562,7 +579,6 @@ class Product extends Component {
 																:null
                                                         }
 
-
 														<Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
 															borderRightWidth: 2,
 															borderRightColor: COLORS.darkblue,
@@ -573,6 +589,24 @@ class Product extends Component {
 															{this.props.products.price * this.state.value } {i18n.t('RS')}</Text>
 													</View>
 												</View>
+
+                                                <View style={[styles.rowGroup, styles.marginVertical_15]}>
+                                                    <View style={[styles.rowGroup]}>
+                                                        <Text
+                                                            style={[styles.textRegular, styles.text_bold_gray, styles.textSize_14, styles.textLeft]}>
+                                                            {i18n.t('time_end')}
+                                                        </Text>
+
+                                                        <Text style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {
+                                                            borderRightWidth: 2,
+                                                            borderRightColor: COLORS.darkblue,
+                                                            paddingRight: 5,
+                                                            marginLeft: 5,
+                                                            textDecorationLine: this.props.products.discount > 0 ? 'none' : 'none'
+                                                        }]}>
+                                                            {this.props.products.time_end  }</Text>
+                                                    </View>
+                                                </View>
 												{
 													this.props.user == null || this.props.user.type === 'provider' ?
 														<View style={[styles.rowGroup]}>

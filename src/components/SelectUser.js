@@ -18,9 +18,6 @@ import {NavigationEvents} from "react-navigation";
 import * as Animatable from 'react-native-animatable';
 import {connect} from 'react-redux';
 import {chooseLang, profile, userLogin} from '../actions'
-import * as Permissions from 'expo-permissions';
-import {Notifications} from 'expo'
-import Spinner from "react-native-loading-spinner-overlay";
 
 
 const IS_IPHONE_X 	= (height === 812 || height === 896) && Platform.OS === 'ios';
@@ -33,13 +30,6 @@ class SelectUser extends Component {
             spinner: false,
         }
     }
-
-
-    componentWillMount() {
-        // this.props.chooseLang('ar');
-    }
-
-
     render() {
         return (
 

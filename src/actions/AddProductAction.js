@@ -16,6 +16,7 @@ export const addProduct = (data, props, lang, token) => {
                 price			        : data.pricePro,
                 discount		        : data.discount,
                 description_ar		    : data.info,
+                time		            : data.time,
                 images			        : data.base64,
                 lang
             }

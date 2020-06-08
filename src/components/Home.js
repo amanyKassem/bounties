@@ -112,11 +112,11 @@ class Home extends Component {
             <TouchableOpacity
                 onPress     = {() => this.props.navigation.navigate('products', { id : item.item.id , name : item.item.name  })}
                 key         = { item.index }
-                style       = {[styles.position_R, styles.Width_45, item.index%2 == 0 ? styles.height_150 : styles.height_250, { alignSelf: 'flex-start', top: item.index >= 2 && item.index%2 === 0 ? (item.index/2) * -105 : 0 , marginBottom: 15, width: '46.7%', marginHorizontal: 6 }]}>
-                <View style={[styles.position_R, styles.Width_100, item.index%2 == 0 ? styles.height_150 : styles.height_250 , styles.Border, styles.overHidden]}>
+                style       = {[styles.position_R, styles.Width_45,  styles.height_250, { alignSelf: 'flex-start', top: 0 , marginBottom: 15, width: '46.7%', marginHorizontal: 6 }]}>
+                <View style={[styles.position_R, styles.Width_100,  styles.height_250 , styles.Border, styles.overHidden]}>
                     <Animatable.View animation="zoomIn" easing="ease-out" delay={500}>
                         <View style={[styles.overHidden, styles.position_R]}>
-                            <Image style={[styles.Width_100 ,  item.index%2 == 0 ? styles.height_150 : styles.height_250]} source={{ uri: item.item.image }}/>
+                            <Image style={[styles.Width_100  ,styles.height_250]} source={{ uri: item.item.image }}/>
                             <View style={[
                                 styles.textRegular ,
                                 styles.text_White ,
@@ -187,10 +187,16 @@ class Home extends Component {
                             {item.category} - {item.sub_category}
                         </Text>
                         <View style={[styles.rowGroup]}>
-                            <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
-                                {item.discount_price} {i18n.t('RS')}
-                            </Text>
-                            <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5, { textDecorationLine: 'line-through' }]}>
+                            {
+                                item.discount_price != item.price
+                                ?
+                                    <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5]}>
+                                        {item.discount_price} {i18n.t('RS')}
+                                    </Text>
+                                    :null
+                            }
+
+                            <Text style={[styles.text_fyrozy, styles.textSize_13, styles.textRegular,styles.textLeft, styles.borderText, styles.paddingHorizontal_5, { textDecorationLine:  item.discount_price != item.price ? 'line-through'  : 'none'}]}>
                                 {item.price} {i18n.t('RS')}
                             </Text>
                         </View>
@@ -199,7 +205,6 @@ class Home extends Component {
             </TouchableOpacity>
         );
     };
-
     onSearch () {
         this.props.navigation.navigate('SearchHome', {
             categorySearch                  : this.state.categorySearch,

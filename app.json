@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "version": "2.0.7",
+    "version": "3.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -40,7 +40,7 @@
     "android": {
       "package": "app.aait.bounties",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 17,
+      "versionCode": 31,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyDdsxnqpoSlY8u8nNlXDCKsP75mx8z5il0"

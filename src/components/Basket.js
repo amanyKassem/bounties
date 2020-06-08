@@ -172,7 +172,6 @@ class Basket extends Component {
 									}
 								</View>
                         }
-
                 </Content>
                     </ImageBackground>
             </Container>

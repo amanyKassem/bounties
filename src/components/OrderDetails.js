@@ -310,7 +310,7 @@ class OrderDetails extends Component {
 																			<View style={[styles.rowGroup]}>
 																				<Text
 																					style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}
-																					numberOfLines={1} prop with
+																					numberOfLines={1}
 																					ellipsizeMode="head">{product.product_info.product_name}</Text>
 
 																				<View style={[styles.rowGroup]}>
@@ -329,10 +329,10 @@ class OrderDetails extends Component {
 																				style={[styles.textRegular, styles.text_bold_gray, styles.Width_100, styles.textSize_12, styles.textLeft]}
 																				numberOfLines={1} prop with
 																				ellipsizeMode="head">{product.product_info.product_category} - {product.product_info.product_sub_category}</Text>
-																			<Text
-																				style={[styles.textRegular, styles.text_bold_gray, styles.Width_100, styles.textSize_12, styles.textLeft]}
-																				numberOfLines={1} prop with
-																				ellipsizeMode="head">{this.props.orderDetails.provider.address}</Text>
+																			{/*<Text*/}
+																				{/*style={[styles.textRegular, styles.text_bold_gray, styles.Width_100, styles.textSize_12, styles.textLeft]}*/}
+																				{/*numberOfLines={1} prop with*/}
+																				{/*ellipsizeMode="head">{this.props.orderDetails.provider.address}</Text>*/}
 																		</View>
 																		<View style={[styles.Width_100]}>
 																			<Text
@@ -366,9 +366,9 @@ class OrderDetails extends Component {
 												<View
 													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {marginTop: 15}]}>
 													<Text
-														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{i18n.t('deliverTime')}</Text>
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{i18n.t('deliveryTimes')}</Text>
 													<Text
-														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{this.props.orderDetails.shipping_date}</Text>
+														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{this.props.orderDetails.deliverd_time}</Text>
 												</View>
 												<View
 													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {marginTop: 10}]}>
@@ -377,6 +377,8 @@ class OrderDetails extends Component {
 													<Text
 														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft]}>{this.props.orderDetails.shipping_price} {i18n.t('RS')}</Text>
 												</View>
+
+
 												<View
 													style={[styles.directionRowSpace, styles.Border, styles.paddingHorizontal_10, styles.paddingVertical_10, {
 														marginTop: 10,
@@ -389,6 +391,29 @@ class OrderDetails extends Component {
 												</View>
 											</View>
 										</View>
+
+                                        <View
+                                            style={[styles.position_R, styles.Width_95, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>
+                                            <View style={[styles.lightOverlay, styles.Border]}></View>
+                                            <View
+                                                style={[styles.position_R, styles.Width_100, styles.overHidden, styles.bg_White, styles.bgFullWidth, styles.paddingHorizontal_7, styles.paddingVertical_7
+                                                    , {
+                                                        borderWidth: 1,
+                                                        borderTopColor: COLORS.lightWhite,
+                                                        borderBottomColor: COLORS.lightWhite,
+                                                        borderRightColor: COLORS.lightWhite,
+                                                        borderLeftWidth: 5,
+                                                        borderLeftColor: COLORS.fyrozy
+                                                    }]}>
+                                                <View style={[styles.directionColumn, {flex: 1}]}>
+                                                    <Text
+                                                        style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('notes')}</Text>
+                                                    <Text
+                                                        style={[styles.textRegular, styles.text_fyrozy, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{this.props.orderDetails.notes}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+
 										<View
 											style={[styles.position_R, styles.Width_95, styles.marginVertical_15, styles.marginHorizontal_10, styles.SelfCenter]}>
 											<View style={[styles.lightOverlay, styles.Border]}></View>
@@ -425,9 +450,12 @@ class OrderDetails extends Component {
 														borderLeftColor: COLORS.fyrozy
 													}]}>
 												<View style={[styles.directionColumn, {flex: 1}]}>
-													<Text
-														style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('clientPhone')} : {this.props.orderDetails.user.phone}</Text>
-													<TouchableOpacity onPress={()=> this._linkGoogleMap( this.props.orderDetails.user.lat , this.props.orderDetails.user.lng)}>
+													<TouchableOpacity onPress={()=>   Linking.openURL('tel://' + this.props.orderDetails.user.phone) }>
+                                                        <Text
+                                                            style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('clientPhone')} : {this.props.orderDetails.user.phone}</Text>
+													</TouchableOpacity>
+
+													<TouchableOpacity style={styles.marginVertical_25} onPress={()=> this._linkGoogleMap( this.props.orderDetails.user.lat , this.props.orderDetails.user.lng)}>
                                                         <Text
                                                             style={[styles.textRegular, styles.text_black, styles.textSize_14, styles.textLeft, {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{i18n.t('map')} : {this.props.orderDetails.user.address}</Text>
                                                     </TouchableOpacity>

@@ -17,6 +17,7 @@ export const updateProduct = (data, props, lang, token , product_id) => {
                 price			        : data.pricePro,
                 discount		        : data.discount,
                 description_ar		    : data.info,
+                time		            : data.time,
                 images			        : data.base64,
                 lang
             }

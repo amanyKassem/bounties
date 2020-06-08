@@ -233,7 +233,7 @@ class EditShop extends Component {
                                         />
                                     </Item>
                                     <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.workTimeStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
-                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="AntDesign" name='date' />
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="MaterialIcons" name='access-time' />
                                     </View>
                                 </View>
 
@@ -266,7 +266,7 @@ class EditShop extends Component {
                                         />
                                     </Item>
                                     <View style = {[ styles.position_A , styles.bg_light_oran, styles.flexCenter, styles.iconInput,  (this.state.nameStoreStatus === 1 ? styles.left_0 : styles.leftHidLeft )]}>
-                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="MaterialIcons" name='access-time' />
+                                        <Icon style = {[styles.text_blue, styles.textSize_22]} type="MaterialCommunityIcons" name='truck-delivery' />
                                     </View>
                                 </View>
 
